@@ -38,6 +38,7 @@ module.exports = configure(function (ctx) {
 
       "roboto-font", // optional, you are not bound to it
       "material-icons", // optional, you are not bound to it
+      "material-icons-round",
     ],
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
@@ -81,10 +82,31 @@ module.exports = configure(function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      config: {},
+      config: {
+        brand: {
+          primary: "#983794",
+          secondary: "#650933",
+          accent: "#2b328c",
+
+          dark: "#1d1d1d",
+
+          positive: "#21BA45",
+          negative: "#C10015",
+          info: "#022169",
+          warning: "#f2bd29",
+
+          xedro: "#c64ab9",
+        },
+
+        notify: {
+          type: "positive",
+          message: "Acción completada con éxito",
+          position: "top",
+        },
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
-      // lang: 'en-US', // Quasar language pack
+      lang: "es", // Quasar language pack
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),
@@ -94,7 +116,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ["Notify", "Dialog"],
     },
 
     // animations: 'all', // --- includes all animations
@@ -146,7 +168,7 @@ module.exports = configure(function (ctx) {
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",
-        theme_color: "#027be3",
+        theme_color: "#983794",
         icons: [
           {
             src: "icons/icon-128x128.png",
