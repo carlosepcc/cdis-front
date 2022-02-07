@@ -165,28 +165,33 @@
 </template>
 
 <script setup>
+// Components
+import DrawerItem from 'components/DrawerItem';
+
 import { ref, provide } from 'vue';
 import { useQuasar } from 'quasar'
-import DrawerItem from 'components/DrawerItem';
 const $q = useQuasar();
-const user = {
+
+// VARIABLES
+const user = ref({
   username: 'alanmt',
+  roles: ['Administrador'],
   name: 'Alan Mathison Turing',
-  rol: 'Administrador',
   img: 'https://www.ecured.cu/images/c/c6/Alan_Turing_II.jpg',
+})
+provide('user', user)
 
-}
 const globalGrid = ref($q.screen.lt.sm)
-const globalDense = ref($q.screen.lt.sm)
+provide('globalGrid', globalGrid);
 
+const globalDense = ref($q.screen.lt.sm)
+provide('globalDense', globalDense);
+
+// DRAWER
 const miniState = ref(false);
 const leftDrawerOpen = ref(false);
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
+const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
 
-provide('globalGrid', globalGrid);
-provide('globalDense', globalDense);
 
 const drawerItems = [
   {

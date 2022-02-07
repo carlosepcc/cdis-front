@@ -1,17 +1,13 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    />
+  <q-page class="column items-center justify-evenly">
+    <div class="text-grey column items-center">
+      <q-icon name="r_support_agent" size="xl"></q-icon>
+      <p class="text-center">Aún no tengo nueva información que mostrarle.</p>
+    </div>
   </q-page>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
 
-export default defineComponent({
-  name: "PageIndex",
-});
+
 </script>
