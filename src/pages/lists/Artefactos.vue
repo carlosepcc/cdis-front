@@ -64,6 +64,7 @@ artefactos.value = state.value.artefactoArr
 
 
 
+
 /* axios.get('https://mdc-gesat.herokuapp.com/usuario')
   .then(function (response) {
     // handle success

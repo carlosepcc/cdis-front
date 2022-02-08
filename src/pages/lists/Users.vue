@@ -1,26 +1,29 @@
 <template>
   <q-page padding>
-    <q-btn @click="listarUsuarios" label="Refrescar lista" flat size="sm" no-caps/>
+    <q-btn @click="listarUsuarios" label="Refrescar lista" flat size="sm" no-caps />
     <ListPage title="Usuarios" :rows="usersArr" :columns="userFields"></ListPage>
-  
   </q-page>
 </template>
 
 <script setup>
 import ListPage from 'components/ListPage'
-import { ref,provide } from "vue";
-import { listar } from 'src/services/api'
+import { ref, provide } from "vue";
+import listar from 'src/composables/useAPI'
 
-const url = '/usuario'
+const userFields = ref([
+  { name: 'username', required: true, label: 'Nombre de usuario', align: 'left', field: 'username', sortable: true, },
+  { name: 'roles', required: true, label: 'Roles', align: 'center', field: 'roles', sortable: true, }])
+
 
 const usersArr = ref([])
-const userFields = ref([])
+const url = '/usuario'
 
-userFields.value = [
-  { name: 'username',    required: true,    label: 'Nombre de usuario',    align: 'left',    field: 'username',    sortable: true,},
-  { name: 'roles',    required: true,    label: 'Roles',    align: 'center',    field: 'roles',    sortable: true,}
-]
-/* 
+const listarUsuarios = () => listar(usersArr, url)
+provide('listarUsuarios', listarUsuarios)
+// execute on component load
+listarUsuarios()
+
+/*
 function removeRow(id = 1, rows) {
 console.log('function remove triggered')
   var index = rows.findIndex(function(currentValue){
@@ -33,11 +36,6 @@ if (index != -1){
 
   console.log('index not found')
 }
-    
-}*/
 
-const listarUsuarios = () => listar(usersArr,url)
-provide('listarUsuarios',listarUsuarios)
-// execute on component load
-listarUsuarios()
+}*/
 </script>
