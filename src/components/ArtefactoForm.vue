@@ -86,7 +86,7 @@
 </template>
 <script setup>
 import { useQuasar } from 'quasar';
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref } from 'vue';
 const $q = useQuasar();
 
 const props = defineProps({
