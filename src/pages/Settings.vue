@@ -44,4 +44,7 @@
 </template>
 
 <script setup>
+import state from 'src/composables/useState'
+var s = state
+
 </script>

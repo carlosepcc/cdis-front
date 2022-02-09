@@ -22,7 +22,6 @@ const hallazgoFields = ref([
 
 ])
 
-const url = '/hallazgo'
 // call on component load
-listar(hallazgosArr, url)
+listar(hallazgosArr, '/hallazgo')
 </script>
