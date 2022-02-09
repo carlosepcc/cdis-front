@@ -15,7 +15,7 @@ const userFields = ref([
   { name: 'roles', required: true, label: 'Roles', align: 'center', field: 'roles', sortable: true, }])
 
 const usersArr = ref([])
-const url = '/usuario'
+const url = '/hallazgo'
 
 const listarUsuarios = () => listar(usersArr, url)
 provide('listarUsuarios', listarUsuarios)

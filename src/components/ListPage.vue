@@ -160,9 +160,13 @@
 
 <script setup>
 
-import { useQuasar } from 'quasar';
 import { ref } from 'vue';
 import state from 'src/composables/useState'
+
+import { useQuasar } from 'quasar';
+const $q = useQuasar()
+
+var s = state.value
 
 const props = defineProps({
   title: String,

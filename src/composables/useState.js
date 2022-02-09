@@ -7,10 +7,10 @@ const state = ref({
   grid: Screen.lt.sm,
   loggedUser: {
     id: 1,
-    username: "",
-    name: "",
-    lastname: "",
-    roles: ["Usuario"],
+    username: "amturing",
+    name: "Alan",
+    lastname: "Mathinson Turing",
+    roles: ["Usuario","Coordinador de Calidad"],
   },
 });
 

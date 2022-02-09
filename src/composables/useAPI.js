@@ -26,6 +26,10 @@ const listar = (list, url = "/usuario") => {
         message: `Carga fallida. ${error.message}. Revise su conexión a internet`,
         icon: "report_problem",
       });
+    })
+    .then(() => {
+      // always
+      Loading.hide();
     });
 };
 
