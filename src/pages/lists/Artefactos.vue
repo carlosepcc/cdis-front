@@ -33,14 +33,8 @@ const showForm = ref(false);
 const artefactos = ref([])
 const artefactoFields = ref([])
 
-artefactoFields.value = [{
-  name: 'id',
-  required: true,
-  label: 'ID',
-  align: 'rigth',
-  field: 'id',
-  sortable: true,
-},{
+artefactoFields.value = [
+  {
   name: 'name',
   required: true,
   label: 'Nombre',
@@ -57,7 +51,7 @@ artefactoFields.value = [{
 },
 { name: 'fase', label: 'Fase', field: 'fase', sortable: true },
 { name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
-{ name: 'adjunto', label: 'Adjunto', field: 'adjunto' },
+{ name: 'adjuntos', label: 'Adjuntos', field: 'adjuntos' },
 ];
 
 artefactos.value = state.value.artefactoArr

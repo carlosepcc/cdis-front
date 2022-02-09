@@ -147,19 +147,22 @@
   </q-table>
 
   <q-page-sticky :offset="[18, 18]" class="lt-sm">
-    <q-btn position="bottom-right" fab icon="add" title="Nueva entrada" color="accent" @click="$emit('openForm')" />
+    <q-btn
+      position="bottom-right"
+      fab
+      icon="add"
+      title="Nueva entrada"
+      color="accent"
+      @click="$emit('openForm')"
+    />
   </q-page-sticky>
 </template>
 
 <script setup>
 
 import { useQuasar } from 'quasar';
-import { ref, defineProps, defineEmits } from 'vue';
-
-import global from 'src/services/global'
-const { state, addArtefacto } = global
-const s = state.value
-const $q = useQuasar();
+import { ref } from 'vue';
+import state from 'src/composables/useState'
 
 const props = defineProps({
   title: String,
@@ -172,12 +175,15 @@ const props = defineProps({
 })
 const emit = defineEmits(['openForm', 'deleteRows'])
 
+// FILTRAR
 const filter = ref('');
+
+// SELECCIONAR
 const selected = ref([]);
+
 const isTableGrid = ref($q.screen.lt.sm);
 const isTableFullscreen = ref(false);
 const isTableDense = ref($q.screen.lt.sm);
-isTableDense.value = state.value.dense
 
 </script>
 
