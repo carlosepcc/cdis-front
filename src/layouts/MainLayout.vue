@@ -31,30 +31,30 @@
           clickable
           v-ripple
           class="text-white q-py-none absolute-right"
-          :title="user.username + '. ' + user.name + '. ' + user.rol"
+          :title="loggedUser.username + '. ' + loggedUser.name + '. ' + loggedUser.rol"
         >
           <q-item-section side>
             <q-item-label class="text-purple-1 text-weight-light">
-              <span class="gt-xs">{{ user.name }}</span>
-              <span class="lt-sm">{{ user.username }}</span>
+              <span class="gt-xs">{{ loggedUser.name }}</span>
+              <span class="lt-sm">{{ loggedUser.username }}</span>
             </q-item-label>
             <q-item-label class="text-purple-2 text-weight-bold" caption>
               {{
-                user.rol
+                loggedUser.rol
               }}
             </q-item-label>
           </q-item-section>
           <q-item-section>
             <q-avatar size="xl" color="white" text-color="primary" class="text-weight-bolder">
-              <img v-if="user.img" :src="user.img" :alt="user.name.charAt(0)" />
-              <span v-else>{{ user.name.charAt(0) }}</span>
+              <img v-if="loggedUser.img" :src="loggedUser.img" :alt="loggedUser.name.charAt(0)" />
+              <span v-else>{{ loggedUser.name.charAt(0) }}</span>
               <q-badge
-                :title="user.rol"
+                :title="loggedUser.roles[1]"
                 floating
                 rounded
                 color="primary"
                 class="text-weight-bold text-purple-2"
-              >{{ user.rol.charAt(0) }}</q-badge>
+              >{{ loggedUser.roles[1].charAt(0) }}</q-badge>
             </q-avatar>
           </q-item-section>
 
@@ -108,10 +108,10 @@
 
               <div class="column items-center">
                 <q-avatar size="72px">
-                  <img :src="user.img" />
+                  <img :src="loggedUser.img" />
                 </q-avatar>
 
-                <div class="text-subtitle1 q-mt-md q-mb-xs">{{ user.name }}</div>
+                <div class="text-subtitle1 q-mt-md q-mb-xs">{{ loggedUser.name }}</div>
 
                 <q-btn
                   icon="r_slogout"
@@ -173,13 +173,13 @@ import { useQuasar } from 'quasar'
 const $q = useQuasar();
 
 // VARIABLES
-const user = ref({
+const loggedUser = ref({
   username: 'alanmt',
-  roles: ['Administrador'],
+  roles: ['Usuario','Administrador'],
   name: 'Alan Mathison Turing',
   img: 'https://www.ecured.cu/images/c/c6/Alan_Turing_II.jpg',
 })
-provide('user', user)
+provide('user', loggedUser)
 
 const globalGrid = ref($q.screen.lt.sm)
 provide('globalGrid', globalGrid);

@@ -14,7 +14,6 @@ const userFields = ref([
   { name: 'username', required: true, label: 'Nombre de usuario', align: 'left', field: 'username', sortable: true, },
   { name: 'roles', required: true, label: 'Roles', align: 'center', field: 'roles', sortable: true, }])
 
-
 const usersArr = ref([])
 const url = '/usuario'
 

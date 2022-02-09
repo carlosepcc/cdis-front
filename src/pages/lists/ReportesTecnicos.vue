@@ -7,9 +7,6 @@
 <script setup>
 import { ref } from "vue";
 import ListPage from 'components/ListPage'
-import global from 'src/services/global'
-
-const { state, addArtefacto } = global
-const rtecnicos = ref([])
+const rtecnicosArr = ref([])
 const rtecnicoFields = ref([])
 </script>

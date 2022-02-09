@@ -3,7 +3,10 @@
     <div>
       <div style="font-size: 30vh">404</div>
 
-      <div class="text-h2" style="opacity:.4">Ups. Nada aquí...</div>
+      <div
+        class="text-h2"
+        style="opacity:.4"
+      >Ups. Nada aquí {{ state.loggedUser.name != '' ? state.loggedUser.name : '' }}...</div>
 
       <q-btn class="q-mt-xl" unelevated to="/" label="Volver al inicio" no-caps />
     </div>
@@ -11,4 +14,5 @@
 </template>
 
 <script setup>
+import state from 'src/composables/useState'
 </script>

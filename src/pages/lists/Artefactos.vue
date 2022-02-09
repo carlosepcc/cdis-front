@@ -18,59 +18,29 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import { ref } from 'vue';
-import { useQuasar } from 'quasar'
-import ArtefactoForm from 'components/ArtefactoForm';
 import ListPage from 'src/components/ListPage.vue';
+import ArtefactoForm from 'components/ArtefactoForm';
+import { ref, provide } from 'vue';
+import listar from 'src/composables/useAPI'
 
-import global from 'src/services/global'
-
-const { state } = global
-const s = state.value
-const $q = useQuasar();
 const showForm = ref(false);
-const artefactos = ref([])
-const artefactoFields = ref([])
+const artefactoFields = ref([
+  { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'name', sortable: true, },
+  { name: 'description', align: 'left', label: 'Descripción', field: 'description', sortable: true, },
+  { name: 'fase', label: 'Fase', field: 'fase', sortable: true },
+  { name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
+  { name: 'adjuntos', label: 'Adjuntos', field: 'adjuntos' },
+]);
 
-artefactoFields.value = [
-  {
-  name: 'name',
-  required: true,
-  label: 'Nombre',
-  align: 'left',
-  field: 'name',
-  sortable: true,
-},
-{
-  name: 'description',
-  align: 'left',
-  label: 'Descripción',
-  field: 'description',
-  sortable: true,
-},
-{ name: 'fase', label: 'Fase', field: 'fase', sortable: true },
-{ name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
-{ name: 'adjuntos', label: 'Adjuntos', field: 'adjuntos' },
-];
+const artefactosArr = ref([])
+provide('artefactosArr', artefactosArr)
 
-artefactos.value = state.value.artefactoArr
+const url = '/artefactos'
 
-
-
-
-/* axios.get('https://mdc-gesat.herokuapp.com/usuario')
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  }); */
+const listarArtefactos = () => listar(artefactosArr, url)
+provide('listarArtefactos', listarArtefactos)
+// execute on component load
+listarArtefactos()
 
 function deleteTuples(selectedRows = []) {
 
