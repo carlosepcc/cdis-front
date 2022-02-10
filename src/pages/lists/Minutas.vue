@@ -7,6 +7,7 @@
 <script setup>
 import { ref } from "vue";
 import ListPage from 'components/ListPage'
+import listar from 'src/composables/useAPI'
 
 const minutasArr = ref([])
 const minutaFields = ref([
@@ -18,5 +19,5 @@ const minutaFields = ref([
 ])
 
 // call on component load
-listar(hallazgosArr, '/hallazgo')
+listar(minutasArr, '/minuta')
 </script>

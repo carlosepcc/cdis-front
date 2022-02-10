@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-    <q-btn @click="listarUsuarios" label="Refrescar lista" flat size="sm" no-caps />
     <ListPage title="Usuarios" :rows="usersArr" :columns="userFields"></ListPage>
   </q-page>
 </template>
@@ -15,12 +14,9 @@ const userFields = ref([
   { name: 'roles', required: true, label: 'Roles', align: 'center', field: 'roles', sortable: true, }])
 
 const usersArr = ref([])
-const url = '/hallazgo'
 
-const listarUsuarios = () => listar(usersArr, url)
-provide('listarUsuarios', listarUsuarios)
-// execute on component load
-listarUsuarios()
+// fill usersArr
+listar(usersArr, '/usuario')
 
 /*
 function removeRow(id = 1, rows) {
