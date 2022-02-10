@@ -1,6 +1,10 @@
 <template>
   <q-page padding>
-    <ListPage title="Reportes de Notificación" :rows="rnotificacion" :columns="rnotificacionFields"></ListPage>
+    <ListPage
+      title="Reportes de Notificación"
+      :rows="rnotificacionArr"
+      :columns="rnotificacionFields"
+    ></ListPage>
   </q-page>
 </template>
 

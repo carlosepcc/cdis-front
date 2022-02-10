@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <ListPage title="Dictámenes técnicos" :rows="dictamenes" :columns="dictamenFields" />
+    <ListPage title="Dictámenes técnicos" :rows="dictamenesArr" :columns="dictamenFields" />
   </q-page>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <ListPage title="Minutas de reunión" :rows="minutas" :columns="minutaFields"></ListPage>
+    <ListPage title="Minutas de reunión" :rows="minutasArr" :columns="minutaFields"></ListPage>
   </q-page>
 </template>
 
@@ -9,5 +9,14 @@ import { ref } from "vue";
 import ListPage from 'components/ListPage'
 
 const minutasArr = ref([])
-const minutaFields = ref([])
+const minutaFields = ref([
+  { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
+  { name: 'revisor', required: true, label: 'revisor', align: 'left', field: 'revisor', sortable: true },
+  { name: 'encargado', required: true, label: 'encargado', align: 'left', field: 'encargado', sortable: true },
+  { name: 'description', required: true, label: 'description', align: 'left', field: 'description', sortable: true },
+
+])
+
+// call on component load
+listar(hallazgosArr, '/hallazgo')
 </script>
