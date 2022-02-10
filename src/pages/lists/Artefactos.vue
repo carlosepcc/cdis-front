@@ -11,7 +11,7 @@
       @delete-rows="deleteTuples"
       title="Artefactos"
       rowKey="id"
-      :rows="artefactos"
+      :rows="artefactosArr"
       :columns="artefactoFields"
     />
   </q-page>
@@ -20,27 +20,23 @@
 <script setup>
 import ListPage from 'src/components/ListPage.vue';
 import ArtefactoForm from 'components/ArtefactoForm';
-import { ref, provide } from 'vue';
+import { ref } from 'vue';
 import listar from 'src/composables/useAPI'
 
 const showForm = ref(false);
 const artefactoFields = ref([
-  { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'name', sortable: true, },
-  { name: 'description', align: 'left', label: 'Descripción', field: 'description', sortable: true, },
+  { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true, },
+  { name: 'description', align: 'left', label: 'Descripción', field: 'descripcion', sortable: true, },
   { name: 'fase', label: 'Fase', field: 'fase', sortable: true },
   { name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
-  { name: 'adjuntos', label: 'Adjuntos', field: 'adjuntos' },
+  //{ name: 'adjunto', label: 'Adjunto', field: 'adjunto' },
 ]);
 
 const artefactosArr = ref([])
-provide('artefactosArr', artefactosArr)
 
-const url = '/artefactos'
-
-const listarArtefactos = () => listar(artefactosArr, url)
-provide('listarArtefactos', listarArtefactos)
+const listarArtefactos = () => listar(artefactosArr, '/artefacto')
 // execute on component load
-listarArtefactos()
+listar(artefactosArr, '/artefacto')
 
 function deleteTuples(selectedRows = []) {
 

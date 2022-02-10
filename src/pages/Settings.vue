@@ -45,6 +45,6 @@
 
 <script setup>
 import state from 'src/composables/useState'
-var s = state
+var s = state.value
 
 </script>

@@ -16,7 +16,6 @@ const hallazgoFields = ref([
   { name: 'ubicacion', required: true, label: 'Ubicacion', align: 'left', field: 'ubicacion', sortable: true, },
   { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true, },
   { name: 'tipo', required: true, label: 'Tipo', align: 'left', field: 'tipo', sortable: true, },
-
   { name: 'date', required: true, label: 'Fecha', align: 'left', field: 'fecha', sortable: true, },
   { name: 'impacto', required: true, label: 'Impacto', align: 'left', field: 'impacto', sortable: true, },
 
