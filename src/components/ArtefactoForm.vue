@@ -97,19 +97,21 @@ const props = defineProps({
 const emits = defineEmits(['closeForm'])
 
 const formulario = ref(null)
-const artefactoArr = ref([])
-const currentArtefacto = ref()
-currentArtefacto.value.name = `Artefacto ${artefactoArr.value.length + 1}`
+const artefactosArr = ref([])
+const currentArtefacto = ref({
+  name
+})
+currentArtefacto.value.name = `Artefacto ${artefactosArr.value.length + 1}`
 
 function onSubmit() {
-  artefactoArr.value.push(currentArtefacto)
+  artefactosArr.value.push(currentArtefacto)
   $q.notify('Guardado con éxito')
   onReset()
   return true;
 }
 function onReset() {
   currentArtefacto = {
-    name: `Artefacto ${artefactoArr.value.length + 1}`,
+    name: `Artefacto ${artefactosArr.value.length + 1}`,
     fase: 1,
     disciplina: 1,
     description: '',

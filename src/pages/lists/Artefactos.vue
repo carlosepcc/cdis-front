@@ -49,7 +49,7 @@ function deleteTuples(selectedRows = []) {
     ok: { label: 'Eliminar', noCaps: true, flat: true },
     cancel: { color: 'primary', noCaps: true, flat: true }
   }).onOk(() => {
-    console.log('>>> OK')
+    console.log('>>>> OK')
     selectedRows.filter(function (item) {
       artefactos.value.splice(artefactos.value.indexOf(item), 1);
       return item;
