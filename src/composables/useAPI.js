@@ -34,7 +34,7 @@ const listar = (list, url = "/usuario") => {
     });
 };
 
-// Registrar nuevo objeto en la base de datos
+// Pedir registro de nuevo objeto en la base de datos
 const guardar = (object, list, url = "/usuario") => {
   Loading.show({
     message: `Guardando. ${url}`,
@@ -43,13 +43,13 @@ const guardar = (object, list, url = "/usuario") => {
 
   api
     .post(url, object)
-    .then((response) => {
+    .then(response => {
       // handle success
       list.value.push(response.data);
       Loading.hide();
       Notify.create("Guardado exitoso");
     })
-    .catch((error) => {
+    .catch(error => {
       // handle error
       console.log(error);
       Loading.hide();

@@ -6,6 +6,7 @@
       v-model="showForm"
       :data="{}"
     />
+    <q-btn size="sm" dense flat icon="refresh" @click="listarArtefactos" />
     <ListPage
       @open-form="showForm = true"
       @delete-rows="deleteTuples"
@@ -20,7 +21,7 @@
 <script setup>
 import ListPage from 'src/components/ListPage.vue';
 import ArtefactoForm from 'components/ArtefactoForm';
-import { ref } from 'vue';
+import { provide, ref } from 'vue';
 import listar from 'src/composables/useAPI'
 
 const showForm = ref(false);
@@ -29,14 +30,17 @@ const artefactoFields = ref([
   { name: 'description', align: 'left', label: 'Descripción', field: 'descripcion', sortable: true, },
   { name: 'fase', label: 'Fase', field: 'fase', sortable: true },
   { name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
-  //{ name: 'adjunto', label: 'Adjunto', field: 'adjunto' },
+  //{ name: 'attachment', label: 'Adjunto', field: 'adjunto' },
 ]);
 
 const artefactosArr = ref([])
+provide('artefactosArr', artefactosArr)
+const url = '/artefacto'
+provide('artefactoUrl', url)
 
-const listarArtefactos = () => listar(artefactosArr, '/artefacto')
+const listarArtefactos = () => listar(artefactosArr, url)
 // execute on component load
-listar(artefactosArr, '/artefacto')
+listarArtefactos()
 
 function deleteTuples(selectedRows = []) {
 

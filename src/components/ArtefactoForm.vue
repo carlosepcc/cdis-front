@@ -10,7 +10,7 @@
             autofocus
             :dense="dense"
             filled
-            v-model="currentArtefacto.name"
+            v-model="artefactoObject.nombre"
             label="Nombre del artefacto"
             lazy-rules
             :rules="[
@@ -21,7 +21,7 @@
           <q-input
             :dense="dense"
             label="Descripción"
-            v-model="currentArtefacto.description"
+            v-model="artefactoObject.descripcion"
             filled
             autogrow
             lazy-rules
@@ -32,7 +32,7 @@
 
           <q-select
             :dense="dense"
-            v-model="currentArtefacto.fase"
+            v-model="artefactoObject.fase"
             default
             filled
             :options="[1, 2, 3]"
@@ -43,7 +43,7 @@
 
           <q-select
             :dense="dense"
-            v-model="currentArtefacto.disciplina"
+            v-model="artefactoObject.disciplina"
             filled
             :options="[1, 2, 3, 4]"
             label="Disciplina"
@@ -53,11 +53,10 @@
           <q-file
             :dense="dense"
             filled
-            v-model="currentArtefacto.attachments"
-            label="Adjuntos"
+            v-model="artefactoObject.adjunto"
+            label="Adjunto"
             counter
             use-chips
-            multiple
             append
             clearable
             accept=".doc, .docx, .odt, .xml, .pdf, .xsl, .xslx, ppt, .pptx, .odp, .ods, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -86,36 +85,46 @@
 </template>
 <script setup>
 import { useQuasar } from 'quasar';
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 const $q = useQuasar();
+import { guardar } from "src/composables/useAPI";
 
+//COMPONENT
 const props = defineProps({
   formtitle: String,
   url: String,
   actions: Array,
 });
 const emits = defineEmits(['closeForm'])
+const url = inject('artefactoUrl')
+const listarArtefactos = inject('listarArtefactos')
 
+//DOM
 const formulario = ref(null)
-const artefactosArr = ref([])
-const currentArtefacto = ref({
-  name
-})
-currentArtefacto.value.name = `Artefacto ${artefactosArr.value.length + 1}`
 
+//STATE
+const artefactosArr = inject('artefactosArr')
+const artefactoObject = ref({
+  nombre: `Artefacto ${artefactosArr.value.length + 1}`,
+  fase: 1,
+  disciplina: 1,
+  descripcion: "Un artefacto importante",
+})
+
+//SUBMIT
 function onSubmit() {
-  artefactosArr.value.push(currentArtefacto)
-  $q.notify('Guardado con éxito')
+  guardar(artefactoObject.value, artefactosArr, url)
+  listarArtefactos(artefactosArr, url)
   onReset()
   return true;
 }
+//RESET FORM
 function onReset() {
-  currentArtefacto = {
-    name: `Artefacto ${artefactosArr.value.length + 1}`,
+  artefactoObject = {
+    nombre: `Artefacto ${artefactosArr.value.length + 1}`,
     fase: 1,
     disciplina: 1,
-    description: '',
-    attachments: [],
+    descripcion: 'Un artefacto',
   }
   // eslint-disable-next-line
   formulario.value.resetValidation();
