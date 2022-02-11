@@ -20,14 +20,14 @@
 
 <script setup>
 import ListPage from 'src/components/ListPage.vue';
-import ArtefactoForm from 'components/ArtefactoForm';
+import ArtefactoForm from 'components/forms/ArtefactoForm';
 import { provide, ref } from 'vue';
 import listar from 'src/composables/useAPI'
 
 const showForm = ref(false);
 const artefactoFields = ref([
-  { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true, },
-  { name: 'description', align: 'left', label: 'Descripción', field: 'descripcion', sortable: true, },
+  { name: 'nombre', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true, },
+  { name: 'descripcion', align: 'left', label: 'Descripción', field: 'descripcion', sortable: true, },
   { name: 'fase', label: 'Fase', field: 'fase', sortable: true },
   { name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
   //{ name: 'attachment', label: 'Adjunto', field: 'adjunto' },
@@ -39,6 +39,7 @@ const url = '/artefacto'
 provide('artefactoUrl', url)
 
 const listarArtefactos = () => listar(artefactosArr, url)
+provide('listarArtefactos', listarArtefactos)
 // execute on component load
 listarArtefactos()
 

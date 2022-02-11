@@ -1,16 +1,27 @@
 <template>
-  <q-page padding>
-    <ListPage title="Hallazgos" :rows="hallazgosArr" :columns="hallazgoFields"></ListPage>
+  <q-page class="q-pb-xl">
+    <HallazgoForm
+      formtitle="Hallazgo"
+      :actions="['Guardar', 'Limpiar campos']"
+      v-model="showForm"
+      :data="{}"
+    />
+    <q-btn size="sm" dense flat icon="refresh" @click="listarArtefactos" />
+    <ListPage
+      @open-form="showForm = true"
+      title="Hallazgos"
+      :rows="hallazgosArr"
+      :columns="hallazgoFields"
+    ></ListPage>
   </q-page>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, provide } from "vue";
 import ListPage from 'components/ListPage'
+import HallazgoForm from 'components/forms/HallazgoForm'
 import listar from 'src/composables/useAPI'
 
-
-const hallazgosArr = ref([])
 const hallazgoFields = ref([
   { name: 'producto', required: true, label: 'Producto afectado', align: 'left', field: 'productoAf', sortable: true },
   { name: 'ubicacion', required: true, label: 'Ubicacion', align: 'left', field: 'ubicacion', sortable: true, },
@@ -21,6 +32,14 @@ const hallazgoFields = ref([
 
 ])
 
-// call on component load
-listar(hallazgosArr, '/hallazgo')
+const hallazgosArr = ref([])
+const url = '/hallazgo'
+provide('hallazgoUrl', url)
+
+
+const listarHallazgos = () => listar(hallazgosArr, url)
+provide('listarHallazgos', listarHallazgos)
+
+// fill hallazgosArr
+listarHallazgos
 </script>

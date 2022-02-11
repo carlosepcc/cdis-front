@@ -19,5 +19,6 @@ const dictamenFields = ref([
 
 ])
 const dictamenesArr = ref([])
-listar(dictamenesArr, '/dictamen')
+const url = '/dictamen'
+listar(dictamenesArr, url)
 </script>

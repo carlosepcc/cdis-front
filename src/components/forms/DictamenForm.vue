@@ -10,8 +10,8 @@
             autofocus
             :dense="dense"
             filled
-            v-model="artefactoObject.nombre"
-            label="Nombre del artefacto"
+            v-model="dictamenObject.nombre"
+            label="Nombre del dictamen"
             lazy-rules
             :rules="[
               (val) => (val && val.length > 0) || 'Por favor, escriba algo',
@@ -21,7 +21,7 @@
           <q-input
             :dense="dense"
             label="Descripción"
-            v-model="artefactoObject.descripcion"
+            v-model="dictamenObject.descripcion"
             filled
             autogrow
             lazy-rules
@@ -32,7 +32,7 @@
 
           <q-select
             :dense="dense"
-            v-model="artefactoObject.fase"
+            v-model="dictamenObject.fase"
             default
             filled
             :options="[1, 2, 3]"
@@ -43,7 +43,7 @@
 
           <q-select
             :dense="dense"
-            v-model="artefactoObject.disciplina"
+            v-model="dictamenObject.disciplina"
             filled
             :options="[1, 2, 3, 4]"
             label="Disciplina"
@@ -53,7 +53,7 @@
           <q-file
             :dense="dense"
             filled
-            v-model="artefactoObject.adjunto"
+            v-model="dictamenObject.adjunto"
             label="Adjunto"
             counter
             use-chips
@@ -96,32 +96,32 @@ const props = defineProps({
   actions: Array,
 });
 const emits = defineEmits(['closeForm'])
-const url = inject('artefactoUrl')
-listarArtefactos = inject('listarArtefactos')
+const url = inject('dictamenUrl')
+const listarDictamenes = inject('listarDictamenes')
 
 //DOM
 const formulario = ref()
 
 //STATE
-const artefactosArr = inject('artefactosArr')
-const artefactoBase = {
-  nombre: `Artefacto ${artefactosArr.value.length + 1}`,
+const dictamenesArr = inject('dictamenesArr')
+const dictamenBase = {
+  nombre: `dictamen ${dictamenesArr.value.length + 1}`,
   fase: 1,
   disciplina: 1,
-  descripcion: 'Un artefacto importante',
+  descripcion: 'Un dictamen importante',
 }
-const artefactoObject = ref(artefactoBase)
+const dictamenObject = ref(dictamenBase)
 
 //SUBMIT
 function onSubmit() {
-  guardar(artefactoObject.value, artefactosArr, url)
-  listarArtefactos(artefactosArr, url)
+  guardar(dictamenObject.value, dictamenesArr, url)
+  listarDictamenes(dictamenesArr, url)
   onReset()
   return true;
 }
 //RESET FORM
 function onReset() {
-  artefactoObject.value = artefactoBase
+  dictamenObject.value = dictamenBase
   // eslint-disable-next-line
   formulario.value.resetValidation();
   return true
