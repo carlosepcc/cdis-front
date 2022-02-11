@@ -97,19 +97,20 @@ const props = defineProps({
 });
 const emits = defineEmits(['closeForm'])
 const url = inject('artefactoUrl')
-const listarArtefactos = inject('listarArtefactos')
+listarArtefactos = inject('listarArtefactos')
 
 //DOM
-const formulario = ref(null)
+const formulario = ref()
 
 //STATE
 const artefactosArr = inject('artefactosArr')
-const artefactoObject = ref({
+const artefactoBase = {
   nombre: `Artefacto ${artefactosArr.value.length + 1}`,
   fase: 1,
   disciplina: 1,
-  descripcion: "Un artefacto importante",
-})
+  descripcion: 'Un artefacto importante',
+}
+const artefactoObject = ref(artefactoBase)
 
 //SUBMIT
 function onSubmit() {
@@ -120,12 +121,7 @@ function onSubmit() {
 }
 //RESET FORM
 function onReset() {
-  artefactoObject = {
-    nombre: `Artefacto ${artefactosArr.value.length + 1}`,
-    fase: 1,
-    disciplina: 1,
-    descripcion: 'Un artefacto',
-  }
+  artefactoObject.value = artefactoBase
   // eslint-disable-next-line
   formulario.value.resetValidation();
   return true
