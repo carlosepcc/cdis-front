@@ -4,14 +4,16 @@ import DrawerItem from 'components/DrawerItem';
 
 import { ref, provide } from 'vue';
 import { useQuasar } from 'quasar'
+import state from 'src/composables/useState'
 const $q = useQuasar();
 
 // VARIABLES
 const loggedUser = ref({
-  username: 'alanmt',
-  roles: ['Usuario', 'Administrador'],
-  name: 'Alan Mathison Turing',
-  img: 'https://www.ecured.cu/images/c/c6/Alan_Turing_II.jpg',
+  id: 1,
+  username: "amturing",
+  name: "Alan",
+  lastname: "Mathinson Turing",
+  roles: ['Usuario', 'Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto', 'Revisor'],
 })
 provide('user', loggedUser)
 
@@ -21,26 +23,51 @@ provide('globalGrid', globalGrid);
 const globalDense = ref($q.screen.lt.sm)
 provide('globalDense', globalDense);
 
+const showUsermenu = ref(true);
 // DRAWER
 const miniState = ref(false);
 const leftDrawerOpen = ref(false);
 const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
 
 
+const logout =()=>{
+  $q.dialog({
+    title: 'Confirme cerrar sesión',
+    message: 'Deberá iniciar sesión la próxima vez que desee utilizar la aplicación.',
+    cancel: true,
+    persistent: true,
+    color: 'negative',
+    ok: { label: 'Cerrar sesión', noCaps: true, flat: true },
+    cancel: { color: 'primary', noCaps: true, flat: true }
+  }).onOk(() => {
+    console.log('>>>> Cerrar sesión')
+    return 'User wants to logout'
+  }).onCancel(() => {
+    console.log('>>>> Cancel')
+    return 'Canceled by user'
+  })
+}
+
 const drawerItems = [
   { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Usuario'] },
-  { title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Usuario'], separate: true },
-  { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: [] },
-  { title: 'Hallazgos', icon: 'H', to: 'hallazgos', forRoles: [] },
-  { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: [] },
-  { title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: [] },
+
+  //REVISOR
+  { title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Revisor'], separate: true },
+  { title: 'Hallazgos', icon: 'H', to: 'hallazgos', forRoles: ['Revisor'] },
+  { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: ['Revisor'] },
+  { title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: ['Revisor'] },
+
+  { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: ['Encargado de proyecto'] },
   { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor de calidad', 'Coordinador de calidad'] },
   { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
+
+  // ALL USERS
   { title: 'Ajustes', icon: 'settings', to: 'settings', forRoles: ['Usuario'], separate: true },
   { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Usuario'] },
   { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Usuario'] },
 ];
 </script>
+
 <template>
   <q-layout view="hHh LpR fFf">
     <q-header reveal elevated class="bg-primary text-white">
@@ -74,99 +101,82 @@ const drawerItems = [
           clickable
           v-ripple
           class="text-white q-py-none absolute-right"
-          :title="loggedUser.username + '. ' + loggedUser.name + '. ' + loggedUser.rol"
+          :title="loggedUser.username + '. ' + loggedUser.name + '. ' + loggedUser.roles"
         >
+          <q-menu>
+            <div class="row no-wrap q-pa-md">
+              <div class="column">
+                <div class="text-h6 q-mb-md">Ajustes</div>
+                <q-toggle v-model="state.dense" label="Interfaz densa" />
+                <q-toggle v-model="state.grid" label="Vista por tarjetas" />
+              </div>
+
+              <q-separator vertical inset class="q-mx-lg" />
+
+              <div class="column items-center">
+                <q-avatar
+                  size="xl"
+                  color="purple-1"
+                  text-color="primary"
+                  class="text-weight-bolder"
+                >
+                  <img v-if="loggedUser.img" :src="loggedUser.img" :alt="loggedUser.name.charAt(0)" />
+                  <ruby v-else>
+                        {{ loggedUser.lastname.replace(/[a-z]/g, '') }}
+                    <rt>{{ loggedUser.name.replace(/[a-z]/g, '') }}</rt>
+                  </ruby>
+                </q-avatar>
+
+                <div class="q-mt-md q-mb-xs">
+                  {{ loggedUser.name }}
+                  {{ loggedUser.lastname }}
+                </div>
+
+                <q-btn
+                  color="primary"
+                  label="Cerrar sesión"
+                  class="full-width"
+                  no-caps
+                  flat
+                  v-close-popup
+                  @click="logout"
+                />
+              </div>
+            </div>
+          </q-menu>
           <q-item-section side>
             <q-item-label class="text-purple-1 text-weight-light">
-              <span class="gt-xs">{{ loggedUser.name }}</span>
-              <span class="lt-sm">{{ loggedUser.username }}</span>
+              <span class>
+                {{ loggedUser.name }}
+                <span class="gt-xs">{{ loggedUser.lastname }}</span>
+              </span>
             </q-item-label>
-            <q-item-label class="text-purple-2 text-weight-bold" caption>
+            <q-item-label class="text-purple-2 text-bold" caption>
               {{
-                loggedUser.rol
+                loggedUser.roles[1]
               }}
             </q-item-label>
           </q-item-section>
           <q-item-section>
             <q-avatar size="xl" color="white" text-color="primary" class="text-weight-bolder">
-              <img v-if="loggedUser.img" :src="loggedUser.img" :alt="loggedUser.name.charAt(0)" />
-              <span v-else>{{ loggedUser.name.charAt(0) }}</span>
+              <img
+                v-if="loggedUser.img"
+                :src="loggedUser.img"
+                :alt="loggedUser.name.replace(/[a-z]/g, '')"
+              />
+              <ruby v-else>
+                {{ loggedUser.lastname.replace(/[a-z]/g, '') }}
+                <rt>{{ loggedUser.name.replace(/[a-z]/g, '') }}</rt>
+              </ruby>
               <q-badge
                 :title="loggedUser.roles[1]"
                 floating
                 rounded
                 color="primary"
                 class="text-weight-bold text-purple-2"
-              >{{ loggedUser.roles[1].charAt(0) }}</q-badge>
+              >{{ loggedUser.roles[1].replace(/[a-z]/g, '') }}</q-badge>
             </q-avatar>
           </q-item-section>
-
-          <q-menu>
-            <div class="row no-wrap q-pa-md">
-              <div class="column">
-                <div class="text-h6 q-mb-md">Ajustes</div>
-                <!-- TABLE / GRID -->
-                <q-btn-toggle
-                  title="Modo de presentación (Tabla o Rejilla)"
-                  v-model="s.grid"
-                  flat
-                  toggle-color="primary"
-                  :options="[
-                    { label: 'Vista en Tabla', noCaps: true, value: false, slot: 'tableview' },
-                    { label: 'Vista por Tarjetas', noCaps: true, value: true, slot: 'gridview' },
-                  ]"
-                >
-                  <template v-slot:tableview>
-                    <q-icon name="r_table_chart" class="on-right" />
-                  </template>
-
-                  <template v-slot:gridview>
-                    <q-icon name="r_grid_view" class="on-right" />
-                  </template>
-                </q-btn-toggle>
-                <br />
-                <!-- DENSE / NORMAL -->
-                <q-btn-toggle
-                  title="Densidad las filas en vista de tabla (Normal o Denso)"
-                  v-model="s.dense"
-                  flat
-                  class="q-mx-sm"
-                  toggle-color="primary"
-                  :options="[
-                    { label: 'Interfaz normal', noCaps: true, value: false, slot: 'normal' },
-                    { label: 'Interfaz densa', noCaps: true, value: true, slot: 'dense' },
-                  ]"
-                >
-                  <template v-slot:normal>
-                    <q-icon name="r_table_rows" class="on-right" />
-                  </template>
-
-                  <template v-slot:dense>
-                    <q-icon name="view_headline" class="on-right" />
-                  </template>
-                </q-btn-toggle>
-              </div>
-
-              <q-separator vertical inset class="q-mx-lg" />
-
-              <div class="column items-center">
-                <q-avatar size="72px">
-                  <img :src="loggedUser.img" />
-                </q-avatar>
-
-                <div class="text-subtitle1 q-mt-md q-mb-xs">{{ loggedUser.name }}</div>
-
-                <q-btn
-                  icon="r_slogout"
-                  color="primary"
-                  label="Cerrar sesión"
-                  flat
-                  size="sm"
-                  v-close-popup
-                />
-              </div>
-            </div>
-          </q-menu>
         </q-item>
       </q-toolbar>
     </q-header>
@@ -185,11 +195,12 @@ const drawerItems = [
     >
       <q-scroll-area class="fit">
         <q-list>
-          <DrawerItem
-            v-for="drawerItem in drawerItems"
-            :key="drawerItem.title"
-            v-bind="drawerItem"
-          />
+          <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
+            <DrawerItem
+              v-if="loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol))"
+              v-bind="drawerItem"
+            />
+          </template>
         </q-list>
       </q-scroll-area>
     </q-drawer>

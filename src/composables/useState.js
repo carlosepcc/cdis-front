@@ -10,7 +10,14 @@ const state = ref({
     username: "amturing",
     name: "Alan",
     lastname: "Mathinson Turing",
-    roles: ["Usuario","Coordinador de Calidad"],
+    roles: [
+      "Usuario",
+      "Administrador",
+      "Asesor de calidad",
+      "Coordinador de calidad",
+      "Encargado de proyecto",
+      "Revisor",
+    ],
   },
 });
 
