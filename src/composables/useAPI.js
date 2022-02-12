@@ -34,20 +34,23 @@ const listar = (list, url = "/usuario") => {
     });
 };
 
-// Pedir registro de nuevo objeto en la base de datos
-const guardar = (object, list, url = "/usuario") => {
+// Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
+const guardar = (object, list, url = "/usuario", put = false) => {
   Loading.show({
     message: `Guardando. ${url}`,
     spinner: QSpinnerGears,
   });
 
-  api
-    .post(url, object)
+  api({
+    method: put ? "put" : "post",
+    url: url,
+    data: object,
+  })
     .then((response) => {
       // handle success
-      list.value.push(response.data);
       Loading.hide();
       Notify.create("Guardado exitoso");
+      listar(list, url);
     })
     .catch((error) => {
       // handle error
@@ -66,5 +69,35 @@ const guardar = (object, list, url = "/usuario") => {
     });
 };
 
+// Pedir la eliminación de objetos en la base de datos
+const eliminar = (idsArr = [], list, url = "/usuario") => {
+  Loading.show({
+    message: `Eliminando ${idsArr}. ${url}`,
+    spinner: QSpinnerGears,
+  });
+
+  api
+    .delete(url, idsArr)
+    .then((response) => {
+      // handle success
+      listar(list, url);
+      Notify.create("Eliminación exitosa");
+    })
+    .catch((error) => {
+      // handle error
+      console.log(error);
+      Notify.create({
+        color: "negative",
+        position: "top",
+        message: `Eliminación fallida. ${error.message}. Revise su conexión a internet`,
+        icon: "report_problem",
+      });
+    })
+    .then(() => {
+      // always
+      Loading.hide();
+    });
+};
+
 export default listar;
-export { guardar };
+export { guardar, eliminar };
