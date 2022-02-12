@@ -48,7 +48,7 @@ provide('listarArtefactos', listarArtefactos)
 // execute on component load
 listarArtefactos()
 
-const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado' }, artefactosArr, url, true)
+const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado por quinta vez' }, artefactosArr, url)
 
 function deleteTuples(selectedRows = []) {
 

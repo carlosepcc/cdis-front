@@ -35,14 +35,14 @@ const listar = (list, url = "/usuario") => {
 };
 
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
-const guardar = (object, list, url = "/usuario", put = false) => {
+const guardar = (object, refArr, url = "/usuario") => {
   Loading.show({
     message: `Guardando. ${url}`,
     spinner: QSpinnerGears,
   });
 
   api({
-    method: put ? "put" : "post",
+    method: (object.id = null ? "post" : "put"),
     url: url,
     data: object,
   })
@@ -50,7 +50,7 @@ const guardar = (object, list, url = "/usuario", put = false) => {
       // handle success
       Loading.hide();
       Notify.create("Guardado exitoso");
-      listar(list, url);
+      listar(refArr, url);
     })
     .catch((error) => {
       // handle error

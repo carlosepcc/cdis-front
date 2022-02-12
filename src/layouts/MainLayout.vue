@@ -1,3 +1,46 @@
+<script setup>
+// Components
+import DrawerItem from 'components/DrawerItem';
+
+import { ref, provide } from 'vue';
+import { useQuasar } from 'quasar'
+const $q = useQuasar();
+
+// VARIABLES
+const loggedUser = ref({
+  username: 'alanmt',
+  roles: ['Usuario', 'Administrador'],
+  name: 'Alan Mathison Turing',
+  img: 'https://www.ecured.cu/images/c/c6/Alan_Turing_II.jpg',
+})
+provide('user', loggedUser)
+
+const globalGrid = ref($q.screen.lt.sm)
+provide('globalGrid', globalGrid);
+
+const globalDense = ref($q.screen.lt.sm)
+provide('globalDense', globalDense);
+
+// DRAWER
+const miniState = ref(false);
+const leftDrawerOpen = ref(false);
+const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
+
+
+const drawerItems = [
+  { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Usuario'] },
+  { title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Usuario'], separate: true },
+  { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: [] },
+  { title: 'Hallazgos', icon: 'H', to: 'hallazgos', forRoles: [] },
+  { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: [] },
+  { title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: [] },
+  { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor de calidad', 'Coordinador de calidad'] },
+  { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
+  { title: 'Ajustes', icon: 'settings', to: 'settings', forRoles: ['Usuario'], separate: true },
+  { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Usuario'] },
+  { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Usuario'] },
+];
+</script>
 <template>
   <q-layout view="hHh LpR fFf">
     <q-header reveal elevated class="bg-primary text-white">
@@ -163,97 +206,6 @@
     </q-page-container>
   </q-layout>
 </template>
-
-<script setup>
-// Components
-import DrawerItem from 'components/DrawerItem';
-
-import { ref, provide } from 'vue';
-import { useQuasar } from 'quasar'
-const $q = useQuasar();
-
-// VARIABLES
-const loggedUser = ref({
-  username: 'alanmt',
-  roles: ['Usuario','Administrador'],
-  name: 'Alan Mathison Turing',
-  img: 'https://www.ecured.cu/images/c/c6/Alan_Turing_II.jpg',
-})
-provide('user', loggedUser)
-
-const globalGrid = ref($q.screen.lt.sm)
-provide('globalGrid', globalGrid);
-
-const globalDense = ref($q.screen.lt.sm)
-provide('globalDense', globalDense);
-
-// DRAWER
-const miniState = ref(false);
-const leftDrawerOpen = ref(false);
-const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
-
-
-const drawerItems = [
-  {
-    title: "Inicio",
-    icon: "home",
-    alt: "n",
-    to: "/"
-  },
-  {
-    title: 'Dictámenes Técnicos',
-    icon: 'D',
-    to: 'dictamenes',
-    separate: true
-  },
-  {
-    title: 'Artefactos',
-    icon: 'A',
-    to: 'artefactos',
-  },
-  {
-    title: 'Hallazgos',
-    icon: 'H',
-    to: 'hallazgos',
-  },
-  {
-    title: 'Minutas de reunión',
-    icon: 'M',
-    to: 'minutas',
-  },
-  {
-    title: 'Reportes de notificación',
-    icon: 'N',
-    to: 'rnotificacion',
-  },
-  {
-    title: 'Reportes Técnicos',
-    icon: 'T',
-    to: 'rtecnicos',
-  },
-  {
-    title: 'Usuarios',
-    icon: 'U',
-    to: 'users',
-  },
-  {
-    separate: true,
-    title: 'Ajustes',
-    icon: 'settings',
-    to: 'settings',
-  },
-  {
-    title: 'Ayuda',
-    icon: 'help',
-    to: 'help',
-  },
-  {
-    title: 'Acerca de',
-    icon: 'info',
-    to: 'about',
-  },
-];
-</script>
 
 <style scoped>
 @font-face {

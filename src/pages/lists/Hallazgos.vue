@@ -6,7 +6,7 @@
       v-model="showForm"
       :data="{}"
     />
-    <q-btn size="sm" dense flat icon="refresh" @click="listarArtefactos" />
+    <q-btn size="sm" dense flat icon="refresh" @click="listarHallazgos" />
     <ListPage
       @open-form="showForm = true"
       title="Hallazgos"
@@ -41,5 +41,5 @@ const listarHallazgos = () => listar(hallazgosArr, url)
 provide('listarHallazgos', listarHallazgos)
 
 // fill hallazgosArr
-listarHallazgos
+listarHallazgos()
 </script>
