@@ -112,16 +112,9 @@ function onSubmit() {
 }
 //RESET FORM
 function onReset() {
-  console.log("artefactoObject.value")
-  console.log(artefactoObject.value)
-  console.log("artefactoObjectInitial.value")
-  console.log(artefactoObjectInitial.value)
 
   //RESET FIELDS
   artefactoObject.value = artefactoObjectInitial.value
-  console.log("artefactoObject.value = artefactoObjectInitial.value")
-
-  console.log(artefactoObject.value)
 
   formulario.value.resetValidation();
   return true

@@ -56,14 +56,10 @@ const showForm = ref(false);
 const openForm = (obj = null) => {
   const datosForForm = obj == null ? artefactoBase : obj
   artefactoObject.value = datosForForm
-  console.log(artefactoObject.value)
 
   artefactoObjectInitial.value = datosForForm
-  console.log('artefactoObjectInitial.value')
-  console.log(artefactoObjectInitial.value)
 
   showForm.value = true
-  console.log('showing form')
 }
 
 const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado por quinta vez' }, artefactosArr, url)
