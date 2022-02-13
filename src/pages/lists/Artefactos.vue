@@ -43,15 +43,28 @@ provide('listarArtefactos', listarArtefactos)
 listarArtefactos()
 
 // MODIFICAR (Abrir formulario con datos del objeto a modificar)
-var currentArtefacto = ref(null)
-provide('currentArtefacto', currentArtefacto)
+const artefactoBase = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante', }
+provide('artefactoBase', artefactoBase)
+
+const artefactoObject = ref(artefactoBase)
+provide('artefactoObject', artefactoObject)
+var artefactoObjectInitialValue = artefactoObject.value
+
+const artefactoObjectInitial = ref(artefactoObjectInitialValue)
+provide('artefactoObjectInitial', artefactoObjectInitial)
 
 const showForm = ref(false);
 const openForm = (obj = null) => {
-  currentArtefacto.value = obj
-  console.log(currentArtefacto)
+  const datosForForm = obj == null ? artefactoBase : obj
+  artefactoObject.value = datosForForm
+  console.log(artefactoObject.value)
+
+  artefactoObjectInitial.value = datosForForm
+  console.log('artefactoObjectInitial.value')
+  console.log(artefactoObjectInitial.value)
+
   showForm.value = true
-  console.log(showForm.value)
+  console.log('showing form')
 }
 
 const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado por quinta vez' }, artefactosArr, url)

@@ -70,7 +70,7 @@
           <div class="q-gutter-sm">
             <q-btn
               :dense="state.dense"
-              label="Limpar campos"
+              label="Restablecer"
               type="reset"
               color="primary"
               flat
@@ -94,23 +94,15 @@ const $q = useQuasar();
 const emits = defineEmits(['closeForm'])
 const url = inject('artefactoUrl')
 const listarArtefactos = inject('listarArtefactos')
-const currentArtefacto = inject('currentArtefacto')
 
 //DOM
 const formulario = ref()
 
 //STATE
 const artefactosArr = inject('artefactosArr')
-const artefactoBase = {
-  nombre: `Artefacto ${artefactosArr.value.length + 1}`,
-  fase: 1,
-  disciplina: 1,
-  descripcion: 'Un artefacto importante',
-}
-const artefactoObject = ref(currentArtefacto.value == null ? artefactoBase : currentArtefacto.value)
+const artefactoObject = inject('artefactoObject')
+const artefactoObjectInitial = inject('artefactoObjectInitial')
 
-console.log('artefactoObject is: ')
-console.log(artefactoObject)
 //SUBMIT
 function onSubmit() {
   guardar(artefactoObject.value, artefactosArr, url)
@@ -120,8 +112,17 @@ function onSubmit() {
 }
 //RESET FORM
 function onReset() {
-  artefactoObject.value = artefactoBase
-  // eslint-disable-next-line
+  console.log("artefactoObject.value")
+  console.log(artefactoObject.value)
+  console.log("artefactoObjectInitial.value")
+  console.log(artefactoObjectInitial.value)
+
+  //RESET FIELDS
+  artefactoObject.value = artefactoObjectInitial.value
+  console.log("artefactoObject.value = artefactoObjectInitial.value")
+
+  console.log(artefactoObject.value)
+
   formulario.value.resetValidation();
   return true
   /* $q.notify('Reestablecidos todos los campos'); */
