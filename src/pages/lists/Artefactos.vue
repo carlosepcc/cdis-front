@@ -48,7 +48,6 @@ provide('artefactoBase', artefactoBase)
 
 const artefactoObject = ref(artefactoBase)
 provide('artefactoObject', artefactoObject)
-var artefactoObjectInitialValue = artefactoObject.value
 
 const artefactoObjectInitial = ref(artefactoObjectInitialValue)
 provide('artefactoObjectInitial', artefactoObjectInitial)

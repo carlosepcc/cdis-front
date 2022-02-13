@@ -2,7 +2,7 @@
 <template>
   <q-dialog position="top">
     <q-card>
-      <q-card-section class="text-h7 text-uppercase text-weight-light">Artefactos</q-card-section>
+      <q-card-section class="text-h7 text-uppercase text-weight-light">{{artefactoObject.id ? 'Modificar' : 'Nuevo'}} Artefacto</q-card-section>
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
