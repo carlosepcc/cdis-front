@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pb-xl">
-    <ArtefactoForm heading="Artefacto" v-model="showForm" :data="currentArtefacto" />
+    <ArtefactoForm v-model="showForm" @close-form="showForm = false" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarArtefactos" />
     <q-btn size="sm" dense flat icon="save" @click="guardarRandom" />
 
@@ -49,15 +49,10 @@ provide('artefactoBase', artefactoBase)
 const artefactoObject = ref(artefactoBase)
 provide('artefactoObject', artefactoObject)
 
-const artefactoObjectInitial = ref(artefactoObjectInitialValue)
-provide('artefactoObjectInitial', artefactoObjectInitial)
-
 const showForm = ref(false);
 const openForm = (obj = null) => {
   const datosForForm = obj == null ? artefactoBase : obj
   artefactoObject.value = datosForForm
-
-  artefactoObjectInitial.value = datosForForm
 
   showForm.value = true
 }

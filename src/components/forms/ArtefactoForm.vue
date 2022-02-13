@@ -2,7 +2,9 @@
 <template>
   <q-dialog position="top">
     <q-card>
-      <q-card-section class="text-h7 text-uppercase text-weight-light">{{artefactoObject.id ? 'Modificar' : 'Nuevo'}} Artefacto</q-card-section>
+      <q-card-section
+        class="text-h7 text-uppercase text-weight-light"
+      >{{ artefactoObject.id !== null ? 'Modificar' : 'Nuevo' }} Artefacto</q-card-section>
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
@@ -68,15 +70,30 @@
           <q-separator class="q-mb-sm q-mt-md" />
 
           <div class="q-gutter-sm">
+            <q-btn-group outline spread clas="full-width q-mt-md">
+              <q-btn
+                :size="state.dense ? 'sm' : 'md'"
+                label="Restablecer"
+                type="reset"
+                flat
+                color="negative"
+              />
+              <q-btn
+                :size="state.dense ? 'sm' : 'md'"
+                label="Cancelar"
+                flat
+                @click="$emit('closeForm')"
+              />
+            </q-btn-group>
             <q-btn
-              :dense="state.dense"
-              label="Restablecer"
-              type="reset"
+              push
+              :size="state.dense ? 'sm' : 'md'"
+              class="full-width"
+              icon="r_save"
+              label="Guardar"
+              type="submit"
               color="primary"
-              flat
-              class="q-ml-sm"
             />
-            <q-btn push icon="r_save" label="Guardar" type="submit" color="primary" />
           </div>
         </q-form>
       </q-card-section>
@@ -87,34 +104,31 @@
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
 import state from "src/composables/useState"
-import { useQuasar } from 'quasar';
-const $q = useQuasar();
-
-//COMPONENT
-const emits = defineEmits(['closeForm'])
-const url = inject('artefactoUrl')
-const listarArtefactos = inject('listarArtefactos')
 
 //DOM
 const formulario = ref()
 
+//COMPONENT
+const emits = defineEmits(['closeForm'])
+const url = inject('artefactoUrl')
+
+
 //STATE
 const artefactosArr = inject('artefactosArr')
 const artefactoObject = inject('artefactoObject')
-const artefactoObjectInitial = inject('artefactoObjectInitial')
-
+const artefactoBase = inject('artefactoBase')
 //SUBMIT
-function onSubmit() {
+const onSubmit = () => {
+  console.log('onSubmit')
   guardar(artefactoObject.value, artefactosArr, url)
-  listarArtefactos(artefactosArr, url)
-  onReset()
-  return true;
+
+  return onReset();
 }
 //RESET FORM
-function onReset() {
+const onReset = () => {
 
   //RESET FIELDS
-  artefactoObject.value = artefactoObjectInitial.value
+  artefactoObject.value = artefactoBase.value
 
   formulario.value.resetValidation();
   return true
