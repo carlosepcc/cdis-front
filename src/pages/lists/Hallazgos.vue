@@ -9,7 +9,7 @@
     <q-btn size="sm" dense flat icon="refresh" @click="listarHallazgos" />
     <ListPage
       @open-form="showForm = true"
-      title="Hallazgos"
+      heading="Hallazgos"
       :rows="hallazgosArr"
       :columns="hallazgoFields"
     ></ListPage>

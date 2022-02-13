@@ -1,18 +1,13 @@
 <template>
   <q-page class="q-pb-xl">
-    <ArtefactoForm
-      formtitle="Artefacto"
-      :actions="['Guardar', 'Limpiar campos']"
-      v-model="showForm"
-      :data="{}"
-    />
+    <ArtefactoForm heading="Artefacto" v-model="showForm" :data="currentArtefacto" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarArtefactos" />
     <q-btn size="sm" dense flat icon="save" @click="guardarRandom" />
 
     <ListPage
-      @open-form="showForm = true"
+      @open-form="(obj) => openForm(obj)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
-      title="Artefactos"
+      heading="Artefactos"
       rowKey="id"
       :rows="artefactosArr"
       :columns="artefactoFields"
@@ -27,7 +22,6 @@ import { provide, ref } from 'vue';
 import listar from 'src/composables/useAPI'
 import { guardar, eliminar } from 'src/composables/useAPI'
 
-const showForm = ref(false);
 const artefactoFields = ref([
   { name: 'id', required: true, label: 'ID (temp)', align: 'left', field: 'id', sortable: true, },
 
@@ -47,6 +41,18 @@ const listarArtefactos = () => listar(artefactosArr, url)
 provide('listarArtefactos', listarArtefactos)
 // execute on component load
 listarArtefactos()
+
+// MODIFICAR (Abrir formulario con datos del objeto a modificar)
+var currentArtefacto = ref(null)
+provide('currentArtefacto', currentArtefacto)
+
+const showForm = ref(false);
+const openForm = (obj = null) => {
+  currentArtefacto.value = obj
+  console.log(currentArtefacto)
+  showForm.value = true
+  console.log(showForm.value)
+}
 
 const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado por quinta vez' }, artefactosArr, url)
 

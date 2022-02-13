@@ -2,7 +2,7 @@
   <q-table
     class="q-pb-xl bg-white overflow-hidden"
     :flat="!isTableGrid"
-    :title="title"
+    :title="heading"
     :rows="rows"
     :columns="columns"
     :row-key="rowKey"
@@ -119,18 +119,19 @@
       <!-- BODY SLOT -->
     </template>
     <template v-slot:body="props">
-      <q-tr :props="props">
+      <q-tr :props="props" clickable @click="$emit('openForm', props.row)">
         <q-td auto-width>
           <q-checkbox :dense="isTableDense" v-model="props.selected" />
-          <!-- TODO: MODIFY <q-btn
-                size="sm"
-                text-color="accent"
-                flat
-                round
-                :dense="isTableDense"
-                @click="$emit('openForm', props.row)"
-                icon="edit"
-          />-->
+          <!-- TODO: MODIFY -->
+          <q-btn
+            size="sm"
+            text-color="accent"
+            flat
+            round
+            :dense="isTableDense"
+            @click="$emit('openForm', props.row)"
+            icon="edit"
+          />
           <q-btn
             size="sm"
             text-color="negative"
@@ -169,7 +170,7 @@ const $q = useQuasar()
 var s = state.value
 
 const props = defineProps({
-  title: String,
+  heading: String,
   rows: Array,
   columns: Array,
   rowKey: {

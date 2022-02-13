@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <ListPage title="Usuarios" :rows="usersArr" :columns="userFields"></ListPage>
+    <ListPage heading="Usuarios" :rows="usersArr" :columns="userFields"></ListPage>
   </q-page>
 </template>
 

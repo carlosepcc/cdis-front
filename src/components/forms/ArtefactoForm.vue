@@ -2,13 +2,13 @@
 <template>
   <q-dialog position="top">
     <q-card>
-      <q-card-section class="text-h7 text-uppercase text-weight-light">{{ formtitle }}</q-card-section>
+      <q-card-section class="text-h7 text-uppercase text-weight-light">Artefactos</q-card-section>
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <q-input
             autofocus
-            :dense="dense"
+            :dense="state.dense"
             filled
             v-model="artefactoObject.nombre"
             label="Nombre del artefacto"
@@ -19,7 +19,7 @@
           />
 
           <q-input
-            :dense="dense"
+            :dense="state.dense"
             label="Descripción"
             v-model="artefactoObject.descripcion"
             filled
@@ -31,7 +31,7 @@
           />
 
           <q-select
-            :dense="dense"
+            :dense="state.dense"
             v-model="artefactoObject.fase"
             default
             filled
@@ -42,7 +42,7 @@
           />
 
           <q-select
-            :dense="dense"
+            :dense="state.dense"
             v-model="artefactoObject.disciplina"
             filled
             :options="[1, 2, 3, 4]"
@@ -51,7 +51,7 @@
             :rules="[val || 'Por favor, seleccione algo']"
           />
           <q-file
-            :dense="dense"
+            :dense="state.dense"
             filled
             v-model="artefactoObject.adjunto"
             label="Adjunto"
@@ -69,14 +69,14 @@
 
           <div class="q-gutter-sm">
             <q-btn
-              :dense="dense"
-              :label="actions[1]"
+              :dense="state.dense"
+              label="Limpar campos"
               type="reset"
               color="primary"
               flat
               class="q-ml-sm"
             />
-            <q-btn push icon="r_save" :label="actions[0]" type="submit" color="primary" />
+            <q-btn push icon="r_save" label="Guardar" type="submit" color="primary" />
           </div>
         </q-form>
       </q-card-section>
@@ -84,20 +84,17 @@
   </q-dialog>
 </template>
 <script setup>
-import { useQuasar } from 'quasar';
 import { ref, inject } from 'vue';
-const $q = useQuasar();
 import { guardar } from "src/composables/useAPI";
+import state from "src/composables/useState"
+import { useQuasar } from 'quasar';
+const $q = useQuasar();
 
 //COMPONENT
-const props = defineProps({
-  formtitle: String,
-  url: String,
-  actions: Array,
-});
 const emits = defineEmits(['closeForm'])
 const url = inject('artefactoUrl')
 const listarArtefactos = inject('listarArtefactos')
+const currentArtefacto = inject('currentArtefacto')
 
 //DOM
 const formulario = ref()
@@ -110,8 +107,10 @@ const artefactoBase = {
   disciplina: 1,
   descripcion: 'Un artefacto importante',
 }
-const artefactoObject = ref(artefactoBase)
+const artefactoObject = ref(currentArtefacto.value == null ? artefactoBase : currentArtefacto.value)
 
+console.log('artefactoObject is: ')
+console.log(artefactoObject)
 //SUBMIT
 function onSubmit() {
   guardar(artefactoObject.value, artefactosArr, url)

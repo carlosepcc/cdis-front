@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <ListPage title="Minutas de reunión" :rows="minutasArr" :columns="minutaFields"></ListPage>
+    <ListPage heading="Minutas de reunión" :rows="minutasArr" :columns="minutaFields"></ListPage>
   </q-page>
 </template>
 
