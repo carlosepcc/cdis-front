@@ -1,4 +1,4 @@
-import { Loading, Notify, QSpinnerGears } from "quasar";
+import { Dialog, Loading, Notify, QSpinnerGears } from "quasar";
 
 import { api } from "boot/axios";
 
@@ -70,32 +70,56 @@ const guardar = (object, refArr, url = "/usuario") => {
 };
 
 // Pedir la eliminación de objetos en la base de datos
-const eliminar = (idsArr = [], list, url = "/usuario") => {
-  Loading.show({
-    message: `Eliminando ${idsArr}. ${url}`,
-    spinner: QSpinnerGears,
-  });
+const eliminar = (objArr = [], list, url = "/usuario") => {
+  console.log("Eliminar");
+  Dialog.create({
+    title: "Confirme eliminación",
+    message: "La eliminación será permanente.",
+    cancel: true,
+    persistent: true,
+    color: "negative",
+    ok: { label: "Eliminar", noCaps: true, flat: true },
+    cancel: { color: "primary", noCaps: true, flat: true },
+  })
+    .onOk(() => {
+      console.log(">>>> OK");
 
-  api
-    .delete(url, idsArr)
-    .then((response) => {
-      // handle success
-      listar(list, url);
-      Notify.create("Eliminación exitosa");
-    })
-    .catch((error) => {
-      // handle error
-      console.log(error);
-      Notify.create({
-        color: "negative",
-        position: "top",
-        message: `Eliminación fallida. ${error.message}. Revise su conexión a internet`,
-        icon: "report_problem",
+      Loading.show({
+        message: `Eliminando ${objArr[0].id}. ${url}`,
+        spinner: QSpinnerGears,
       });
+
+      //CREATE A ids array from the objects array
+      let idsArr = [];
+      objArr.forEach((obj) => idsArr.push(obj.id));
+      console.log(idsArr);
+      //REQUEST TO SERVER
+      api
+        .delete(url, idsArr)
+        .then((response) => {
+          // handle success
+          listar(list, url);
+          Notify.create("Eliminación exitosa");
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+          Notify.create({
+            color: "negative",
+            position: "top",
+            message: `Eliminación fallida. ${error.message}. Revise su conexión a internet`,
+            icon: "report_problem",
+          });
+        })
+        .then(() => {
+          // always
+          Loading.hide();
+          return idsArr;
+        });
     })
-    .then(() => {
-      // always
-      Loading.hide();
+    .onCancel(() => {
+      console.log(">>>> Cancel");
+      return "Canceled by user";
     });
 };
 

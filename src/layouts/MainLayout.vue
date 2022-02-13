@@ -30,7 +30,7 @@ const leftDrawerOpen = ref(false);
 const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
 
 
-const logout =()=>{
+const logout = () => {
   $q.dialog({
     title: 'Confirme cerrar sesión',
     message: 'Deberá iniciar sesión la próxima vez que desee utilizar la aplicación.',
@@ -122,7 +122,7 @@ const drawerItems = [
                 >
                   <img v-if="loggedUser.img" :src="loggedUser.img" :alt="loggedUser.name.charAt(0)" />
                   <ruby v-else>
-                        {{ loggedUser.lastname.replace(/[a-z]/g, '') }}
+                    {{ loggedUser.lastname.replace(/[a-z]/g, '') }}
                     <rt>{{ loggedUser.name.replace(/[a-z]/g, '') }}</rt>
                   </ruby>
                 </q-avatar>

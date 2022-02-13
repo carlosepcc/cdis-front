@@ -11,7 +11,7 @@
 
     <ListPage
       @open-form="showForm = true"
-      @delete-rows="deleteTuples"
+      @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
       title="Artefactos"
       rowKey="id"
       :rows="artefactosArr"
@@ -25,7 +25,7 @@ import ListPage from 'src/components/ListPage.vue';
 import ArtefactoForm from 'components/forms/ArtefactoForm';
 import { provide, ref } from 'vue';
 import listar from 'src/composables/useAPI'
-import { guardar } from 'src/composables/useAPI'
+import { guardar, eliminar } from 'src/composables/useAPI'
 
 const showForm = ref(false);
 const artefactoFields = ref([
@@ -50,26 +50,9 @@ listarArtefactos()
 
 const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado por quinta vez' }, artefactosArr, url)
 
-function deleteTuples(selectedRows = []) {
+const deleteTuples = (selectedRows = []) => eliminar(selectedRows, artefactosArr, url)
 
-  $q.dialog({
-    title: 'Confirme eliminación',
-    message: 'La eliminación será permanente.',
-    cancel: true,
-    persistent: true,
-    color: 'negative',
-    ok: { label: 'Eliminar', noCaps: true, flat: true },
-    cancel: { color: 'primary', noCaps: true, flat: true }
-  }).onOk(() => {
-    console.log('>>>> OK')
-    selectedRows.filter(function (item) {
-      artefactos.value.splice(artefactos.value.indexOf(item), 1);
-      return item;
-    });
-  }).onCancel(() => {
-    console.log('>>>> Cancel')
-    return 'Canceled by user'
-  })
 
-}
+
+
 </script>
