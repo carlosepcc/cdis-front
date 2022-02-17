@@ -1,9 +1,8 @@
 import { Dialog, Notify, QSpinnerGears } from "quasar";
+import isJwtTokenExpired, { decode } from "jwt-check-expiry";
 
 import { api } from "boot/axios";
-import { useRouter } from "vue-router";
-
-const $router = useRouter();
+import state from "./useState";
 
 const login = (loginObject) => {
   let noti = Notify.create({
@@ -13,20 +12,46 @@ const login = (loginObject) => {
     actions: [{ label: "Ocultar", color: "white" }],
   });
 
-  api
-    .post("/login", loginObject)
+  api({
+    url: "/login",
+    method: "POST",
+    data: loginObject,
+    headers: { "Content-Type": "application/json" },
+  })
     .then((response) => {
-      console.log(response.data);
-      api.defaults.headers.common["Authorization"] = response.data;
+      let token = response.data;
+
+      // Establecer token como autorización por defecto para peticiones con axios
+      api.defaults.headers.common["Authorization"] = token;
+
+      let payload = decode(token).payload;
+
+      /* Estructura de la respuesta decodificada
+
+      header: {alg: 'HS256'} !Algoritmo de codificación
+      payload:
+        sub: "admin"         !Username
+        roles:[{ authority: "Administrador"}]
+        iat: 1645133373      !Fecha de creación
+        exp: 1645169373      !Fecha de expiración
+
+      */
+
+      state.loggedUser = {
+        usuario: payload.sub, // In th data subject is the username
+        roles: [payload.roles[0].authority],
+      };
+
+      // Almacenar en localStorage
+      localStorage.setItem("token", token);
+
+      // Notificación
       noti({
         type: "positive",
         spinner: null,
         message: `Sesión iniciada`,
         actions: [{ label: "OK", color: "white" }],
       });
-      localStorage.setItem("token", response.data);
-      console.log(axios.defaults.headers.common["Authorization"]);
-      $router.push("/");
     })
     .catch((error) => {
       console.log(error, "Error en el login");
@@ -176,4 +201,4 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
 };
 
 export default listar;
-export { guardar, eliminar };
+export { guardar, eliminar, login };
