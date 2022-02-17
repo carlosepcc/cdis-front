@@ -42,7 +42,7 @@ const guardar = (object, refArr, url = "/usuario") => {
   });
 
   api({
-    method: (object.id = null ? "post" : "put"),
+    method: object.id ? "put" : "post",
     url: url,
     data: object,
   })

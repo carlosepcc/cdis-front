@@ -2,10 +2,9 @@
   <q-page class="q-pb-xl">
     <ArtefactoForm v-model="showForm" @close-form="showForm = false" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarArtefactos" />
-    <q-btn size="sm" dense flat icon="save" @click="guardarRandom" />
 
     <ListPage
-      @open-form="(obj) => openForm(obj)"
+      @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
       heading="Artefactos"
       rowKey="id"
@@ -46,12 +45,14 @@ listarArtefactos()
 const artefactoBase = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante', }
 provide('artefactoBase', artefactoBase)
 
-const artefactoObject = ref(artefactoBase)
+const artefactoObject = ref()
 provide('artefactoObject', artefactoObject)
 
 const showForm = ref(false);
 
-const openForm = (obj = artefactoBase) => {
+const openForm = (obj = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante', }) => {
+  console.log('openForm')
+  console.log(obj)
   artefactoObject.value = obj
   showForm.value = true
 }

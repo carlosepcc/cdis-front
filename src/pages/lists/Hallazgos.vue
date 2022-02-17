@@ -1,11 +1,6 @@
 <template>
   <q-page class="q-pb-xl">
-    <HallazgoForm
-      formtitle="Hallazgo"
-      :actions="['Guardar', 'Limpiar campos']"
-      v-model="showForm"
-      :data="{}"
-    />
+    <HallazgoForm v-model="showForm" @close-form="showForm = false" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarHallazgos" />
     <ListPage
       @open-form="showForm = true"
@@ -32,14 +27,31 @@ const hallazgoFields = ref([
 
 ])
 
-const hallazgosArr = ref([{ id: 1, producto: 'Producto1', descripcion: 'Descripcion' }])
+const hallazgosArr = ref([{ id: 1, nombre: 'hallazgo en codigo', descripcion: 'Este es un hallazgo de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
+provide('hallazgosArr', hallazgosArr)
 const url = '/hallazgo'
 provide('hallazgoUrl', url)
 
-
 const listarHallazgos = () => listar(hallazgosArr, url)
 provide('listarHallazgos', listarHallazgos)
-
-// fill hallazgosArr
+// execute on component load
 listarHallazgos()
+
+// MODIFICAR (Abrir formulario con datos del objeto a modificar)
+const hallazgoBase = { nombre: `hallazgo ${hallazgosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un hallazgo importante', }
+provide('hallazgoBase', hallazgoBase)
+
+const hallazgoObject = ref(hallazgoBase)
+provide('hallazgoObject', hallazgoObject)
+
+const showForm = ref(false);
+
+const openForm = (obj = hallazgoBase) => {
+  hallazgoObject.value = obj
+  showForm.value = true
+}
+
+// ELIMINAR
+const deleteTuples = (selectedRows = []) => eliminar(selectedRows, hallazgosArr, url)
+
 </script>

@@ -1,8 +1,9 @@
-/* eslint-disable vue/no-ref-as-operand */
 <template>
   <q-dialog position="top">
     <q-card>
-      <q-card-section class="text-h7 text-uppercase text-weight-light">{{ formtitle }}</q-card-section>
+      <q-card-section
+        class="text-h7 text-uppercase text-weight-light"
+      >{{ hallazgoObject.id ? 'Modificar' : 'Nuevo' }} Hallazgo</q-card-section>
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
@@ -93,11 +94,6 @@ const $q = useQuasar();
 import { guardar } from "src/composables/useAPI";
 
 //COMPONENT
-const props = defineProps({
-  formtitle: String,
-  url: String,
-  actions: Array,
-});
 const emits = defineEmits(['closeForm'])
 const url = inject('hallazgoUrl')
 const listarHallazgos = inject('listarHallazgos')
@@ -109,7 +105,7 @@ const formulario = ref()
 const hallazgosArr = inject('hallazgosArr')
 const hallazgoBase = {
   productoAf: "Producto 1",
-  ubicacions: "Ubicacion 1",
+  ubicacion: "Ubicacion 1",
   descripcion: 'Un hallazgo importante',
   tipo: 1,
   fecha: "2022-02-11T17:15:52.960Z",
@@ -126,8 +122,10 @@ function onSubmit() {
 }
 //RESET FORM
 function onReset() {
+  //Reset fields
+  let modifyingObjectId = hallazgoObject.value.id
   hallazgoObject.value = hallazgoBase
-  // eslint-disable-next-line
+  hallazgoObject.value.id = modifyingObjectId
   formulario.value.resetValidation();
   return true
   /* $q.notify('Reestablecidos todos los campos'); */

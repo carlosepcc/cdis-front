@@ -154,7 +154,7 @@
       icon="add"
       title="Nueva entrada"
       color="accent"
-      @click="$emit('openForm')"
+      @click="$emit('openForm', null)"
     />
   </q-page-sticky>
 </template>
@@ -178,7 +178,7 @@ const props = defineProps({
     default: 'id'
   }
 })
-const emit = defineEmits(['openForm', 'deleteRows'])
+const emit = defineEmits(['openForm', 'nuevaEntrada', 'deleteRows'])
 
 // FILTRAR
 const filter = ref('');

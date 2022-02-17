@@ -1,10 +1,10 @@
 /* eslint-disable vue/no-ref-as-operand */
 <template>
-  <q-dialog position="top">
+  <q-dialog position="top" persistent>
     <q-card>
       <q-card-section
         class="text-h7 text-uppercase text-weight-light"
-      >{{ artefactoObject.id !== null ? 'Modificar' : 'Nuevo' }} Artefacto</q-card-section>
+      >{{ artefactoObject.id ? 'Modificar' : 'Nuevo' }} Artefacto</q-card-section>
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
@@ -119,19 +119,20 @@ const artefactoObject = inject('artefactoObject')
 const artefactoBase = inject('artefactoBase')
 //SUBMIT
 const onSubmit = () => {
-  console.log('onSubmit')
   guardar(artefactoObject.value, artefactosArr, url)
 
-  return onReset();
+  //! TODO: No resetear cuando guardar da error
+  onReset();
 }
 
 //RESET FORM
 const onReset = () => {
 
   //Reset fields
-  let modifyingObjectId = artefactoObject.value.id
-  artefactoObject.value = artefactoBase
-  artefactoObject.value.id = modifyingObjectId
+  let modifyingObjectId = artefactoObject.value.id ? artefactoObject.value.id : null
+  artefactoObject.value = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante', }
+  if (modifyingObjectId) { artefactoObject.value.id = modifyingObjectId }
+
 
   formulario.value.resetValidation();
   return true
