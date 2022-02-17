@@ -23,8 +23,25 @@
       <!-- <q-checkbox v-model="accept" label="Recordar usuario" />
       -->
       <div>
-        <q-btn label="Olvidé mi contraseña" no-caps color="primary" flat class="q-ml-sm" />
-
+        <!-- <q-btn
+          label="Olvidé mi contraseña"
+          no-caps
+          color="primary"
+          flat
+          class="q-ml-sm"
+          @input="$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'warning',
+            message: 'Pues te jodiste. Que te creen otra cuenta.'
+          })"
+          @click="$q.dialog({
+            title: '😂  Usted se jodió',
+            message: 'Si el administrador no está almorzando, que le ayude.',
+            color: 'info',
+            ok: { label: 'Ño', noCaps: true, flat: true },
+          })"
+        />-->
         <q-btn label="Entrar" no-caps type="submit" color="primary" />
       </div>
     </q-form>

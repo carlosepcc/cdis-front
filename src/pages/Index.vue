@@ -1,15 +1,18 @@
 <template>
   <q-page class="column items-center justify-evenly">
+    <LoginForm v-if="!state.loggedUser" />
+
     <div class="text-grey column items-center">
       <q-icon name="r_support_agent" size="xl"></q-icon>
       <p
         class="text-center"
-      >Aún no tengo nueva información que mostrarle{{ state.loggedUser.name != '' ? `, ${state.loggedUser.name}` : '' }}.</p>
+      >Aún no tengo nueva información que mostrarle{{ state.loggedUser ? `, ${state.loggedUser.name}` : '' }}.</p>
     </div>
   </q-page>
 </template>
 
 <script setup>
 import state from 'src/composables/useState'
+import LoginForm from 'components/LoginForm'
 
 </script>
