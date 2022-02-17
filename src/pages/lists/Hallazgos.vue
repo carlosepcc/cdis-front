@@ -32,7 +32,7 @@ const hallazgoFields = ref([
 
 ])
 
-const hallazgosArr = ref([])
+const hallazgosArr = ref([{ id: 1, producto: 'Producto1', descripcion: 'Descripcion' }])
 const url = '/hallazgo'
 provide('hallazgoUrl', url)
 

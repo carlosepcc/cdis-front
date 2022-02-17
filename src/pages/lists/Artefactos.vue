@@ -32,7 +32,7 @@ const artefactoFields = ref([
   //{ name: 'attachment', label: 'Adjunto', field: 'adjunto' },
 ]);
 
-const artefactosArr = ref([])
+const artefactosArr = ref([{ id: 1 }])
 provide('artefactosArr', artefactosArr)
 const url = '/artefacto'
 provide('artefactoUrl', url)
@@ -50,15 +50,13 @@ const artefactoObject = ref(artefactoBase)
 provide('artefactoObject', artefactoObject)
 
 const showForm = ref(false);
-const openForm = (obj = null) => {
-  const datosForForm = obj == null ? artefactoBase : obj
-  artefactoObject.value = datosForForm
 
+const openForm = (obj = artefactoBase) => {
+  artefactoObject.value = obj
   showForm.value = true
 }
 
-const guardarRandom = () => guardar({ id: 44, nombre: 'Artefacto modificado por quinta vez' }, artefactosArr, url)
-
+// ELIMINAR
 const deleteTuples = (selectedRows = []) => eliminar(selectedRows, artefactosArr, url)
 
 
