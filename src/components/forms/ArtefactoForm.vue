@@ -116,26 +116,20 @@ const url = inject('artefactoUrl')
 //STATE
 const artefactosArr = inject('artefactosArr')
 const artefactoObject = inject('artefactoObject')
-const artefactoBase = inject('artefactoBase')
+
 //SUBMIT
 const onSubmit = () => {
   guardar(artefactoObject.value, artefactosArr, url)
-
   //! TODO: No resetear cuando guardar da error
   onReset();
 }
 
 //RESET FORM
 const onReset = () => {
-
-  //Reset fields
-  let modifyingObjectId = artefactoObject.value.id ? artefactoObject.value.id : null
-  artefactoObject.value = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante', }
-  if (modifyingObjectId) { artefactoObject.value.id = modifyingObjectId }
-
+  console.log('onReset')
+  //Reset to base values maitaining the id value
+  artefactoObject.value = {id: artefactoObject.value.id, nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante' }
 
   formulario.value.resetValidation();
-  return true
-  /* $q.notify('Reestablecidos todos los campos'); */
 }
 </script>

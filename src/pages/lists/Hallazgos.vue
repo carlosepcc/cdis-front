@@ -38,7 +38,7 @@ provide('listarHallazgos', listarHallazgos)
 listarHallazgos()
 
 // MODIFICAR (Abrir formulario con datos del objeto a modificar)
-const hallazgoBase = { nombre: `hallazgo ${hallazgosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un hallazgo importante', }
+const hallazgoBase = { nombre: `hallazgo ${hallazgosArr.value.length + 1}`, producto: 1, disciplina: 1, descripcion: 'Un hallazgo importante', }
 provide('hallazgoBase', hallazgoBase)
 
 const hallazgoObject = ref(hallazgoBase)
