@@ -1,9 +1,9 @@
 <template>
   <q-page class="q-pb-xl">
-    <HallazgoForm v-model="showForm" @close-form="showForm = false" />
+    <HallazgoForm v-model="showForm" @close-form="closeForm" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarHallazgos" />
     <ListPage
-      @open-form="showForm = true"
+      @open-form="openForm"
       heading="Hallazgos"
       :rows="hallazgosArr"
       :columns="hallazgoFields"
@@ -32,26 +32,33 @@ provide('hallazgosArr', hallazgosArr)
 const url = '/hallazgo'
 provide('hallazgoUrl', url)
 
+//listar
 const listarHallazgos = () => listar(hallazgosArr, url)
 provide('listarHallazgos', listarHallazgos)
 // execute on component load
 listarHallazgos()
 
-// MODIFICAR (Abrir formulario con datos del objeto a modificar)
-const hallazgoBase = { nombre: `hallazgo ${hallazgosArr.value.length + 1}`, producto: 1, disciplina: 1, descripcion: 'Un hallazgo importante', }
-provide('hallazgoBase', hallazgoBase)
 
-const hallazgoObject = ref(hallazgoBase)
-provide('hallazgoObject', hallazgoObject)
-
+//form dialog model
 const showForm = ref(false);
 
-const openForm = (obj = hallazgoBase) => {
-  hallazgoObject.value = obj
-  showForm.value = true
+//closeForm triggered on: Cancel
+const closeForm = () => {
+  showForm.value = false
 }
 
-// ELIMINAR
+// MODIFICAR (Abrir formulario con datos del objeto a modificar)
+const hallazgoObject = ref({})
+provide('hallazgoObject', hallazgoObject)
+
+//openForm triggered on: Nueva entrada, Modificar
+const openForm = (obj = { producto: `Producto ${hallazgosArr.value.length + 1}`, impacto: 'medio', descripcion: 'Un hallazgo importante' }) => {
+  hallazgoObject.value = obj
+  showForm.value = true
+  console.log('openForm')
+}
+
+// delete tuples by array of objects
 const deleteTuples = (selectedRows = []) => eliminar(selectedRows, hallazgosArr, url)
 
 </script>
