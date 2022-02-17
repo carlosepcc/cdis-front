@@ -4,9 +4,12 @@ import { api } from "boot/axios";
 
 // LISTAR (Actualizar Arreglos en el cliente con datos del servidor)
 const listar = (list, url = "/usuario") => {
-  Loading.show({
+  let noti = Notify.create({
+    type: "ongoing",
+    position: "bottom",
     message: `Accediendo al listado ${url}`,
     spinner: QSpinnerGears,
+    actions: [{ label: "Ocultar", color: "white" }],
   });
 
   api
@@ -14,33 +17,37 @@ const listar = (list, url = "/usuario") => {
     .then((response) => {
       // handle success
       list.value = response.data;
-      Loading.hide();
-      Notify.create("Carga exitosa");
+      noti({
+        type: "positive",
+        spinner: null,
+        message: `Carga exitosa.`,
+        timeout: 1000,
+        actions: [{ label: "OK", color: "white" }],
+      });
     })
     .catch((error) => {
       // handle error
       console.log(error);
-      Loading.hide();
-      Notify.create({
-        color: "negative",
-        position: "top",
-        message: `Carga fallida. ${error.message}. Revise su conexión a internet`,
+      noti({
+        type: "negative",
+        spinner: null,
+        message: `Carga fallida. ${error.message}.`,
         icon: "report_problem",
+        actions: [{ label: "OK", color: "white" }],
       });
     })
-    .then(() => {
-      // always
-      Loading.hide();
-    });
 };
 
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
 const guardar = (object, refArr, url = "/usuario") => {
-  Loading.show({
+
+  let noti = Notify.create({
+    type: "ongoing",
+    position: "bottom",
     message: `Guardando. ${url}`,
     spinner: QSpinnerGears,
+    actions: [{ label: "Ocultar", color: "white" }],
   });
-
   api({
     method: object.id ? "put" : "post",
     url: url,
@@ -48,25 +55,26 @@ const guardar = (object, refArr, url = "/usuario") => {
   })
     .then((response) => {
       // handle success
-      Loading.hide();
-      Notify.create("Guardado exitoso");
+      noti({
+        type: "positive",
+        spinner: null,
+        message: "Guardado exitoso.",
+        timeout: 1000,
+        actions: [{ label: "OK", color: "white" }],
+      });
       listar(refArr, url);
     })
     .catch((error) => {
       // handle error
       console.log(error);
-      Loading.hide();
-      Notify.create({
-        color: "negative",
-        position: "top",
-        message: `Guardado fallido. ${error.message}. Revise su conexión a internet`,
+      noti({
+        type: "negative",
+        spinner: null,
+        message: `Guardado fallido. ${error.message}.`,
         icon: "report_problem",
+        actions: [{ label: "OK", color: "white" }],
       });
     })
-    .then(() => {
-      // always
-      Loading.hide();
-    });
 };
 
 // Pedir la eliminación de objetos en la base de datos
@@ -84,9 +92,12 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
     .onOk(() => {
       console.log(">>>> OK");
 
-      Loading.show({
+      let noti = Notify.create({
+        type: "ongoing",
+        position: "bottom",
         message: `Eliminando ${objArr[0].id}. ${url}`,
         spinner: QSpinnerGears,
+        actions: [{ label: "Ocultar", color: "white" }],
       });
 
       //CREATE A ids array from the objects array
@@ -99,16 +110,23 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
         .then((response) => {
           // handle success
           listar(list, url);
-          Notify.create("Eliminación exitosa");
+          noti({
+            type: "positive",
+            spinner: null,
+            message: `Eliminación exitosa de (${idsArr.length}) entrada${idsArr.length==1 ? '.' : 's.'})`,
+            timeout: 1000,
+            actions: [{ label: "OK", color: "white" }],
+          });
         })
         .catch((error) => {
           // handle error
           console.log(error);
-          Notify.create({
-            color: "negative",
-            position: "top",
-            message: `Eliminación fallida. ${error.message}. Revise su conexión a internet`,
+          noti({
+            type: "negative",
+            spinner: null,
+            message: `Eliminación fallida. ${error.message}`,
             icon: "report_problem",
+            actions: [{ label: "OK", color: "white" }],
           });
         })
         .then(() => {
