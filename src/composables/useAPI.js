@@ -38,7 +38,7 @@ const login = (loginObject) => {
       */
 
       state.loggedUser = {
-        usuario: payload.sub, // In th data subject is the username
+        username: payload.sub, // In th data subject is the username
         roles: [payload.roles[0].authority],
       };
 

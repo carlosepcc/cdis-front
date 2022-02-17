@@ -6,17 +6,9 @@ import { ref, provide } from 'vue';
 import { useQuasar } from 'quasar'
 import state from 'src/composables/useState'
 const $q = useQuasar();
+console.log(state)
 
 // VARIABLES
-const loggedUser = ref({
-  id: 1,
-  username: "amturing",
-  name: "Alan",
-  lastname: "Mathinson Turing",
-  roles: ['Usuario', 'Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto', 'Revisor'],
-})
-provide('user', loggedUser)
-
 const globalGrid = ref($q.screen.lt.sm)
 provide('globalGrid', globalGrid);
 
@@ -62,7 +54,7 @@ const drawerItems = [
   { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
 
   // ALL USERS
-  { title: 'Ajustes', icon: 'settings', to: 'settings', forRoles: ['Usuario'], separate: true },
+  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true },
   { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Usuario'] },
   { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Usuario'] },
 ];
@@ -98,10 +90,11 @@ const drawerItems = [
 
         <!-- USER -->
         <q-item
+          v-if="state.loggedUser"
           clickable
           v-ripple
           class="text-white q-py-none absolute-right"
-          :title="loggedUser.username + '. ' + loggedUser.name + '. ' + loggedUser.roles"
+          :title="state.loggedUser.username + '. ' + state.loggedUser.name + '. ' + state.loggedUser.roles"
         >
           <q-menu>
             <div class="row no-wrap q-pa-md">
@@ -120,16 +113,20 @@ const drawerItems = [
                   text-color="primary"
                   class="text-weight-bolder"
                 >
-                  <img v-if="loggedUser.img" :src="loggedUser.img" :alt="loggedUser.name.charAt(0)" />
+                  <img
+                    v-if="state.loggedUser.img"
+                    :src="state.loggedUser.img"
+                    :alt="state.loggedUser.name.charAt(0)"
+                  />
                   <ruby v-else>
-                    {{ loggedUser.lastname.replace(/[a-z]/g, '') }}
-                    <rt>{{ loggedUser.name.replace(/[a-z]/g, '') }}</rt>
+                    {{ state.loggedUser.lastname.replace(/[a-z]/g, '') }}
+                    <rt>{{ state.loggedUser.name.replace(/[a-z]/g, '') }}</rt>
                   </ruby>
                 </q-avatar>
 
                 <div class="q-mt-md q-mb-xs">
-                  {{ loggedUser.name }}
-                  {{ loggedUser.lastname }}
+                  {{ state.loggedUser.name }}
+                  {{ state.loggedUser.lastname }}
                 </div>
 
                 <q-btn
@@ -147,34 +144,34 @@ const drawerItems = [
           <q-item-section side>
             <q-item-label class="text-purple-1 text-weight-light">
               <span class>
-                {{ loggedUser.name }}
-                <span class="gt-xs">{{ loggedUser.lastname }}</span>
+                {{ state.loggedUser.name }}
+                <span class="gt-xs">{{ state.loggedUser.lastname }}</span>
               </span>
             </q-item-label>
             <q-item-label class="text-purple-2 text-bold" caption>
               {{
-                loggedUser.roles[1]
+                state.loggedUser.roles[0]
               }}
             </q-item-label>
           </q-item-section>
           <q-item-section>
             <q-avatar size="xl" color="white" text-color="primary" class="text-weight-bolder">
               <img
-                v-if="loggedUser.img"
-                :src="loggedUser.img"
-                :alt="loggedUser.name.replace(/[a-z]/g, '')"
+                v-if="state.loggedUser.img"
+                :src="state.loggedUser.img"
+                :alt="state.loggedUser.name.replace(/[a-z]/g, '')"
               />
               <ruby v-else>
-                {{ loggedUser.lastname.replace(/[a-z]/g, '') }}
-                <rt>{{ loggedUser.name.replace(/[a-z]/g, '') }}</rt>
+                {{ state.loggedUser.lastname.replace(/[a-z]/g, '') }}
+                <rt>{{ state.loggedUser.name.replace(/[a-z]/g, '') }}</rt>
               </ruby>
               <q-badge
-                :title="loggedUser.roles[1]"
+                :title="state.loggedUser.roles[0]"
                 floating
                 rounded
                 color="primary"
                 class="text-weight-bold text-purple-2"
-              >{{ loggedUser.roles[1].replace(/[a-z]/g, '') }}</q-badge>
+              >{{ state.loggedUser.roles[0].replace(/[a-z]/g, '') }}</q-badge>
             </q-avatar>
           </q-item-section>
         </q-item>
@@ -197,7 +194,7 @@ const drawerItems = [
         <q-list>
           <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
             <DrawerItem
-              v-if="loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol))"
+              v-if="state.loggedUser ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : true"
               v-bind="drawerItem"
             />
           </template>
