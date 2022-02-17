@@ -1,14 +1,19 @@
 <template>
   <q-page class="q-pb-xl">
     <RtecnicoForm v-model="showForm" @close-form="closeForm" />
-    <ListPage heading="Usuarios" @open-form="(payload) => openForm(payload)"
+    <ListPage
+      heading="Usuarios"
+      @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
-      rowKey="id" :rows="rtecnicosArr" :columns="rtecnicoFields"></ListPage>
+      rowKey="id"
+      :rows="rtecnicosArr"
+      :columns="rtecnicoFields"
+    ></ListPage>
   </q-page>
 </template>
 
 <script setup>
-import { ref,provide } from "vue";
+import { ref, provide } from "vue";
 import RtecnicoForm from "src/components/forms/RtecnicoForm";
 import ListPage from 'components/ListPage'
 import listar from 'src/composables/useAPI'
@@ -49,10 +54,8 @@ const closeForm = () => {
 const rtecnicoObject = ref()
 provide('rtecnicoObject', rtecnicoObject)
 
-//openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { nombre: `Reporte Técnico ${rtecnicosArr.value.length + 1}`, estado: 1, tipo: 1,evaluacion:1,
-
-}) => {
+// openForm triggered on: Nueva entrada, Modificar
+const openForm = (obj = { nombre: `Reporte Técnico ${rtecnicosArr.value.length + 1}`, estado: 1, tipo: 1, evaluacion: 1 }) => {
   rtecnicoObject.value = obj
   showForm.value = true
 }

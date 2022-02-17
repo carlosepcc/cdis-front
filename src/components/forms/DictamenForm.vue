@@ -1,6 +1,6 @@
 /* eslint-disable vue/no-ref-as-operand */
 <template>
-  <q-dialog position="top">
+  <q-dialog position="top" persistent>
     <q-card>
       <q-card-section class="text-h7 text-uppercase text-weight-light">{{ formtitle }}</q-card-section>
       <q-separator />

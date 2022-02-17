@@ -1,6 +1,8 @@
 <template>
   <q-page padding>
-    <ListPage
+    <ListPage @open-form="(payload) => openForm(payload)"
+      @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
+      rowKey="id"
       heading="Reportes de Notificación"
       :rows="rnotificacionArr"
       :columns="rnotificacionFields"

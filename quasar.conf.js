@@ -101,7 +101,8 @@ module.exports = configure(function (ctx) {
         notify: {
           type: "positive",
           message: "Acción completada con éxito",
-          position: "top",
+          position: "bottom",
+          timeout:1000
         },
       },
 

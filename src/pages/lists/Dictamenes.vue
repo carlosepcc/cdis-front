@@ -1,6 +1,8 @@
 <template>
-  <q-page padding>
-    <ListPage heading="Dictámenes técnicos" :rows="dictamenesArr" :columns="dictamenFields" />
+  <q-page>
+    <ListPage @open-form="(payload) => openForm(payload)"
+      @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
+      rowKey="id" heading="Dictámenes técnicos" :rows="dictamenesArr" :columns="dictamenFields" />
   </q-page>
 </template>
 

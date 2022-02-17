@@ -2,8 +2,9 @@
   <q-page class="q-pb-xl">
     <HallazgoForm v-model="showForm" @close-form="closeForm" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarHallazgos" />
-    <ListPage
-      @open-form="openForm"
+    <ListPage @open-form="(payload) => openForm(payload)"
+      @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
+      rowKey="id"
       heading="Hallazgos"
       :rows="hallazgosArr"
       :columns="hallazgoFields"

@@ -2,7 +2,7 @@
   <q-separator v-if="separate" class="q-mt-lg" />
   <q-item clickable v-ripple :to="to">
     <q-item-section avatar>
-      <q-icon v-if="icon" :name="icon ? icon : picon" />
+      <q-icon v-if="icon" :name="icon" />
       <span v-else>{{ alt }}</span>
     </q-item-section>
     <q-item-section>

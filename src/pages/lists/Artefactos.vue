@@ -6,8 +6,8 @@
     <ListPage
       @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
-      heading="Artefactos"
       rowKey="id"
+      heading="Artefactos"
       :rows="artefactosArr"
       :columns="artefactoFields"
     />

@@ -1,4 +1,4 @@
-import { Dialog, Loading, Notify, QSpinnerGears } from "quasar";
+import { Dialog, Notify, QSpinnerGears } from "quasar";
 
 import { api } from "boot/axios";
 
@@ -6,7 +6,6 @@ import { api } from "boot/axios";
 const listar = (list, url = "/usuario") => {
   let noti = Notify.create({
     type: "ongoing",
-    position: "bottom",
     message: `Accediendo al listado ${url}`,
     spinner: QSpinnerGears,
     actions: [{ label: "Ocultar", color: "white" }],
@@ -31,7 +30,7 @@ const listar = (list, url = "/usuario") => {
       noti({
         type: "negative",
         spinner: null,
-        message: `Carga fallida. ${error.message}.`,
+        message: `Carga fallida de ${url}. ${error.message}.`,
         icon: "report_problem",
         actions: [{ label: "OK", color: "white" }],
       });
@@ -43,7 +42,6 @@ const guardar = (object, refArr, url = "/usuario") => {
 
   let noti = Notify.create({
     type: "ongoing",
-    position: "bottom",
     message: `Guardando. ${url}`,
     spinner: QSpinnerGears,
     actions: [{ label: "Ocultar", color: "white" }],
@@ -59,7 +57,6 @@ const guardar = (object, refArr, url = "/usuario") => {
         type: "positive",
         spinner: null,
         message: "Guardado exitoso.",
-        timeout: 1000,
         actions: [{ label: "OK", color: "white" }],
       });
       listar(refArr, url);
@@ -90,8 +87,6 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
     cancel: { color: "primary", noCaps: true, flat: true },
   })
     .onOk(() => {
-      console.log(">>>> OK");
-
       let noti = Notify.create({
         type: "ongoing",
         position: "bottom",
@@ -131,12 +126,10 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
         })
         .then(() => {
           // always
-          Loading.hide();
           return idsArr;
         });
     })
     .onCancel(() => {
-      console.log(">>>> Cancel");
       return "Canceled by user";
     });
 };

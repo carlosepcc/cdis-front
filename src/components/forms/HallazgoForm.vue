@@ -1,5 +1,5 @@
 <template>
-  <q-dialog position="top">
+  <q-dialog persistent position="top">
     <q-card>
       <q-card-section
         class="text-h7 text-uppercase text-weight-light"

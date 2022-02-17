@@ -2,7 +2,7 @@
   <q-dialog position="top" persistent>
     <q-card class="hide-scrollbar">
       <q-card-section class="text-h7 text-uppercase text-weight-light">
-        {{ rtecnicoObject.id ? 'Modificar' : 'Nuevo' }} Reporte Técnico
+        {{ userObject.id ? 'Modificar' : 'Nuevo' }} user
         <q-btn color="grey" flat icon="close" @click="$emit('closeForm')" />
       </q-card-section>
       <q-separator />
@@ -13,39 +13,8 @@
               autofocus
               :dense="state.dense"
               filled
-              v-model="rtecnicoObject.nombre"
-              label="Nombre del Reporte Técnico"
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-              ]"
-            />
-
-            <q-select
-              :dense="state.dense"
-              v-model="rtecnicoObject.estado"
-              default
-              filled
-              :options="[1, 2, 3]"
-              label="Estado"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
-            />
-            <q-select
-              :dense="state.dense"
-              v-model="rtecnicoObject.tipo"
-              default
-              filled
-              :options="[1, 2, 3]"
-              label="Tipo"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
-            />
-            <q-input
-              :dense="state.dense"
-              filled
-              v-model="rtecnicoObject.local"
-              label="Local"
+              v-model="userObject.name"
+              label="Nombre"
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
@@ -54,10 +23,9 @@
 
             <q-input
               :dense="state.dense"
+              label="Apellidos"
+              v-model="userObject.lastname"
               filled
-              v-model="rtecnicoObject.inicio"
-              label="Fecha de inicio"
-              type="date"
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
@@ -65,10 +33,24 @@
             />
             <q-input
               :dense="state.dense"
+              label="Nombre de usuario"
+              v-model="userObject.username"
+              :value="toLowercase(userObject.name.charAt(0)+userObject.lastname.replace(' /g',''))"
               filled
-              v-model="rtecnicoObject.cumplimiento"
-              label="Fecha de cumplimiento"
-              type="date"
+              lazy-rules
+              :rules="[
+                (val) => (val && val.length > 0) || 'Por favor, escriba algo',
+                (val) => (val && val.length < 32) || 'Por favor, no más de 32 caracteres',
+                (val) => (val && /^[a-z]+$/.test(val)) || 'Por favor, sólo caracteres de a-z',
+              ]"
+            />
+
+            <q-input
+              :dense="state.dense"
+              label="Contraseña"
+              v-model="userObject.contrasenna"
+              type="password"
+              filled
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
@@ -76,51 +58,16 @@
             />
 
             <q-select
+            multiple
               :dense="state.dense"
-              v-model="rtecnicoObject.evaluacion"
-              default
+              v-model="artefactoObject.roles"
               filled
-              :options="[1, 2, 3]"
-              label="Evaluación"
+              :options="['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor']"
+              label="Roles"
               lazy-rules
               :rules="[val || 'Por favor, seleccione algo']"
             />
-            <q-input
-              :dense="state.dense"
-              label="Descripción"
-              v-model="rtecnicoObject.descripcion"
-              filled
-              autogrow
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-              ]"
-            />
-            <q-select
-              :dense="state.dense"
-              v-model="rtecnicoObject.revisor"
-              default
-              filled
-              :options="usersArr.filter(user => user.roles.includes('Revisor'))"
-              label="Revisor"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione un trabajador']"
-            />
-            <!-- <q-file
-              :dense="state.dense"
-              filled
-              v-model="artefactoObject.file"
-              label="Adjunto"
-              counter
-              use-chips
-              append
-              clearable
-              accept=".doc, .docx, .odt, .xml, .pdf, .xsl, .xslx, ppt, .pptx, .odp, .ods, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            >
-              <template v-slot:prepend>
-                <q-icon name="attach_file" />
-              </template>
-            </q-file> -->
+
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
 
@@ -147,7 +94,7 @@
               :size="state.dense ? 'sm' : 'md'"
               class="full-width"
               icon="r_save"
-              :label="rtecnicoObject.id ? 'Modificar' : 'Guardar'"
+              :label="userObject.id ? 'Modificar' : 'Guardar'"
               type="submit"
               color="primary"
             />
@@ -161,23 +108,22 @@
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
 import state from "src/composables/useState"
-import { usersArr } from 'src/composables/useState'
 
 //DOM
 const formulario = ref()
 
 //COMPONENT
 const emits = defineEmits(['closeForm'])
-const url = inject('rtecnicoUrl')
+const url = inject('userUrl')
 
 
 //STATE
-const rtecnicosArr = inject('rtecnicosArr')
-const rtecnicoObject = inject('rtecnicoObject')
+const usersArr = inject('usersArr')
+const userObject = inject('userObject')
 
 //SUBMIT
 const onSubmit = () => {
-  guardar(rtecnicoObject.value, rtecnicosArr, url)
+  guardar(userObject.value, usersArr, url)
   onReset();
   //! TODO: No resetear cuando guardar da error
 }
@@ -185,7 +131,7 @@ const onSubmit = () => {
 //RESET FORM
 const onReset = () => {
   //Reset to base values maitaining the id value
-  rtecnicoObject.value = {}
+  userObject.value = { id: userObject.value.id, nombre: `user ${usersArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un user importante' }
   //Clear validation error messages.
   formulario.value.resetValidation();
 }

@@ -20,5 +20,9 @@ const state = ref({
     ],
   },
 });
+export const usersArr = ref([
+  {username: "revisorcito",roles:['Revisor']},
+  {username: "encargadito",roles:['Encargado de proyecto']}
+])
 
 export default state;
