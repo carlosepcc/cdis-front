@@ -124,11 +124,14 @@ const onSubmit = () => {
 
   return onReset();
 }
+
 //RESET FORM
 const onReset = () => {
 
-  //RESET FIELDS
-  artefactoObject.value = artefactoBase.value
+  //Reset fields
+  let modifyingObjectId = artefactoObject.value.id
+  artefactoObject.value = artefactoBase
+  artefactoObject.value.id = modifyingObjectId
 
   formulario.value.resetValidation();
   return true

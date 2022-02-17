@@ -32,7 +32,7 @@ const artefactoFields = ref([
   //{ name: 'attachment', label: 'Adjunto', field: 'adjunto' },
 ]);
 
-const artefactosArr = ref([{ id: 1 }])
+const artefactosArr = ref([{ id: 1, nombre: 'Artefacto en codigo', descripcion: 'Este es un artefacto de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
 provide('artefactosArr', artefactosArr)
 const url = '/artefacto'
 provide('artefactoUrl', url)
