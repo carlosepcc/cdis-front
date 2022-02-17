@@ -1,6 +1,6 @@
 <template>
   <q-dialog position="top" persistent>
-    <q-card>
+    <q-card class="hide-scrollbar">
       <q-card-section class="text-h7 text-uppercase text-weight-light">
         {{ artefactoObject.id ? 'Modificar' : 'Nuevo' }} Artefacto
         <q-btn color="grey" flat icon="close" @click="$emit('closeForm')" />
@@ -78,21 +78,23 @@
                 label="Restablecer"
                 type="reset"
                 flat
-                color="negative"
+                no-caps
               />
               <q-btn
                 :size="state.dense ? 'sm' : 'md'"
                 label="Cancelar"
                 flat
+                no-caps
                 @click="$emit('closeForm')"
               />
             </q-btn-group>
             <q-btn
               push
+              no-caps
               :size="state.dense ? 'sm' : 'md'"
               class="full-width"
               icon="r_save"
-              label="Guardar"
+              :label="artefactoObject.id ? 'Modificar' : 'Guardar'"
               type="submit"
               color="primary"
             />

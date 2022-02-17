@@ -64,7 +64,7 @@
             :dense="state.dense"
             v-model="hallazgoObject.impacto"
             filled
-            :options="[1, 2, 3]"
+            :options="['bajo', 'medio', 'alto']"
             label="Impacto"
             lazy-rules
             :rules="[val || 'Por favor, seleccione algo']"
