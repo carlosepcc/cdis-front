@@ -5,7 +5,8 @@ import { ref } from "vue";
 const state = ref({
   dense: Screen.lt.sm,
   grid: Screen.lt.sm,
-  loggedUser: {
+  loggedUser: localStorage.getItem('loggedUser'),
+  loggedUserTest: {
     id: 1,
     username: "amturing",
     name: "Alan",

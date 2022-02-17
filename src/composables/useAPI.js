@@ -1,6 +1,44 @@
 import { Dialog, Notify, QSpinnerGears } from "quasar";
 
 import { api } from "boot/axios";
+import { useRouter } from "vue-router";
+
+const $router = useRouter();
+
+const login = (loginObject) => {
+  let noti = Notify.create({
+    type: "ongoing",
+    message: `Iniciando sesión para ${loginObject.username}`,
+    spinner: QSpinnerGears,
+    actions: [{ label: "Ocultar", color: "white" }],
+  });
+
+  api
+    .post("/login", loginObject)
+    .then((response) => {
+      console.log(response.data);
+      api.defaults.headers.common["Authorization"] = response.data;
+      noti({
+        type: "positive",
+        spinner: null,
+        message: `Sesión iniciada`,
+        actions: [{ label: "OK", color: "white" }],
+      });
+      localStorage.setItem("token", response.data);
+      console.log(axios.defaults.headers.common["Authorization"]);
+      $router.push("/");
+    })
+    .catch((error) => {
+      console.log(error, "Error en el login");
+      noti({
+        type: "negative",
+        spinner: null,
+        message: `Falló el inicio de sesión. ${error.message}.`,
+        icon: "report_problem",
+        actions: [{ label: "OK", color: "white" }],
+      });
+    });
+};
 
 // LISTAR (Actualizar Arreglos en el cliente con datos del servidor)
 const listar = (list, url = "/usuario") => {
@@ -34,12 +72,11 @@ const listar = (list, url = "/usuario") => {
         icon: "report_problem",
         actions: [{ label: "OK", color: "white" }],
       });
-    })
+    });
 };
 
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
 const guardar = (object, refArr, url = "/usuario") => {
-
   let noti = Notify.create({
     type: "ongoing",
     message: `Guardando. ${url}`,
@@ -71,7 +108,7 @@ const guardar = (object, refArr, url = "/usuario") => {
         icon: "report_problem",
         actions: [{ label: "OK", color: "white" }],
       });
-    })
+    });
 };
 
 // Pedir la eliminación de objetos en la base de datos
@@ -90,7 +127,9 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
       let noti = Notify.create({
         type: "ongoing",
         position: "bottom",
-        message: `Eliminando ${objArr.length} entrada${idsArr.length==1 ? '.' : 's.'} ${url}`,
+        message: `Eliminando ${objArr.length} entrada${
+          idsArr.length == 1 ? "." : "s."
+        } ${url}`,
         spinner: QSpinnerGears,
         actions: [{ label: "Ocultar", color: "white" }],
       });
@@ -108,7 +147,9 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
           noti({
             type: "positive",
             spinner: null,
-            message: `Eliminación exitosa de (${idsArr.length}) entrada${idsArr.length==1 ? '.' : 's.'})`,
+            message: `Eliminación exitosa de (${idsArr.length}) entrada${
+              idsArr.length == 1 ? "." : "s."
+            })`,
             timeout: 1000,
             actions: [{ label: "OK", color: "white" }],
           });

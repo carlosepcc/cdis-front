@@ -1,29 +1,37 @@
 <template>
-  <div class="q-pa-md" style="max-width: 400px">
-    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-      <q-input
-        filled
-        v-model="username"
-        label="usuario"
-        lazy-rules
-        :rules="[val => val && val.length > 0 || 'Por favor, esrciba algo']"
-      />
+  <q-card class="q-pa-md shadow-1 hide-scrollbar rounded-borders" style="max-width: 400px">
+    <q-card-section class="text-h7 text-uppercase text-weight-light">
+     Iniciar sesión
+      </q-card-section>
+    <q-separator />
+    <q-card-section>
+      <q-form @submit="onSubmit" @reset="onReset" ref="formulario" class="q-gutter-md">
+        <q-input
+          filled
+          :dense="state.dense"
+          v-model="loginObject.usuario"
+          label="usuario"
+          lazy-rules
+          max-length="32"
+          :rules="[val => val && val.length > 0 || 'Por favor, esrciba algo']"
+        />
 
-      <q-input
-        filled
-        type="password"
-        v-model="password"
-        label="Contraseña"
-        lazy-rules
-        :rules="[
-          val => val !== null && val !== '' || 'Por favor, escriba su contraseña'
-        ]"
-      />
+        <q-input
+          filled
+          :dense="state.dense"
+          type="password"
+          v-model="loginObject.contrasenna"
+          label="Contraseña"
+          lazy-rules
+          :rules="[
+            val => val !== null && val !== '' || 'Por favor, escriba su contraseña'
+          ]"
+        />
 
-      <!-- <q-checkbox v-model="accept" label="Recordar usuario" />
-      -->
-      <div>
-        <!-- <q-btn
+        <!-- <q-checkbox v-model="accept" label="Recordar usuario" />
+        -->
+        <div>
+          <!-- <q-btn
           label="Olvidé mi contraseña"
           no-caps
           color="primary"
@@ -41,55 +49,53 @@
             color: 'info',
             ok: { label: 'Ño', noCaps: true, flat: true },
           })"
-        />-->
-        <q-btn label="Entrar" no-caps type="submit" color="primary" />
-      </div>
-    </q-form>
-  </div>
+          />-->
+          <q-btn-group
+                push
+                 spread clas="full-width q-mt-md">
+              <q-btn
+                :size="state.dense ? 'sm' : 'md'"
+                label="Restablecer"
+                type="reset"
+                no-caps
+                push
+              />
+          <q-btn label="Entrar" push no-caps class="full-width" type="submit" color="primary" />
+          </q-btn-group>
+        </div>
+      </q-form>
+    </q-card-section>
+  </q-card>
 </template>
 
-<script>
+<script setup>
 import { useQuasar } from 'quasar'
 import { ref } from 'vue'
+import { login } from "src/composables/useAPI";
+import state from "src/composables/useState"
 
-export default {
-  setup() {
-    const $q = useQuasar()
+const $q = useQuasar()
 
-    const name = ref(null)
-    const age = ref(null)
-    const accept = ref(false)
+const formulario = ref()
 
-    return {
-      name,
-      age,
-      accept,
 
-      onSubmit() {
-        if (accept.value !== true) {
-          $q.notify({
-            color: 'red-5',
-            textColor: 'white',
-            icon: 'warning',
-            message: 'You need to accept the license and terms first'
-          })
-        }
-        else {
-          $q.notify({
-            color: 'green-4',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Submitted'
-          })
-        }
-      },
+const loginObject = ref({ usuario: '', contrasenna: '' })
 
-      onReset() {
-        name.value = null
-        age.value = null
-        accept.value = false
-      }
-    }
-  }
+//SUBMIT
+const onSubmit = () => {
+  login(loginObject.value)
+  onReset();
+  //! TODO: No resetear cuando da error
 }
+
+//RESET FORM
+const onReset = () => {
+  //Reset to base values
+  loginObject.value = { usuario: '', contrasenna: '' }
+  //Clear validation error messages.
+  formulario.value.resetValidation();
+}
+
+
+
 </script>
