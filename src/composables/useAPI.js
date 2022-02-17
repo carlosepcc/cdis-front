@@ -70,7 +70,7 @@ const guardar = (object, refArr, url = "/usuario") => {
       noti({
         type: "negative",
         spinner: null,
-        message: `Guardado fallido. ${error.message}.`,
+        message: `Guardado fallido de ${url}. ${error.message}.`,
         icon: "report_problem",
         actions: [{ label: "OK", color: "white" }],
       });
@@ -81,7 +81,7 @@ const guardar = (object, refArr, url = "/usuario") => {
 const eliminar = (objArr = [], list, url = "/usuario") => {
   console.log("Eliminar");
   Dialog.create({
-    title: "Confirme eliminación",
+    title: "Confirme la eliminación",
     message: "La eliminación será permanente.",
     cancel: true,
     persistent: true,
@@ -95,7 +95,7 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
       let noti = Notify.create({
         type: "ongoing",
         position: "bottom",
-        message: `Eliminando ${objArr[0].id}. ${url}`,
+        message: `Eliminando ${objArr.length} entrada${idsArr.length==1 ? '.' : 's.'} ${url}`,
         spinner: QSpinnerGears,
         actions: [{ label: "Ocultar", color: "white" }],
       });
@@ -124,7 +124,7 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
           noti({
             type: "negative",
             spinner: null,
-            message: `Eliminación fallida. ${error.message}`,
+            message: `Eliminación fallida de ${url}. ${error.message}`,
             icon: "report_problem",
             actions: [{ label: "OK", color: "white" }],
           });

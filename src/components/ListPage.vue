@@ -118,8 +118,8 @@
 
       <!-- BODY SLOT -->
     </template>
-    <template v-slot:body="props">
-      <q-tr :props="props" clickable @click="$emit('openForm', props.row)">
+    <template v-slot:body="props" cursor-pointer>
+      <q-tr :props="props" title="Haga click para modificar esta entrada" clickable class="cursor-pointer" @click="$emit('openForm', props.row)">
         <q-td auto-width>
           <q-checkbox :dense="isTableDense" v-model="props.selected" />
           <!-- TODO: MODIFY -->
@@ -129,7 +129,7 @@
             flat
             round
             :dense="isTableDense"
-            @click="$emit('openForm', props.row)"
+            @click.stop="$emit('openForm', props.row)"
             icon="edit"
           />
           <q-btn
@@ -138,7 +138,7 @@
             flat
             round
             :dense="isTableDense"
-            @click="$emit('deleteRows', [props.row])"
+            @click.stop="$emit('deleteRows', [props.row])"
             icon="delete"
           />
         </q-td>
