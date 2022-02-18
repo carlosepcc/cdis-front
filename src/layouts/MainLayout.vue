@@ -65,7 +65,8 @@ const drawerItems = [
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar class="brand-bar">
         <div id="brand-frame" class="text-primary">
-          <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+          <q-btn
+            v-if="state.loggedUser" dense flat round icon="menu" @click="toggleLeftDrawer" />
 
           <q-toolbar-title>
             <div class="row">
@@ -159,6 +160,8 @@ const drawerItems = [
 
     <!--MENU LATERAL (DRAWER "gaveta") -->
     <q-drawer
+
+            v-if="state.loggedUser"
       v-model="leftDrawerOpen"
       show-if-above
       :mini="miniState"
