@@ -102,7 +102,7 @@ module.exports = configure(function (ctx) {
           type: "positive",
           message: "Acción completada con éxito",
           position: "bottom",
-          timeout:1000
+          timeout:2000
         },
       },
 

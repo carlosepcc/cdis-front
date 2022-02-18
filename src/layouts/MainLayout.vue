@@ -41,7 +41,7 @@ const logout = () => {
 }
 
 const drawerItems = [
-  { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Usuario'] },
+  { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
 
   //REVISOR
   { title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Revisor'], separate: true },
@@ -54,9 +54,9 @@ const drawerItems = [
   { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
 
   // ALL USERS
-  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true },
-  { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Usuario'] },
-  { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Usuario'] },
+  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true, forRoles:['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
+  { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
+  { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
 ];
 </script>
 
@@ -107,28 +107,6 @@ const drawerItems = [
               <q-separator vertical inset class="q-mx-lg" />
 
               <div class="column items-center">
-                <q-avatar
-                  size="xl"
-                  color="purple-1"
-                  text-color="primary"
-                  class="text-weight-bolder"
-                >
-                  <img
-                    v-if="state.loggedUser.img"
-                    :src="state.loggedUser.img"
-                    :alt="state.loggedUser.name.charAt(0)"
-                  />
-                  <ruby v-else>
-                    {{ state.loggedUser.lastname.replace(/[a-z]/g, '') }}
-                    <rt>{{ state.loggedUser.name.replace(/[a-z]/g, '') }}</rt>
-                  </ruby>
-                </q-avatar>
-
-                <div class="q-mt-md q-mb-xs">
-                  {{ state.loggedUser.name }}
-                  {{ state.loggedUser.lastname }}
-                </div>
-
                 <q-btn
                   color="primary"
                   label="Cerrar sesión"
@@ -144,7 +122,7 @@ const drawerItems = [
           <q-item-section side>
             <q-item-label class="text-purple-1 text-weight-light">
               <span class>
-                {{ state.loggedUser.name }}
+                {{ state.loggedUser.name ? state.loggedUser.name : state.loggedUser.username}}
                 <span class="gt-xs">{{ state.loggedUser.lastname }}</span>
               </span>
             </q-item-label>
@@ -159,12 +137,13 @@ const drawerItems = [
               <img
                 v-if="state.loggedUser.img"
                 :src="state.loggedUser.img"
-                :alt="state.loggedUser.name.replace(/[a-z]/g, '')"
+                :alt="state.loggedUser.username.charAt(0)"
               />
-              <ruby v-else>
+              <span v-else>{{state.loggedUser.username.charAt(0)}}</span>
+              <!-- <ruby v-else>
                 {{ state.loggedUser.lastname.replace(/[a-z]/g, '') }}
                 <rt>{{ state.loggedUser.name.replace(/[a-z]/g, '') }}</rt>
-              </ruby>
+              </ruby> -->
               <q-badge
                 :title="state.loggedUser.roles[0]"
                 floating
@@ -194,7 +173,7 @@ const drawerItems = [
         <q-list>
           <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
             <DrawerItem
-              v-if="state.loggedUser ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : true"
+              v-show="state.loggedUser != null ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : true"
               v-bind="drawerItem"
             />
           </template>

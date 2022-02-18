@@ -36,14 +36,19 @@ const login = (loginObject) => {
         exp: 1645169373      !Fecha de expiración
 
       */
-
-      state.loggedUser = {
+console.log(payload.roles[0].authority)
+      state.value.loggedUser = {
         username: payload.sub, // In th data subject is the username
         roles: [payload.roles[0].authority],
       };
+      console.log(state.value.loggedUser);
 
       // Almacenar en localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem("loggedUser", {
+        username: payload.sub, // In th data subject is the username
+        roles: [payload.roles[0].authority],
+      });
 
       // Notificación
       noti({
