@@ -158,7 +158,7 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
         type: "ongoing",
         position: "bottom",
         message: `Eliminando ${objArr.length} entrada${
-          idsArr.length == 1 ? "." : "s."
+          objArr.length == 1 ? "." : "s."
         } ${url}`,
         spinner: QSpinnerGears,
         actions: [{ label: "Ocultar", color: "white" }],

@@ -16,7 +16,7 @@
 import { ref, provide } from "vue";
 import ListPage from 'components/ListPage'
 import HallazgoForm from 'components/forms/HallazgoForm'
-import listar from 'src/composables/useAPI'
+import listar,{eliminar} from 'src/composables/useAPI'
 
 const hallazgoFields = ref([
   { name: 'producto', required: true, label: 'Producto afectado', align: 'left', field: 'productoAf', sortable: true },
