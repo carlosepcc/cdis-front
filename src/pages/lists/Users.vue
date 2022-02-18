@@ -22,22 +22,36 @@ const userFields = ref([
 
 
 
-// fill usersArr
-listar(usersArr, '/usuario')
 
-/*
-function removeRow(id = 1, rows) {
-console.log('function remove triggered')
-  var index = rows.findIndex(function(currentValue){
-     return currentValue.id === id;
-})
-if (index != -1){
-  rows.splice(index,1)
-  console.log('spliced')
-}else{
+const url = '/user'
+provide('userUrl', url)
 
-  console.log('index not found')
+//listar
+const listarUsers = () => listar(usersArr, url)
+provide('listarUsers', listarUsers)
+// execute on component load
+listarUsers()
+
+
+//form dialog model
+const showForm = ref(false);
+
+//closeForm triggered on: Cancel
+const closeForm = () => {
+  showForm.value = false
 }
 
-}*/
+// MODIFICAR (Abrir formulario con datos del objeto a modificar)
+const userObject = ref()
+provide('userObject', userObject)
+
+//openForm triggered on: Nueva entrada, Modificar
+const openForm = (obj = { nombre: `user ${usersArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un user importante' }) => {
+  userObject.value = obj
+  showForm.value = true
+}
+
+// delete tuples by array of objects
+const deleteTuples = (selectedRows = []) => eliminar(selectedRows, usersArr, url)
+
 </script>

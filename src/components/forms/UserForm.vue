@@ -35,7 +35,6 @@
               :dense="state.dense"
               label="Nombre de usuario"
               v-model="userObject.username"
-              :value="toLowercase(userObject.name.charAt(0)+userObject.lastname.replace(' /g',''))"
               filled
               lazy-rules
               :rules="[
@@ -58,9 +57,8 @@
             />
 
             <q-select
-            multiple
               :dense="state.dense"
-              v-model="artefactoObject.roles"
+              v-model="userObject.roles"
               filled
               :options="['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor']"
               label="Roles"
@@ -107,7 +105,7 @@
 <script setup>
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
-import state from "src/composables/useState"
+import state,{usersArr} from "src/composables/useState"
 
 //DOM
 const formulario = ref()
@@ -118,7 +116,6 @@ const url = inject('userUrl')
 
 
 //STATE
-const usersArr = inject('usersArr')
 const userObject = inject('userObject')
 
 //SUBMIT
