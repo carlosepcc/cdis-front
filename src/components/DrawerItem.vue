@@ -1,6 +1,11 @@
 <template>
+<div>
   <q-separator v-if="separate" class="q-mt-lg" />
-  <q-item clickable v-ripple :to="to">
+  <q-item
+    clickable
+    v-ripple
+    :to="to"
+  >
     <q-item-section avatar>
       <q-icon v-if="icon" :name="icon" />
       <span v-else>{{ alt }}</span>
@@ -10,8 +15,10 @@
       <q-item-label caption>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
+  </div>
 </template>
 <script setup>
+import state from "src/composables/useState"
 const props = defineProps({
   title: {
     type: String,
@@ -39,6 +46,9 @@ const props = defineProps({
   },
   color: {
     type: String,
+  },
+  forRoles: {
+    type: Array,
   }
 })
 </script>

@@ -176,7 +176,7 @@ const drawerItems = [
         <q-list>
           <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
             <DrawerItem
-              v-show="state.loggedUser != null ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : true"
+              v-show="state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol))"
               v-bind="drawerItem"
             />
           </template>
