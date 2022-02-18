@@ -1,6 +1,8 @@
 <template>
   <q-page class="q-pb-xl">
     <RtecnicoForm v-model="showForm" @close-form="closeForm" />
+
+    <q-btn size="sm" dense flat icon="refresh" @click="listarRtecnicos" />
     <ListPage
       heading="Usuarios"
       @open-form="(payload) => openForm(payload)"
@@ -19,7 +21,6 @@ import ListPage from 'components/ListPage'
 import listar from 'src/composables/useAPI'
 import { eliminar } from 'src/composables/useAPI'
 
-const rtecnicosArr = ref([])
 const rtecnicoFields = ref([
   { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true },
   { name: 'estado', required: true, label: 'Estado', align: 'left', field: 'estado', sortable: true },
@@ -34,6 +35,9 @@ const rtecnicoFields = ref([
 ])
 const url = '/reportetecnico'
 provide('rtecnicoUrl', url)
+
+const rtecnicosArr = ref([])
+provide('rtecnicosArr', rtecnicosArr)
 
 //listar
 const listarRtecnicos = () => listar(rtecnicosArr, url)

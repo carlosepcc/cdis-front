@@ -107,6 +107,7 @@ const listar = (list, url = "/usuario") => {
 
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
 const guardar = (object, refArr, url = "/usuario") => {
+  console.log(`Guardando ${object},${refArr.value}`)
   let noti = Notify.create({
     type: "ongoing",
     message: `Guardando. ${url}`,

@@ -1,6 +1,8 @@
 <template>
   <q-page padding>
     <MinutaForm  v-model="showForm" @close-form="closeForm" />
+
+    <q-btn size="sm" dense flat icon="refresh" @click="listarMinutas" />
     <ListPage @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
       rowKey="id" heading="Minutas de reunión" :rows="minutasArr" :columns="minutaFields"></ListPage>
@@ -12,6 +14,7 @@ import { ref,provide } from "vue";
 import ListPage from 'components/ListPage'
 import listar from 'src/composables/useAPI'
 import MinutaForm from "src/components/forms/MinutaForm";
+import {usersArr} from 'src/composables/useState'
 
 const minutaFields = ref([
   { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
@@ -45,7 +48,7 @@ const minutaObject = ref()
 provide('minutaObject', minutaObject)
 
 //openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { revisor: usersArr.filter(user => user.roles.includes('Revisor'))[0], encargado: usersArr.filter(user => user.roles.includes('Encargado'))[0] }) => {
+const openForm = (obj = { revisor: usersArr.value.filter(user => user.roles.includes('Revisor'))[0], encargado: usersArr.value.filter(user => user.roles.includes('Encargado'))[0] }) => {
   minutaObject.value = obj
   showForm.value = true
 }

@@ -1,6 +1,8 @@
 <template>
   <q-page padding>
     <UserForm v-model="showForm" @close-form="closeForm" />
+
+    <q-btn size="sm" dense flat icon="refresh" @click="listarUsers" />
     <ListPage @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
       rowKey="id" heading="Usuarios" :rows="usersArr" :columns="userFields"></ListPage>
