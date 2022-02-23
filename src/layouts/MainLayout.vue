@@ -58,6 +58,7 @@ const drawerItems = [
   { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
   { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
 ];
+
 </script>
 
 <template>
@@ -175,7 +176,7 @@ const drawerItems = [
       <q-scroll-area class="fit">
         <q-list>
           <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
-            <DrawerItem
+              <DrawerItem
               v-show="state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol))"
               v-bind="drawerItem"
             />

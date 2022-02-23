@@ -22,8 +22,8 @@ const state = ref({
   },
 });
 export const usersArr = ref([
-  {username: "revisorcito",roles:['Revisor']},
-  {username: "encargadito",roles:['Encargado de proyecto']}
+  {username: "alanmt",pass:'823k4c324c2n3473223', roles:['Revisor'],nombre:'Alan',apellidos:'Mathinson Turing',id:321},
+  {username: "jrrtolkien",pass:'823k4c324c2n3473223', roles:['Encargado de proyecto'],nombre:'John Raphael',apellidos:'Reuel Tolkien',id:322 }
 ])
 
 export default state;
