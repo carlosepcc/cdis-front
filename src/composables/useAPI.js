@@ -8,7 +8,7 @@ import state from "./useState";
 const autorizado = (token) => {
   // Almacenar en localStorage
   if (token) localStorage.setItem("token", token);
-  localStorageToken = localStorage.getItem("token")
+  localStorageToken = localStorage.getItem("token");
   return localStorageToken ? isJwtTokenExpired(localStorageToken) : false;
 };
 
@@ -44,15 +44,24 @@ const login = (loginObject) => {
         exp: 1645169373      !Fecha de expiración
 
       */
-        let rolesArr = []
-        payload.roles.forEach(item => {rolesArr.push(item.authority)})
-        console.log("🚀 ~ file: useAPI.js ~ line 48 ~ .then ~ rolesArr",'color: dodgerblue', rolesArr)
+      let rolesArr = [];
+      payload.roles.forEach((item) => {
+        rolesArr.push(item.authority);
+      });
+      console.log(
+        "🚀 ~ file: useAPI.js ~ line 48 ~ .then ~ rolesArr",
+        "color: dodgerblue",
+        rolesArr
+      );
 
       state.value.loggedUser = {
         username: payload.sub, // In th data subject is the username
         roles: rolesArr,
       };
-      console.log("🚀 ~ file: useAPI.js ~ line 52 ~ .then ~ state.value.loggedUser", state.value.loggedUser)
+      console.log(
+        "🚀 ~ file: useAPI.js ~ line 52 ~ .then ~ state.value.loggedUser",
+        state.value.loggedUser
+      );
 
       // Almacenar en localStorage
       localStorage.setItem("token", token);
@@ -172,13 +181,16 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
         actions: [{ label: "Ocultar", color: "white" }],
       });
 
-      //CREATE A ids array from the objects array
+      //CREATE an idsArray from the objects array
       let idsArr = [];
       objArr.forEach((obj) => idsArr.push(obj.id));
-      console.log(idsArr);
+      console.log("🚀 ~ file: useAPI.js ~ line 178 ~ .onOk ~ idsArr", idsArr);
       //REQUEST TO SERVER
-      api
-        .delete(url, idsArr)
+      api({
+        method: "delete",
+        url: url,
+        data: idsArr,
+      })
         .then((response) => {
           // handle success
           listar(list, url);
