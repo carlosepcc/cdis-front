@@ -44,12 +44,15 @@ const login = (loginObject) => {
         exp: 1645169373      !Fecha de expiración
 
       */
-      console.log(payload.roles[0].authority);
+        let rolesArr = []
+        payload.roles.forEach(item => {rolesArr.push(item.authority)})
+        console.log("🚀 ~ file: useAPI.js ~ line 48 ~ .then ~ rolesArr",'color: dodgerblue', rolesArr)
+
       state.value.loggedUser = {
         username: payload.sub, // In th data subject is the username
-        roles: [payload.roles[0].authority],
+        roles: rolesArr,
       };
-      console.log(state.value.loggedUser);
+      console.log("🚀 ~ file: useAPI.js ~ line 52 ~ .then ~ state.value.loggedUser", state.value.loggedUser)
 
       // Almacenar en localStorage
       localStorage.setItem("token", token);

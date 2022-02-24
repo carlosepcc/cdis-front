@@ -41,7 +41,7 @@ const logout = () => {
 }
 
 const drawerItems = [
-  { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
+  { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
 
   //REVISOR
   { title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Revisor'], separate: true },
@@ -49,17 +49,16 @@ const drawerItems = [
   { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: ['Revisor'] },
   { title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: ['Revisor'] },
 
-  { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: ['Encargado de proyecto'] },
-  { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor de calidad', 'Coordinador de calidad'] },
+  { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: ['Encargado_de_proyecto'] },
+  { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor_de_calidad', 'Coordinador_de_calidad'] },
   { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
 
   // ALL USERS
-  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true, forRoles:['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
-  { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
-  { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
+  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true, forRoles:['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
+  { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
+  { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
 ];
 
-if (localStorage.getItem('token')).
 </script>
 
 <template>
@@ -131,7 +130,7 @@ if (localStorage.getItem('token')).
             </q-item-label>
             <q-item-label class="text-purple-2 text-bold" caption>
               {{
-                state.loggedUser.roles[0]
+                state.loggedUser.roles[0].replace(/_/g, ' ')
               }}
             </q-item-label>
           </q-item-section>
@@ -153,7 +152,7 @@ if (localStorage.getItem('token')).
                 rounded
                 color="primary"
                 class="text-weight-bold text-purple-2"
-              >{{ state.loggedUser.roles[0].replace(/[a-z]/g, '') }}</q-badge>
+              >{{ state.loggedUser.roles[0].replace(/[a-z]/g, '').replace(/_/g,' ') }}</q-badge>
             </q-avatar>
           </q-item-section>
         </q-item>
