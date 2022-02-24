@@ -59,6 +59,7 @@ const drawerItems = [
   { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor'] },
 ];
 
+if (localStorage.getItem('token')).
 </script>
 
 <template>

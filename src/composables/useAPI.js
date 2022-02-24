@@ -4,6 +4,14 @@ import isJwtTokenExpired, { decode } from "jwt-check-expiry";
 import { api } from "boot/axios";
 import state from "./useState";
 
+//Si se le pasa un token, lo guarda. Luego devuelve si hay un token guardado y no ha expirado.
+const autorizado = (token) => {
+  // Almacenar en localStorage
+  if (token) localStorage.setItem("token", token);
+  localStorageToken = localStorage.getItem("token")
+  return localStorageToken ? isJwtTokenExpired(localStorageToken) : false;
+};
+
 const login = (loginObject) => {
   let noti = Notify.create({
     type: "ongoing",
@@ -36,7 +44,7 @@ const login = (loginObject) => {
         exp: 1645169373      !Fecha de expiración
 
       */
-console.log(payload.roles[0].authority)
+      console.log(payload.roles[0].authority);
       state.value.loggedUser = {
         username: payload.sub, // In th data subject is the username
         roles: [payload.roles[0].authority],
@@ -45,10 +53,6 @@ console.log(payload.roles[0].authority)
 
       // Almacenar en localStorage
       localStorage.setItem("token", token);
-      localStorage.setItem("loggedUser", {
-        username: payload.sub, // In th data subject is the username
-        roles: [payload.roles[0].authority],
-      });
 
       // Notificación
       noti({
@@ -107,7 +111,7 @@ const listar = (list, url = "/usuario") => {
 
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
 const guardar = (object, refArr, url = "/usuario") => {
-  console.log(`Guardando ${object},${refArr.value}`)
+  console.log(`Guardando ${object},${refArr.value}`);
   let noti = Notify.create({
     type: "ongoing",
     message: `Guardando. ${url}`,
@@ -207,4 +211,4 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
 };
 
 export default listar;
-export { guardar, eliminar, login };
+export { guardar, eliminar, login, autorizado };
