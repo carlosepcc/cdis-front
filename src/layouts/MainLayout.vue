@@ -44,10 +44,10 @@ const drawerItems = [
   { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
 
   //REVISOR
-  { title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Revisor'], separate: true },
+//{ title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Revisor'], separate: true },
   { title: 'Hallazgos', icon: 'H', to: 'hallazgos', forRoles: ['Revisor'] },
   { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: ['Revisor'] },
-  { title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: ['Revisor'] },
+//{ title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: ['Revisor'] },
 
   { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: ['Encargado_de_proyecto'] },
   { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor_de_calidad', 'Coordinador_de_calidad'] },

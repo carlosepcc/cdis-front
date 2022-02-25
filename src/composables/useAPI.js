@@ -98,15 +98,9 @@ const listar = (list, url = "/usuario") => {
   api
     .get(url)
     .then((response) => {
+      noti({ timeout: 100 });
       // handle success
       list.value = response.data;
-      noti({
-        type: "positive",
-        spinner: null,
-        message: `Carga exitosa.`,
-        timeout: 1000,
-        actions: [{ label: "OK", color: "white" }],
-      });
     })
     .catch((error) => {
       // handle error
@@ -130,6 +124,8 @@ const guardar = (object, refArr, url = "/usuario") => {
     spinner: QSpinnerGears,
     actions: [{ label: "Ocultar", color: "white" }],
   });
+
+  console.log("🚀 ~ file: useAPI.js ~ line 126 ~ guardar ~ object", object);
   api({
     method: object.id ? "put" : "post",
     url: url,
@@ -140,7 +136,7 @@ const guardar = (object, refArr, url = "/usuario") => {
       noti({
         type: "positive",
         spinner: null,
-        message: "Guardado exitoso.",
+        message: "Acción realizada con éxito.",
         actions: [{ label: "OK", color: "white" }],
       });
       listar(refArr, url);
@@ -197,9 +193,8 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
           noti({
             type: "positive",
             spinner: null,
-            message: `Eliminación exitosa de (${idsArr.length}) entrada${
-              idsArr.length == 1 ? "." : "s."
-            })`,
+            // message: `Eliminación exitosa de (${idsArr.length}) entrada${idsArr.length == 1 ? "." : "s."  })`,
+            message: "Acción realizada con éxito.",
             timeout: 1000,
             actions: [{ label: "OK", color: "white" }],
           });

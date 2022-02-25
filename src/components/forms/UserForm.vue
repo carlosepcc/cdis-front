@@ -8,12 +8,23 @@
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
+          <!--  Example Value
+   Schema
+{
+  "username": "string",
+  "apellidos": "string",
+  "pass": "string",
+  "roles": [
+    "Administrador"
+  ],+
+  "nombre": "string"
+          }-->
           <div>
             <q-input
               autofocus
               :dense="state.dense"
               filled
-              v-model="userObject.name"
+              v-model="userObject.nombre"
               label="Nombre"
               lazy-rules
               :rules="[
@@ -24,7 +35,7 @@
             <q-input
               :dense="state.dense"
               label="Apellidos"
-              v-model="userObject.lastname"
+              v-model="userObject.apellidos"
               filled
               lazy-rules
               :rules="[
@@ -47,7 +58,7 @@
             <q-input
               :dense="state.dense"
               label="Contraseña"
-              v-model="userObject.contrasenna"
+              v-model="userObject.pass"
               type="password"
               filled
               lazy-rules
@@ -58,14 +69,14 @@
 
             <q-select
               :dense="state.dense"
+              :options-dense="state.dense"
               v-model="userObject.roles"
               filled
-              :options="['Administrador', 'Asesor de calidad', 'Coordinador de calidad', 'Encargado de proyecto','Revisor']"
-              label="Roles"
+              :options="rolesArr"
+              label="Rol"
               lazy-rules
               :rules="[val || 'Por favor, seleccione algo']"
             />
-
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
 
@@ -105,30 +116,34 @@
 <script setup>
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
-import state,{usersArr} from "src/composables/useState"
+import state, { usersArr } from "src/composables/useState"
 
 //DOM
 const formulario = ref()
 
 //COMPONENT
 const emits = defineEmits(['closeForm'])
-const url = inject('userUrl')
 
 
 //STATE
 const userObject = inject('userObject')
-
+const rolesArr = [
+  { label: 'Administrador', value: ['Administrador'] },
+  { label: 'Asesor de calidad', value: ['Asesor_de_calidad'] },
+  { label: 'Coordinador de calidad', value: ['Coordinador_de_calidad'] },
+  { label: 'Encargado de proyecto', value: ['Encargado_de_proyecto'] },
+  { label: 'Revisor', value: ['Revisor'] }]
 //SUBMIT
 const onSubmit = () => {
-  guardar(userObject.value, usersArr, url)
-  onReset();
-  //! TODO: No resetear cuando guardar da error
+  guardar(userObject.value, usersArr)
+  //onReset();
+  // TODO: No resetear cuando guardar da error
 }
 
 //RESET FORM
 const onReset = () => {
   //Reset to base values maitaining the id value
-  userObject.value = { id: userObject.value.id, nombre: `user ${usersArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un user importante' }
+  userObject.value = { id: userObject.value.id, roles: ["Administrador"] }
   //Clear validation error messages.
   formulario.value.resetValidation();
 }

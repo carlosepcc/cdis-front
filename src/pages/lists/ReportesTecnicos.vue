@@ -21,16 +21,41 @@ import ListPage from 'components/ListPage'
 import listar from 'src/composables/useAPI'
 import { eliminar } from 'src/composables/useAPI'
 
+
+/*
+Reporte Tecnico
+Schema
+{
+   "id": 0,
+   "nombre": "string",
+   "descripcion": "string",
+   "estado": "string",
+   "revisor": {
+     "id": 0,
+     "nombre": "string",
+     "apellidos": "string",
+     "username": "string",
+     "roles": [
+       "Administrador"
+     ],
+     "pass": "string"
+   },
+   "tipo": "string",
+   "evaluacion": 0,
+   "attribute": 0,
+   "fechaI": "2022-02-25",
+   "fechaC": "2022-02-25"
+ } */
 const rtecnicoFields = ref([
   { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true },
   { name: 'estado', required: true, label: 'Estado', align: 'left', field: 'estado', sortable: true },
-  { name: 'tipo', required: true, label: 'tipo', align: 'left', field: 'tipo', sortable: true },
-  { name: 'local', required: true, label: 'local', align: 'left', field: 'local', sortable: true },
-  { name: 'inicio', required: true, label: 'inicio', align: 'left', field: 'inicio', sortable: true },
-  { name: 'cumplimiento', required: true, label: 'cumplimiento', align: 'left', field: 'cumplimiento', sortable: true },
-  { name: 'evaluacion', required: true, label: 'evaluacion', align: 'left', field: 'evaluacion', sortable: true },
-  { name: 'descripcion', required: true, label: 'Descripcion', align: 'left', field: 'descripcion', sortable: true },
-  { name: 'adjunto', required: true, label: 'adjunto', align: 'left', field: 'file', sortable: true },
+  { name: 'revisor', required: true, label: 'Revisor', align: 'left', field: 'revisor.nombre', sortable: true },
+  { name: 'tipo', required: true, label: 'Tipo', align: 'left', field: 'tipo', sortable: true },
+  { name: 'inicio', required: true, label: 'Fecha de inicio', align: 'left', field: 'fechaI', sortable: true },
+  { name: 'cumplimiento', required: true, label: 'Fecha de cumplimiento', align: 'left', field: 'fechaC', sortable: true },
+  { name: 'evaluacion', required: true, label: 'Evaluación', align: 'left', field: 'evaluacion', sortable: true },
+  { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
+  //{ name: 'adjunto', required: true, label: 'adjunto', align: 'left', field: 'file', sortable: true },
 
 ])
 const url = '/reportetecnico'

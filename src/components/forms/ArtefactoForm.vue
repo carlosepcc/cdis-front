@@ -53,6 +53,7 @@
               lazy-rules
               :rules="[val || 'Por favor, seleccione algo']"
             />
+            <!--
             <q-file
               :dense="state.dense"
               filled
@@ -67,7 +68,7 @@
               <template v-slot:prepend>
                 <q-icon name="attach_file" />
               </template>
-            </q-file>
+            </q-file>-->
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
 
