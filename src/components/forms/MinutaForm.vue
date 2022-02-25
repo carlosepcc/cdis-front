@@ -8,7 +8,6 @@
       <q-separator />
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
-
           <!-- Fields -->
           <div>
             <q-input
@@ -40,7 +39,7 @@
               v-model="minutaObject.revisor"
               default
               filled
-              :options="usersArr.filter(user => user.roles.includes('Revisor'))"
+              :options="revisoresSelect"
               label="Revisor"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
@@ -109,6 +108,14 @@ const url = inject('minutaUrl')
 //STATE
 const minutasArr = inject('minutasArr')
 const minutaObject = inject('minutaObject')
+
+// TODO logica sin probar
+const revisoresArr = ref(usersArr.value.filter(user => user.roles.includes('Revisor')))
+const revisoresSelect = ref([])
+revisoresArr.value.forEach(revisor => {
+  revisoresSelect.value.push({ label: `${revisor.nombre} ${revisor.apellidos}`, value: revisor })
+})
+
 
 //SUBMIT
 const onSubmit = () => {

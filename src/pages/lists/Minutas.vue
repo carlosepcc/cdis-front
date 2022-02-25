@@ -1,20 +1,25 @@
 <template>
   <q-page padding>
-    <MinutaForm  v-model="showForm" @close-form="closeForm" />
+    <MinutaForm v-model="showForm" @close-form="closeForm" />
 
     <q-btn size="sm" dense flat icon="refresh" @click="listarMinutas" />
-    <ListPage @open-form="(payload) => openForm(payload)"
+    <ListPage
+      @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
-      rowKey="id" heading="Minutas de reunión" :rows="minutasArr" :columns="minutaFields"></ListPage>
+      rowKey="id"
+      heading="Minutas de reunión"
+      :rows="minutasArr"
+      :columns="minutaFields"
+    ></ListPage>
   </q-page>
 </template>
 
 <script setup>
-import { ref,provide } from "vue";
+import { ref, provide } from "vue";
 import ListPage from 'components/ListPage'
 import listar from 'src/composables/useAPI'
 import MinutaForm from "src/components/forms/MinutaForm";
-import {usersArr} from 'src/composables/useState'
+import { usersArr } from 'src/composables/useState'
 
 const minutaFields = ref([
   { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
@@ -33,6 +38,7 @@ const listarMinutas = () => listar(minutasArr, url)
 provide('listarMinutas', listarMinutas)
 // execute on component load
 listarMinutas()
+
 
 
 //form dialog model

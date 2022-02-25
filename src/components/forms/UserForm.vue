@@ -133,6 +133,9 @@ const rolesArr = [
   { label: 'Coordinador de calidad', value: ['Coordinador_de_calidad'] },
   { label: 'Encargado de proyecto', value: ['Encargado_de_proyecto'] },
   { label: 'Revisor', value: ['Revisor'] }]
+
+
+
 //SUBMIT
 const onSubmit = () => {
   guardar(userObject.value, usersArr)
