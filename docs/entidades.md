@@ -1,28 +1,21 @@
 ## Entidades
 
 ### Usuario
-- username*: String
+
+- username\*: String
 - rol: Enum ("Administrador" | "Coordinador de calidad" | "Asesor de calidad" | "Encargado de proyecto" | "Revisor")
 
 ## Artefacto
-- id*
+
+- id\*
 - name: String
 - descripcion: String
-- fase: Int (1 | 2 | 3)
-- disciplina: Int (1 | 2 | 3)
-- adjuntos: Array: String
-
-## Dictámen técnico
-- id*
-- proyecto: String
-- encargado: Usuario
-- descripcion: String
-- noconformidades: Int
-- oportunidades: Int
-- estado: Int (1 | 2 | 3)
+- fase: String (Inicio | Ejecución | Cierre)
+- disciplina: String (Modelado del negocio | Requisitos | Análisis y diseño | Implementación | Pruebas | Despliegue)
 
 ## Hallazgo
-- id*
+
+- id\*
 - producto: String
 - ubicacion: String
 - descripcion: String
@@ -30,29 +23,19 @@
 - date: Date
 
 ## Minuta de reunión
-- id*
+
+- id\*
 - proyecto: String
 - revisor: Usuario
 - encargado: Usuario
 - descripcion: String
 
-## Reporte de notificación
-- id*
-- name: String
-- fase: Int (1 | 2 | 3)
-- disciplina: Int (1 | 2 | 3)
-- local: String
-- date: Date
-- descripcion: String
-
 ## Reporte técnico
-- id*
+
+- id\*
 - name: String
-- estado: Int (1 | 2 | 3)
-- tipo: Int (1 | 2 | 3)
+- estado: String (Creado | Abortado | Revisado)
 - local: String
 - inicio: Date
 - cumplimiento: Date
-- evaluacion: Int (1 | 2 | 3)
 - descripcion: String
-- adjuntos: Array: String
