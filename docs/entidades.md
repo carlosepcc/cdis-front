@@ -1,11 +1,15 @@
-## Entidades
+## Entidades:
 
 ### Usuario
 
-- username\*: String
-- rol: Enum ("Administrador" | "Coordinador de calidad" | "Asesor de calidad" | "Encargado de proyecto" | "Revisor")
+- id\*
+- username: String
+- password: String
+- name: String
+- lastname: String
+- roles: Array (Enum ("Administrador" | "Coordinador de calidad" | "Asesor de calidad" | "Encargado de proyecto" | "Revisor")
 
-## Artefacto
+### Artefacto
 
 - id\*
 - name: String
@@ -13,16 +17,16 @@
 - fase: String (Inicio | Ejecución | Cierre)
 - disciplina: String (Modelado del negocio | Requisitos | Análisis y diseño | Implementación | Pruebas | Despliegue)
 
-## Hallazgo
+### Hallazgo
 
 - id\*
 - producto: String
 - ubicacion: String
 - descripcion: String
-- impacto: Int (1 | 2 | 3)
+- impacto: String (Bajo | Medio | Alto)
 - date: Date
 
-## Minuta de reunión
+### Minuta de reunión
 
 - id\*
 - proyecto: String
@@ -30,7 +34,7 @@
 - encargado: Usuario
 - descripcion: String
 
-## Reporte técnico
+### Reporte técnico
 
 - id\*
 - name: String
