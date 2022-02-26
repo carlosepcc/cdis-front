@@ -23,8 +23,8 @@ import { usersArr } from 'src/composables/useState'
 
 const minutaFields = ref([
   { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
-  { name: 'revisor', required: true, label: 'revisor', align: 'left', field: 'revisor', sortable: true },
-  { name: 'encargado', required: true, label: 'encargado', align: 'left', field: 'encargado', sortable: true },
+  { name: 'revisor', required: true, label: 'revisor', align: 'left', field: revisor => `${revisor.nombre} ${revisor.apellidos}`, sortable: true },
+  { name: 'encargado', required: true, label: 'encargado', align: 'left', field: encargado => encargado.nombre, sortable: true },
   { name: 'description', required: true, label: 'description', align: 'left', field: 'description', sortable: true },
 ])
 
