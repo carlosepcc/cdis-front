@@ -78,7 +78,7 @@ const logout = () => {
 
         <div class="column items-center">
           <q-btn
-            icon="logout"
+            icon="r_logout"
             color="negative"
             label="Cerrar sesión"
             class="full-width"

@@ -15,7 +15,7 @@ const autorizado = (token) => {
 const login = (loginObject) => {
   let noti = Notify.create({
     type: "ongoing",
-    message: `Iniciando sesión para ${loginObject.username}`,
+    message: `Iniciando sesión para ${loginObject.usuario}`,
     spinner: QSpinnerGears,
     actions: [{ label: "Ocultar", color: "white" }],
   });
