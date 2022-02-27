@@ -114,7 +114,9 @@ const revisoresSelect = ref([])
 const encargadosSelect = ref([])
 const updateData = () => {
   revisoresSelect.value = usersToSelect // default is all revisores
+  console.log("🚀 ~ file: MinutaForm.vue ~ line 117 ~ updateData ~ revisoresSelect.value", revisoresSelect.value)
   encargadosSelect.value = usersToSelect(getUsersByRole("Encargado_de_proyecto"))
+  console.log("🚀 ~ file: MinutaForm.vue ~ line 119 ~ updateData ~ encargadosSelect.value", encargadosSelect.value)
 }
 
 //SUBMIT

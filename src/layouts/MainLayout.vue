@@ -6,6 +6,7 @@ import { ref, provide } from 'vue';
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import state from 'src/composables/useState'
+import isJwtTokenExpired from 'jwt-check-expiry';
 // Call listar usuarios (Fill the usersArr with data from the server)
 const $q = useQuasar();
 const $router = useRouter()
@@ -18,6 +19,11 @@ const miniState = ref(false);
 const leftDrawerOpen = ref(false);
 const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
 
+if (isJwtTokenExpired(localStorage.getItem('token'))) {
+  state.loggedUser = localStorage.getItem('loggedUser')
+} else {
+  $router.replace('/') //TODO: Capturar los enrutamientos sin refresco de página
+}
 
 
 
