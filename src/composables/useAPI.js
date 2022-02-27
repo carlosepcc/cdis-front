@@ -32,32 +32,22 @@ const login = (loginObject) => {
       // Establecer token como autorización por defecto para peticiones con axios
       api.defaults.headers.common["Authorization"] = token;
 
-      let payload = decode(token).payload;
-
       /* Estructura de la respuesta decodificada
-
-      header: {alg: 'HS256'} !Algoritmo de codificación
-      payload:
-        sub: "admin"         !Username
-        roles:[{ authority: "Administrador"}]
-        iat: 1645133373      !Fecha de creación
-        exp: 1645169373      !Fecha de expiración
-
+      {
+  "sub": "carlose",
+  "exp": 1646010970,
+  "user": {
+    "id": Number,
+    "username": "carlose",
+    "nombre": "Carlos"
+    "apellidos": "Enrique",
+    "roles": ["Revisor"],
+  },
+  "iat": 1645974970
+}
       */
-      let rolesArr = [];
-      payload.roles.forEach((item) => {
-        rolesArr.push(item.authority);
-      });
-      console.log(
-        "🚀 ~ file: useAPI.js ~ line 48 ~ .then ~ rolesArr",
-        "color: dodgerblue",
-        rolesArr
-      );
 
-      state.value.loggedUser = {
-        username: payload.sub, // In th data subject is the username
-        roles: rolesArr,
-      };
+      state.value.loggedUser = decode(token).payload.user;
       console.log(
         "🚀 ~ file: useAPI.js ~ line 52 ~ .then ~ state.value.loggedUser",
         state.value.loggedUser
@@ -65,6 +55,7 @@ const login = (loginObject) => {
 
       // Almacenar en localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem("loggedUser", state.value.loggedUser);
 
       // Notificación
       noti({
