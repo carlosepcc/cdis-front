@@ -2,7 +2,7 @@
   <q-dialog position="top" persistent>
     <q-card class="hide-scrollbar">
       <q-card-section class="text-h7 text-uppercase text-weight-light">
-        {{ userObject.id ? 'Modificar' : 'Nuevo' }} user
+        {{ userObject.id ? 'Modificar' : 'Nuevo' }} Usuario
         <q-btn color="grey" flat icon="close" @click="$emit('closeForm')" />
       </q-card-section>
       <q-separator />
@@ -140,7 +140,7 @@ const rolesArr = [
 const onSubmit = () => {
   guardar(userObject.value, usersArr)
   //onReset();
-  // TODO: No resetear cuando guardar da error
+  // TODO: No resetear cuando guardar da error.
 }
 
 //RESET FORM

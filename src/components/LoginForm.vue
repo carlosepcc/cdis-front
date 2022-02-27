@@ -1,8 +1,6 @@
 <template>
   <q-card class="q-pa-md shadow-1 hide-scrollbar rounded-borders" style="max-width: 400px">
-    <q-card-section class="text-h7 text-uppercase text-weight-light">
-     Iniciar sesión
-      </q-card-section>
+    <q-card-section class="text-h7 text-uppercase text-weight-light">Iniciar sesión</q-card-section>
     <q-separator />
     <q-card-section>
       <q-form @submit="onSubmit" @reset="onReset" ref="formulario" class="q-gutter-md">
@@ -13,7 +11,7 @@
           label="usuario"
           lazy-rules
           max-length="32"
-          :rules="[val => val && val.length > 0 || 'Por favor, esrciba algo']"
+          :rules="[val => val && val.length > 0 || 'Por favor, escriba algo']"
         />
 
         <q-input
@@ -24,7 +22,7 @@
           label="Contraseña"
           lazy-rules
           :rules="[
-            val => val !== null && val !== '' || 'Por favor, escriba su contraseña'
+            val => val !== null && val !== '' || 'Por favor, escriba algo'
           ]"
         />
 
@@ -50,17 +48,9 @@
             ok: { label: 'Ño', noCaps: true, flat: true },
           })"
           />-->
-          <q-btn-group
-                push
-                 spread clas="full-width q-mt-md">
-              <q-btn
-                :size="state.dense ? 'sm' : 'md'"
-                label="Restablecer"
-                type="reset"
-                no-caps
-                push
-              />
-          <q-btn label="Entrar" push no-caps class="full-width" type="submit" color="primary" />
+          <q-btn-group push spread clas="full-width q-mt-md">
+            <q-btn :size="state.dense ? 'sm' : 'md'" label="Restablecer" type="reset" no-caps push />
+            <q-btn label="Entrar" push no-caps class="full-width" type="submit" color="primary" />
           </q-btn-group>
         </div>
       </q-form>
