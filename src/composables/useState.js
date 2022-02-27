@@ -38,5 +38,18 @@ export const usersArr = ref([
     id: 322,
   },
 ]);
+export const getUsersByRole = (role = "Revisor") =>
+  usersArr.value.filter((user) => user.roles.includes(role));
 
+export const usersToSelect = (users = getUsersByRole) => {
+  let usersSelect = [];
+  users.forEach((user) =>
+    usersSelect.value.push({
+      label: `${user.nombre} ${user.apellidos}`,
+      value: user,
+    })
+  );
+
+  return usersSelect;
+};
 export default state;

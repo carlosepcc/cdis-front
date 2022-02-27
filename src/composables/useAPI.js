@@ -1,8 +1,8 @@
 import { Dialog, Notify, QSpinnerGears } from "quasar";
 import isJwtTokenExpired, { decode } from "jwt-check-expiry";
+import state, { usersArr } from "./useState";
 
 import { api } from "boot/axios";
-import state from "./useState";
 
 //Si se le pasa un token, lo guarda. Luego devuelve si hay un token guardado y no ha expirado.
 const autorizado = (token) => {
@@ -73,6 +73,8 @@ const login = (loginObject) => {
         message: `Sesión iniciada`,
         actions: [{ label: "OK", color: "white" }],
       });
+
+      listar();
     })
     .catch((error) => {
       console.log(error, "Error en el login");
@@ -87,7 +89,7 @@ const login = (loginObject) => {
 };
 
 // LISTAR (Actualizar Arreglos en el cliente con datos del servidor)
-const listar = (list, url = "/usuario") => {
+const listar = (list = usersArr, url = "/usuario") => {
   let noti = Notify.create({
     type: "ongoing",
     message: `Accediendo al listado ${url}`,

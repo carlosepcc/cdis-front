@@ -21,6 +21,22 @@
               ]"
             />
 
+            <q-select
+              :dense="state.dense"
+              v-model="artefactoObject.fase"
+              default
+              filled
+              :options="['Inicio', 'Ejecución', 'Cierre']"
+              label="Fase"
+            />
+
+            <q-select
+              :dense="state.dense"
+              v-model="artefactoObject.disciplina"
+              filled
+              :options="['Modelado del negocio', 'Requisitos', 'Análisis y diseño', 'Implementación', 'Pruebas', 'Despliegue']"
+              label="Disciplina"
+            />
             <q-input
               :dense="state.dense"
               label="Descripción"
@@ -32,43 +48,6 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
-
-            <q-select
-              :dense="state.dense"
-              v-model="artefactoObject.fase"
-              default
-              filled
-              :options="[1, 2, 3]"
-              label="Fase"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
-            />
-
-            <q-select
-              :dense="state.dense"
-              v-model="artefactoObject.disciplina"
-              filled
-              :options="[1, 2, 3, 4]"
-              label="Disciplina"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
-            />
-            <!--
-            <q-file
-              :dense="state.dense"
-              filled
-              v-model="artefactoObject.adjunto"
-              label="Adjunto"
-              counter
-              use-chips
-              append
-              clearable
-              accept=".doc, .docx, .odt, .xml, .pdf, .xsl, .xslx, ppt, .pptx, .odp, .ods, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            >
-              <template v-slot:prepend>
-                <q-icon name="attach_file" />
-              </template>
-            </q-file>-->
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
 
@@ -132,7 +111,7 @@ const onSubmit = () => {
 //RESET FORM
 const onReset = () => {
   //Reset to base values maitaining the id value
-  artefactoObject.value = { id: artefactoObject.value.id, nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante' }
+  artefactoObject.value = { id: artefactoObject.value.id, nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 'Inicio', disciplina: 'Modelado del negocio' }
   //Clear validation error messages.
   formulario.value.resetValidation();
 }

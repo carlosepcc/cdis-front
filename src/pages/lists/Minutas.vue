@@ -23,12 +23,12 @@ import { usersArr } from 'src/composables/useState'
 
 const minutaFields = ref([
   { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
-  { name: 'revisor', required: true, label: 'revisor', align: 'left', field: revisor => `${revisor.nombre} ${revisor.apellidos}`, sortable: true },
-  { name: 'encargado', required: true, label: 'encargado', align: 'left', field: encargado => encargado.nombre, sortable: true },
-  { name: 'description', required: true, label: 'description', align: 'left', field: 'description', sortable: true },
+  { name: 'revisor', required: true, label: 'Revisor', align: 'left', field: minuta => minuta.revisor.nombre, sortable: true },
+  { name: 'encargado', required: true, label: 'Encargado', align: 'left', field: minuta => minuta.encargado.nombre, sortable: true },
+  { name: 'description', required: true, label: 'Description', align: 'left', field: 'descripcion', sortable: true },
 ])
 
-const minutasArr = ref([{ id: 1, nombre: 'minuta en codigo', descripcion: 'Este es un minuta de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
+const minutasArr = ref([{ id: 1, proyecto: 'Proyecto c', revisor: { nombre: 'Adalberto', apellidos: 'Elrevi Sor' }, encargado: { nombre: 'Adalberto', apellidos: 'Elen Cargado' }, descripcion: 'Este es un minuta de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
 provide('minutasArr', minutasArr)
 const url = '/minuta'
 provide('minutaUrl', url)
@@ -54,7 +54,7 @@ const minutaObject = ref()
 provide('minutaObject', minutaObject)
 
 //openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { revisor: usersArr.value.filter(user => user.roles.includes('Revisor'))[0], encargado: usersArr.value.filter(user => user.roles.includes('Encargado'))[0] }) => {
+const openForm = (obj = { revisor: revisoresSelect[0], encargado: encargadosSelect[0] }) => {
   minutaObject.value = obj
   showForm.value = true
 }

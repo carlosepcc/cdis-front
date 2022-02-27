@@ -28,10 +28,9 @@ const artefactoFields = ref([
   { name: 'descripcion', align: 'left', label: 'Descripción', field: 'descripcion', sortable: true, },
   { name: 'fase', label: 'Fase', field: 'fase', sortable: true },
   { name: 'disciplina', label: 'Disciplina', field: 'disciplina' },
-  //{ name: 'file', label: 'Adjunto', field: 'file' },
 ]);
 
-const artefactosArr = ref([{ id: 1, nombre: 'Artefacto en codigo', descripcion: 'Este es un artefacto de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
+const artefactosArr = ref([])
 provide('artefactosArr', artefactosArr)
 const url = '/artefacto'
 provide('artefactoUrl', url)
@@ -56,7 +55,7 @@ const artefactoObject = ref()
 provide('artefactoObject', artefactoObject)
 
 //openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un artefacto importante' }) => {
+const openForm = (obj = { nombre: `Artefacto ${artefactosArr.value.length + 1}`, fase: 'Inicio', disciplina: 'Modelado del negocio' }) => {
   artefactoObject.value = obj
   showForm.value = true
 }

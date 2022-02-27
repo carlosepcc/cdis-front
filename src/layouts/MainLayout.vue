@@ -3,17 +3,14 @@
 import DrawerItem from 'components/DrawerItem';
 
 import { ref, provide } from 'vue';
+import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import state from 'src/composables/useState'
+// Call listar usuarios (Fill the usersArr with data from the server)
 const $q = useQuasar();
-console.log(state)
+const $router = useRouter()
 
-// VARIABLES
-const globalGrid = ref($q.screen.lt.sm)
-provide('globalGrid', globalGrid);
 
-const globalDense = ref($q.screen.lt.sm)
-provide('globalDense', globalDense);
 
 const showUsermenu = ref(true);
 // DRAWER
@@ -33,6 +30,9 @@ const logout = () => {
     cancel: { color: 'primary', noCaps: true, flat: true }
   }).onOk(() => {
     console.log('>>>> Cerrar sesión')
+    localStorage.removeItem('token')
+    state.value.loggedUser = null
+    $router.replace('/')
     return 'User wants to logout'
   }).onCancel(() => {
     console.log('>>>> Cancel')
@@ -40,23 +40,22 @@ const logout = () => {
   })
 }
 
+
 const drawerItems = [
-  { title: "Inicio", icon: "home", alt: "n", to: "/", forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
+  { title: "Inicio", icon: "home", alt: "n", to: "/" },
 
   //REVISOR
-//{ title: 'Dictámenes Técnicos', icon: 'D', to: 'dictamenes', forRoles: ['Revisor'], separate: true },
   { title: 'Hallazgos', icon: 'H', to: 'hallazgos', forRoles: ['Revisor'] },
   { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: ['Revisor'] },
-//{ title: 'Reportes de notificación', icon: 'N', to: 'rnotificacion', forRoles: ['Revisor'] },
 
   { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: ['Encargado_de_proyecto'] },
   { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor_de_calidad', 'Coordinador_de_calidad'] },
   { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
 
-  // ALL USERS
-  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true, forRoles:['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
-  { title: 'Ayuda', icon: 'help', to: 'help', forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
-  { title: 'Acerca de', icon: 'info', to: 'about', forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto','Revisor'] },
+  // ALL USERS index 6 - 8 //, forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto', 'Revisor']
+  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true },
+  { title: 'Ayuda', icon: 'help', to: 'help' },
+  { title: 'Acerca de', icon: 'info', to: 'about' },
 ];
 
 </script>
@@ -66,8 +65,7 @@ const drawerItems = [
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar class="brand-bar">
         <div id="brand-frame" class="text-primary">
-          <q-btn
-            v-if="state.loggedUser" dense flat round icon="menu" @click="toggleLeftDrawer" />
+          <q-btn v-if="state.loggedUser" dense flat round icon="menu" @click="toggleLeftDrawer" />
 
           <q-toolbar-title>
             <div class="row">
@@ -124,8 +122,10 @@ const drawerItems = [
           <q-item-section side>
             <q-item-label class="text-purple-1 text-weight-light">
               <span class>
-                {{ state.loggedUser.name ? state.loggedUser.name : state.loggedUser.username}}
-                <span class="gt-xs">{{ state.loggedUser.lastname }}</span>
+                {{ state.loggedUser.name ? state.loggedUser.name : state.loggedUser.username }}
+                <span
+                  class="gt-xs"
+                >{{ state.loggedUser.lastname }}</span>
               </span>
             </q-item-label>
             <q-item-label class="text-purple-2 text-bold" caption>
@@ -141,18 +141,18 @@ const drawerItems = [
                 :src="state.loggedUser.img"
                 :alt="state.loggedUser.username.charAt(0)"
               />
-              <span v-else>{{state.loggedUser.username.charAt(0)}}</span>
+              <span v-else>{{ state.loggedUser.username.charAt(0) }}</span>
               <!-- <ruby v-else>
                 {{ state.loggedUser.lastname.replace(/[a-z]/g, '') }}
                 <rt>{{ state.loggedUser.name.replace(/[a-z]/g, '') }}</rt>
-              </ruby> -->
+              </ruby>-->
               <q-badge
                 :title="state.loggedUser.roles[0]"
                 floating
                 rounded
                 color="primary"
                 class="text-weight-bold text-purple-2"
-              >{{ state.loggedUser.roles[0].replace(/[a-z]/g, '').replace(/_/g,' ') }}</q-badge>
+              >{{ state.loggedUser.roles[0].replace(/[a-z]/g, '').replace(/_/g, ' ') }}</q-badge>
             </q-avatar>
           </q-item-section>
         </q-item>
@@ -161,8 +161,6 @@ const drawerItems = [
 
     <!--MENU LATERAL (DRAWER "gaveta") -->
     <q-drawer
-
-            v-if="state.loggedUser"
       v-model="leftDrawerOpen"
       show-if-above
       :mini="miniState"
@@ -176,8 +174,8 @@ const drawerItems = [
       <q-scroll-area class="fit">
         <q-list>
           <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
-              <DrawerItem
-              v-show="state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol))"
+            <DrawerItem
+              v-if="drawerItem.forRoles == undefined || (state.loggedUser ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : false)"
               v-bind="drawerItem"
             />
           </template>

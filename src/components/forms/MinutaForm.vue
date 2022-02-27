@@ -1,5 +1,5 @@
 <template>
-  <q-dialog position="top" persistent>
+  <q-dialog position="top" persistent @show="updateData">
     <q-card class="hide-scrollbar">
       <q-card-section class="text-h7 text-uppercase text-weight-light">
         {{ minutaObject.id ? 'Modificar' : 'Nueva' }} Minuta
@@ -22,18 +22,6 @@
               ]"
             />
 
-            <q-input
-              :dense="state.dense"
-              label="Descripción"
-              v-model="minutaObject.descripcion"
-              filled
-              autogrow
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-              ]"
-            />
-
             <q-select
               :dense="state.dense"
               v-model="minutaObject.revisor"
@@ -49,10 +37,22 @@
               :dense="state.dense"
               v-model="minutaObject.encargado"
               filled
-              :options="usersArr.filter(user => user.roles.includes('Encargado de proyecto'))"
+              :options="encargadosSelect"
               label="Encargado"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
+            />
+
+            <q-input
+              :dense="state.dense"
+              label="Descripción"
+              v-model="minutaObject.descripcion"
+              filled
+              autogrow
+              lazy-rules
+              :rules="[
+                (val) => (val && val.length > 0) || 'Por favor, escriba algo',
+              ]"
             />
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
@@ -95,7 +95,7 @@
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
 import state from "src/composables/useState"
-import { usersArr } from 'src/composables/useState'
+import { usersArr, getUsersByRole, usersToSelect } from 'src/composables/useState'
 
 //DOM
 const formulario = ref()
@@ -110,12 +110,12 @@ const minutasArr = inject('minutasArr')
 const minutaObject = inject('minutaObject')
 
 // TODO logica sin probar
-const revisoresArr = ref(usersArr.value.filter(user => user.roles.includes('Revisor')))
 const revisoresSelect = ref([])
-revisoresArr.value.forEach(revisor => {
-  revisoresSelect.value.push({ label: `${revisor.nombre} ${revisor.apellidos}`, value: revisor })
-})
-
+const encargadosSelect = ref([])
+const updateData = () => {
+  revisoresSelect.value = usersToSelect // default is all revisores
+  encargadosSelect.value = usersToSelect(getUsersByRole("Encargado_de_proyecto"))
+}
 
 //SUBMIT
 const onSubmit = () => {
