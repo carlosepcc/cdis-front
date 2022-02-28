@@ -20,17 +20,6 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
-
-            <q-select
-              :dense="state.dense"
-              v-model="rtecnicoObject.estado"
-              default
-              filled
-              :options="[1, 2, 3]"
-              label="Estado"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
-            />
             <q-input
               :dense="state.dense"
               filled
@@ -74,6 +63,18 @@
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
+            />
+
+            <q-select
+              v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
+              :dense="state.dense"
+              v-model="rtecnicoObject.estado"
+              default
+              filled
+              :options="['Creado', 'Abortado', 'Revisado']"
+              label="Estado"
+              lazy-rules
+              :rules="[val || 'Por favor, seleccione algo']"
             />
             <q-select
               v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
