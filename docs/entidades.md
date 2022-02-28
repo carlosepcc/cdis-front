@@ -3,7 +3,7 @@
 ### Usuario
 
 - id\*
-- username: String
+- username: String\*
 - password: String
 - name: String
 - lastname: String
@@ -12,7 +12,7 @@
 ### Artefacto
 
 - id\*
-- name: String
+- name: String\*
 - descripcion: String
 - fase: String (Inicio | Ejecución | Cierre)
 - disciplina: String (Modelado del negocio | Requisitos | Análisis y diseño | Implementación | Pruebas | Despliegue)
@@ -37,7 +37,7 @@
 ### Reporte técnico
 
 - id\*
-- name: String
+- name: String\*
 - estado: String (Creado | Abortado | Revisado)
 - revisor: Usuario
 - local: String

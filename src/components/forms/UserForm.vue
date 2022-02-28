@@ -62,11 +62,11 @@
               type="password"
               filled
               lazy-rules
-              :rules="[
+              :rules="!userObject.id ? [
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-              ]"
+              ] : false"
             />
-            {{ userObject }}
+            <br />
             <q-select
               v-model="userObject.roles"
               emit-value
@@ -104,7 +104,7 @@
               :size="state.dense ? 'sm' : 'md'"
               class="full-width"
               icon="r_save"
-              :label="userObject.id ? 'Modificar' : 'Guardar'"
+              label="Guardar"
               type="submit"
               color="primary"
             />

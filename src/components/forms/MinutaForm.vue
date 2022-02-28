@@ -27,7 +27,9 @@
               v-model="minutaObject.revisor"
               default
               filled
-              :options="revisoresSelect"
+              :options="revisoresArr"
+              option-label="nombre"
+              option-value="nombre"
               label="Revisor"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
