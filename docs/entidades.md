@@ -39,6 +39,7 @@
 - id\*
 - name: String
 - estado: String (Creado | Abortado | Revisado)
+- revisor: Usuario
 - local: String
 - inicio: Date
 - cumplimiento: Date
