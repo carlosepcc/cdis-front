@@ -5,7 +5,6 @@ import UserInfo from 'src/components/UserInfo';
 import { ref } from 'vue';
 import state from 'src/composables/useState'
 import { autorizar } from 'src/composables/useAPI'
-import isJwtTokenExpired from 'jwt-check-expiry';
 
 
 // DRAWER
@@ -69,6 +68,15 @@ const drawerItems = [
 
         <!-- USER -->
         <UserInfo v-if="state.loggedUser" />
+        <q-btn
+          v-else
+          flat
+          no-caps
+          icon="login"
+          label="Iniciar Sesión"
+          to="/"
+          class="absolute-right"
+        />
       </q-toolbar>
     </q-header>
 

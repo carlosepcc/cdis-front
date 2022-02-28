@@ -9,6 +9,7 @@
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <div>
+            <!-- Nombre -->
             <q-input
               autofocus
               :dense="state.dense"
@@ -20,6 +21,8 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
+
+            <!-- Local -->
             <q-input
               :dense="state.dense"
               filled
@@ -30,7 +33,7 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
-
+            <!-- Fecha de inicio -->
             <q-input
               :dense="state.dense"
               filled
@@ -42,6 +45,7 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
+            <!-- Fecha de cumplimiento -->
             <q-input
               :dense="state.dense"
               filled
@@ -53,6 +57,8 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
+
+            <!-- Descripción -->
             <q-input
               :dense="state.dense"
               label="Descripción"
@@ -65,6 +71,7 @@
               ]"
             />
 
+            <!-- Estado -->
             <q-select
               v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
               :dense="state.dense"
@@ -76,13 +83,15 @@
               lazy-rules
               :rules="[val || 'Por favor, seleccione algo']"
             />
+
+            <!-- Revisor -->
             <q-select
               v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
               :dense="state.dense"
               v-model="rtecnicoObject.revisor"
               default
               filled
-              :options="revisoresSelect"
+              :options="revisoresArr"
               label="Revisor"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"

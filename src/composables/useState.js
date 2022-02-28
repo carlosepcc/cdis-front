@@ -1,33 +1,18 @@
-import { computed, ref } from "vue";
-
 import { Screen } from "quasar";
+import { ref } from "vue";
 
 // Global State
 const state = ref({
   dense: Screen.lt.sm,
   grid: Screen.lt.sm,
-  loggedUser: null, //JSON.parse(localStorage.getItem("loggedUser")),
+  loggedUser: null,
 });
+
+// Usuarios registrados
 export const usersArr = ref([]);
-export const getUsersByRole = (role = "Revisor") => {
-  return usersArr.value.filter((user) => user.roles.includes(role));
-};
 
-export const usersToSelect = (users = getUsersByRole()) => {
-  let usersSelect = [];
-  users.forEach((element) => {});
-  (user) =>
-    usersSelect.push({
-      label: `${user.nombre} ${user.apellidos}`,
-      value: user,
-    });
-
-  return usersSelect;
-};
-
-export const revisoresSelect = computed(usersToSelect());
-export const encargadosSelect = computed(
-  usersToSelect(getUsersByRole("Encargado_de_proyecto"))
-);
-
+export const usersByRole = ref({
+  Revisor: [],
+  Encargado_de_proyecto: [],
+});
 export default state;

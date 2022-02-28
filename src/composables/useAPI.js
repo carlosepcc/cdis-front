@@ -3,18 +3,17 @@ import isJwtTokenExpired, { decode } from "jwt-check-expiry";
 import state, { usersArr } from "./useState";
 
 import { api } from "boot/axios";
-import { useRouter } from "vue-router";
+import route from "src/router";
 
-const $router = useRouter();
-console.log("🚀 ~ file: useAPI.js ~ line 9 ~ $router", $router);
+const Router = route();
+console.log("🚀 useAPI Router", Router);
 
 //Si se le pasa un token, lo guarda. Luego devuelve si hay un token guardado y no ha expirado.
 export const autorizar = (token) => {
-  console.log("🚀 ~ file: useAPI.js ~ line 12 ~ autorizar ~ token", token);
+  console.log("🚀 useAPI autorizar");
 
   // Usuario del token
   let user = null;
-  let autorizado = false;
 
   // Si se recibe un token y este no ha expirado, se guarda en localStorage tanto el token mismo como el usuario decodificado
   if (token && !isJwtTokenExpired(token)) {
@@ -31,26 +30,33 @@ export const autorizar = (token) => {
     user = decode(token).payload.user;
     localStorage.setItem("loggedUser", JSON.stringify(user));
   }
+
   // Luego se procede a revisar si hay un token guardado en localStorage
-  let localStorageToken = localStorage.getItem("token");
+  let storedToken = localStorage.getItem("token");
   console.log(
     "🚀 ~ file: useAPI.js ~ line 24 ~ autorizar ~ localStorageToken",
-    localStorageToken
+    storedToken
   );
 
-  // ..y, si este ya expiró, se elimina de locaStorage y se enruta a la página inicial para que el usuario inicie sesión.
-  if (localStorageToken && isJwtTokenExpired(localStorageToken)) {
-    $router.replace("/");
-  } else {
-    api.defaults.headers.common["Authorization"] = localStorageToken;
-    state.value.loggedUser = JSON.parse(localStorage.getItem("loggedUser")); // si no expiró, se actualiza el estado con los datos de usuario autenticado decodificado en localStorage y se establece el header de Autorization de axios
+  // ..y, si este existe y no ha expirado, se actualiza el estado con los datos de usuario autenticado decodificado en localStorage y se establece el header de Autorization de axios
+  if (storedToken && !isJwtTokenExpired(storedToken)) {
+    state.value.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    api.defaults.headers.common["Authorization"] = storedToken;
     console.log(
       "🚀 ~ file: useAPI.js ~ line 29 ~ autorizar ~ state.value.loggedUser",
       state.value.loggedUser
     );
+    // si no existe o ya expiró, se elimina de locaStorage y se enruta a la página inicial para que el usuario inicie sesión.
+  } else {
+    Router.replace("/");
+    console.log(
+      "🚀 useAPI  autorizar localStorage.removeItem('token')",
+      localStorage.removeItem("token")
+    );
+    console.log("🚀 $router.replace('/')");
   }
 
-  return localStorageToken ? isJwtTokenExpired(localStorageToken) : false;
+  return storedToken ? isJwtTokenExpired(storedToken) : false;
   /* Decdoded response {
 "sub": "carlose",
 "exp": 1646010970,
@@ -64,10 +70,6 @@ export const autorizar = (token) => {
 "iat": 1645974970
 }*/
 };
-console.log(
-  "🚀 ~ file: useAPI.js ~ line 61 ~ autorizar ~ autorizar",
-  autorizar
-);
 
 export const login = (loginObject) => {
   let noti = Notify.create({
