@@ -22,10 +22,10 @@ import { usersArr } from 'src/composables/useState'
 import UserForm from 'components/forms/UserForm'
 
 const userFields = ref([
-  { name: 'username', required: true, label: 'Nombre de usuario', align: 'left', field: 'username', sortable: true, },
-  { name: 'nombre', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true, },
+  { name: 'nombre', required: true, label: 'Nombres', align: 'left', field: 'nombre', sortable: true, },
   { name: 'apellidos', required: true, label: 'Apellidos', align: 'left', field: 'apellidos', sortable: true, },
-  { name: 'roles', required: true, label: 'Rol', align: 'center', field: 'roles', sortable: true, }])
+  { name: 'username', required: true, label: 'Nombre de usuario', align: 'left', field: 'username', sortable: true, },
+  { name: 'roles', required: true, label: 'Rol', align: 'center', field: user => user.roles[0], sortable: true, }])
 
 
 
