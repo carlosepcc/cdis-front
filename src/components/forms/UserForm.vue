@@ -66,17 +66,18 @@
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
             />
-
+            {{ userObject }}
             <q-select
+              v-model="userObject.roles"
+              emit-value
+              map-options
+              :options="rolesArr"
+              filled
               :dense="state.dense"
               :options-dense="state.dense"
-              v-model="userObject.roles"
-              filled
-              :options="rolesArr"
               label="Rol"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
             />
+            <!-- !TODO coge todo el objeto y no el valor -->
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
 
@@ -127,6 +128,7 @@ const emits = defineEmits(['closeForm'])
 
 //STATE
 const userObject = inject('userObject')
+const temp = ref()
 const rolesArr = [
   { label: 'Administrador', value: ['Administrador'] },
   { label: 'Asesor de calidad', value: ['Asesor_de_calidad'] },

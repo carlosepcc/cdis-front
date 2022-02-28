@@ -1,6 +1,8 @@
 <script setup>
 import state from "src/composables/useState"
 import { useQuasar } from "quasar";
+import { useRouter } from "vue-router"
+const $router = useRouter()
 const $q = useQuasar()
 const logout = () => {
   $q.dialog({
@@ -14,7 +16,10 @@ const logout = () => {
   }).onOk(() => {
     console.log('>>>> Cerrar sesión')
     localStorage.removeItem('token')
+    console.log("🚀 localStorage.removeItem('token')", localStorage.getItem('token'))
     state.value.loggedUser = null
+    console.log("🚀 state.value.loggedUser = null", state.value.loggedUser)
+    $router.replace('/')
     return 'User wants to logout'
   }).onCancel(() => {
     console.log('>>>> Cancel')

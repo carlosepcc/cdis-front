@@ -40,8 +40,6 @@ Schema
      ],
      "pass": "string"
    },
-   "tipo": "string",
-   "evaluacion": 0,
    "attribute": 0,
    "fechaI": "2022-02-25",
    "fechaC": "2022-02-25"
