@@ -2,28 +2,20 @@
 // Components
 import DrawerItem from 'components/DrawerItem';
 import UserInfo from 'src/components/UserInfo';
-import { ref, provide } from 'vue';
-import { useRouter } from 'vue-router'
-import { useQuasar } from 'quasar'
+import { ref } from 'vue';
 import state from 'src/composables/useState'
+import { autorizar } from 'src/composables/useAPI'
 import isJwtTokenExpired from 'jwt-check-expiry';
-// Call listar usuarios (Fill the usersArr with data from the server)
-const $q = useQuasar();
-const $router = useRouter()
 
 
-
-const showUsermenu = ref(true);
 // DRAWER
 const miniState = ref(false);
 const leftDrawerOpen = ref(false);
 const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
 
-if (isJwtTokenExpired(localStorage.getItem('token'))) {
-  state.loggedUser = localStorage.getItem('loggedUser')
-} else {
-  $router.replace('/') //TODO: Capturar los enrutamientos sin refresco de página
-}
+console.log("🚀 ~ file: MainLayout.vue ~ line 23 ~ localStorage.getItem('token')", localStorage.getItem('token'))
+autorizar()
+
 
 
 

@@ -31,16 +31,6 @@
               lazy-rules
               :rules="[val || 'Por favor, seleccione algo']"
             />
-            <q-select
-              :dense="state.dense"
-              v-model="rtecnicoObject.tipo"
-              default
-              filled
-              :options="[1, 2, 3]"
-              label="Tipo"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
-            />
             <q-input
               :dense="state.dense"
               filled
@@ -55,7 +45,7 @@
             <q-input
               :dense="state.dense"
               filled
-              v-model="rtecnicoObject.inicio"
+              v-model="rtecnicoObject.fechaI"
               label="Fecha de inicio"
               type="date"
               lazy-rules
@@ -66,24 +56,13 @@
             <q-input
               :dense="state.dense"
               filled
-              v-model="rtecnicoObject.cumplimiento"
+              v-model="rtecnicoObject.fechaC"
               label="Fecha de cumplimiento"
               type="date"
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ]"
-            />
-
-            <q-select
-              :dense="state.dense"
-              v-model="rtecnicoObject.evaluacion"
-              default
-              filled
-              :options="[1, 2, 3]"
-              label="Evaluación"
-              lazy-rules
-              :rules="[val || 'Por favor, seleccione algo']"
             />
             <q-input
               :dense="state.dense"
@@ -97,30 +76,16 @@
               ]"
             />
             <q-select
+              v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
               :dense="state.dense"
               v-model="rtecnicoObject.revisor"
               default
               filled
-              :options="usersArr.filter(user => user.roles.includes('Revisor'))"
+              :options="revisoresSelect"
               label="Revisor"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
             />
-            <!-- <q-file
-              :dense="state.dense"
-              filled
-              v-model="artefactoObject.file"
-              label="Adjunto"
-              counter
-              use-chips
-              append
-              clearable
-              accept=".doc, .docx, .odt, .xml, .pdf, .xsl, .xslx, ppt, .pptx, .odp, .ods, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            >
-              <template v-slot:prepend>
-                <q-icon name="attach_file" />
-              </template>
-            </q-file> -->
           </div>
           <q-separator class="q-mb-sm q-mt-md" />
 

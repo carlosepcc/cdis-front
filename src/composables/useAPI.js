@@ -3,16 +3,69 @@ import isJwtTokenExpired, { decode } from "jwt-check-expiry";
 import state, { usersArr } from "./useState";
 
 import { api } from "boot/axios";
+import { useRouter } from "vue-router";
+
+const $router = useRouter();
 
 //Si se le pasa un token, lo guarda. Luego devuelve si hay un token guardado y no ha expirado.
-const autorizado = (token) => {
-  // Almacenar en localStorage
-  if (token) localStorage.setItem("token", token);
-  localStorageToken = localStorage.getItem("token");
-  return localStorageToken ? isJwtTokenExpired(localStorageToken) : false;
-};
+export const autorizar = (token) => {
+  console.log("🚀 ~ file: useAPI.js ~ line 12 ~ autorizar ~ token", token);
 
-const login = (loginObject) => {
+  // Usuario del token
+  let user = null;
+  let autorizado = false;
+
+  // Si se recibe un token y este no ha expirado, se guarda en localStorage tanto el token mismo como el usuario decodificado
+  if (token && !isJwtTokenExpired(token)) {
+    console.log(
+      "🚀 ~ file: useAPI.js ~ line 18 ~ autorizar ~ !isJwtTokenExpired(token)",
+      !isJwtTokenExpired(token)
+    );
+    console.log(
+      "🚀 ~ file: useAPI.js ~ line 18 ~ autorizar ~ token != null",
+      token != null
+    );
+
+    localStorage.setItem("token", token);
+    user = decode(token).payload.user;
+    localStorage.setItem("loggedUser", JSON.stringify(user));
+  }
+  // Luego se procede a revisar si hay un token guardado en localStorage
+  let localStorageToken = localStorage.getItem("token");
+  console.log(
+    "🚀 ~ file: useAPI.js ~ line 24 ~ autorizar ~ localStorageToken",
+    localStorageToken
+  );
+
+  // ..y, si este ya expiró, se elimina de locaStorage y se enruta a la página inicial para que el usuario inicie sesión.
+  if (localStorageToken && isJwtTokenExpired(localStorageToken))
+    $router.replace("/");
+  else state.value.loggedUser = JSON.parse(localStorage.getItem("loggedUser")); // si no expiró, se actualiza el estado con los datos de usuario autenticado decodificado en localStorage
+  console.log(
+    "🚀 ~ file: useAPI.js ~ line 29 ~ autorizar ~ state.value.loggedUser",
+    state.value.loggedUser
+  );
+
+  return localStorageToken ? isJwtTokenExpired(localStorageToken) : false;
+  /* Decdoded response {
+"sub": "carlose",
+"exp": 1646010970,
+"user": {
+"id": Number,
+"username": "carlose",
+"nombre": "Carlos"
+"apellidos": "Enrique",
+"roles": ["Revisor"],
+},
+"iat": 1645974970
+}*/
+};
+console.log(
+  "🚀 ~ file: useAPI.js ~ line 61 ~ autorizar ~ autorizar",
+  autorizar
+);
+
+export const login = (loginObject) => {
   let noti = Notify.create({
     type: "ongoing",
     message: `Iniciando sesión para ${loginObject.usuario}`,
@@ -28,34 +81,8 @@ const login = (loginObject) => {
   })
     .then((response) => {
       let token = response.data;
-
-      // Establecer token como autorización por defecto para peticiones con axios
-      api.defaults.headers.common["Authorization"] = token;
-
-      /* Estructura de la respuesta decodificada
-      {
-  "sub": "carlose",
-  "exp": 1646010970,
-  "user": {
-    "id": Number,
-    "username": "carlose",
-    "nombre": "Carlos"
-    "apellidos": "Enrique",
-    "roles": ["Revisor"],
-  },
-  "iat": 1645974970
-}
-      */
-
-      state.value.loggedUser = decode(token).payload.user;
-      console.log(
-        "🚀 ~ file: useAPI.js ~ line 52 ~ .then ~ state.value.loggedUser",
-        state.value.loggedUser
-      );
-
-      // Almacenar en localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("loggedUser", state.value.loggedUser);
+      // Almacenar en localStorage, chequear y actualizar estado global
+      autorizar(token);
 
       // Notificación
       noti({
@@ -64,8 +91,6 @@ const login = (loginObject) => {
         message: `Sesión iniciada`,
         actions: [{ label: "OK", color: "white" }],
       });
-
-      listar();
     })
     .catch((error) => {
       console.log(error, "Error en el login");
@@ -109,7 +134,7 @@ const listar = (list = usersArr, url = "/usuario") => {
 };
 
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
-const guardar = (object, refArr, url = "/usuario") => {
+export const guardar = (object, refArr, url = "/usuario") => {
   console.log(`Guardando ${object},${refArr.value}`);
   let noti = Notify.create({
     type: "ongoing",
@@ -148,7 +173,7 @@ const guardar = (object, refArr, url = "/usuario") => {
 };
 
 // Pedir la eliminación de objetos en la base de datos
-const eliminar = (objArr = [], list, url = "/usuario") => {
+export const eliminar = (objArr = [], list, url = "/usuario") => {
   console.log("Eliminar");
   Dialog.create({
     title: "Confirme la eliminación",
@@ -214,4 +239,3 @@ const eliminar = (objArr = [], list, url = "/usuario") => {
 };
 
 export default listar;
-export { guardar, eliminar, login, autorizado };

@@ -44,7 +44,7 @@
             :dense="state.dense"
             v-model="hallazgoObject.tipo"
             filled
-            :options="[1, 2, 3, 4]"
+            :options="['No conformidad', 'Oportunidad de mejora']"
             label="Tipo"
             lazy-rules
             :rules="[val || 'Por favor, seleccione algo']"
