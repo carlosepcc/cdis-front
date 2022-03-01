@@ -4,7 +4,7 @@
 
     <q-btn size="sm" dense flat icon="refresh" @click="listarRtecnicos" />
     <ListPage
-      heading="Usuarios"
+      heading="Reportes técnicos"
       @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
       rowKey="id"
