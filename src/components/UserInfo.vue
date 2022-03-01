@@ -75,7 +75,7 @@ const logout = () => {
     <q-menu>
       <div class="row no-wrap q-pa-md">
         <div class="column">
-          <div class="text-h6 q-mb-md">Ajustes</div>
+          <div class="text-weight-light text-uppercase q-mb-md">Ajustes</div>
           <q-toggle v-model="state.dense" label="Interfaz densa" />
         </div>
 
@@ -83,6 +83,7 @@ const logout = () => {
 
         <div class="column items-center">
           <q-btn
+            :dense="state.dense"
             icon="r_logout"
             color="negative"
             label="Cerrar sesión"

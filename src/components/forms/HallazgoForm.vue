@@ -131,12 +131,8 @@ function onReset() {
   //Reset fields
   hallazgoObject.value = {
     id: hallazgoObject.value.id,
-    productoAf: "Producto 1",
-    ubicacion: "Ubicacion 1",
-    descripcion: 'Un hallazgo importante',
-    tipo: 1,
-    fecha: "2022-02-11T17:15:52.960Z",
-    impacto: 1
+    tipo: 'Oportunidad de mejora',
+    impacto: 'medio'
   }
   formulario.value.resetValidation();
 }

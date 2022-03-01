@@ -69,6 +69,7 @@ const drawerItems = [
         <!-- USER -->
         <UserInfo v-if="state.loggedUser" />
         <q-btn
+          :dense="state.dense"
           v-else
           flat
           no-caps

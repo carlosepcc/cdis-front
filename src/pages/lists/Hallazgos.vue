@@ -2,7 +2,8 @@
   <q-page class="q-pb-xl">
     <HallazgoForm v-model="showForm" @close-form="closeForm" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarHallazgos" />
-    <ListPage @open-form="(payload) => openForm(payload)"
+    <ListPage
+      @open-form="(payload) => openForm(payload)"
       @delete-rows="(selectedRows) => deleteTuples(selectedRows)"
       rowKey="id"
       heading="Hallazgos"
@@ -16,7 +17,7 @@
 import { ref, provide } from "vue";
 import ListPage from 'components/ListPage'
 import HallazgoForm from 'components/forms/HallazgoForm'
-import listar,{eliminar} from 'src/composables/useAPI'
+import listar, { eliminar } from 'src/composables/useAPI'
 
 const hallazgoFields = ref([
   { name: 'producto', required: true, label: 'Producto afectado', align: 'left', field: 'productoAf', sortable: true },
@@ -28,7 +29,7 @@ const hallazgoFields = ref([
 
 ])
 
-const hallazgosArr = ref([{ id: 1, nombre: 'hallazgo en codigo', descripcion: 'Este es un hallazgo de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
+const hallazgosArr = ref([])
 provide('hallazgosArr', hallazgosArr)
 const url = '/hallazgo'
 provide('hallazgoUrl', url)
@@ -53,7 +54,7 @@ const hallazgoObject = ref({})
 provide('hallazgoObject', hallazgoObject)
 
 //openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { producto: `Producto ${hallazgosArr.value.length + 1}`, impacto: 'medio', descripcion: 'Un hallazgo importante' }) => {
+const openForm = (obj = { impacto: 'medio' }) => {
   hallazgoObject.value = obj
   showForm.value = true
   console.log('openForm')
