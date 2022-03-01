@@ -87,7 +87,7 @@
           <!-- NUEVA ENTRADA -->
           <q-btn
             v-show="isTableFullscreen || $q.screen.gt.xs"
-            v-if="!(heading == 'Reportes técnicos' && state.loggedUser.roles.includes('Coordinador_de_calidad'))"
+            v-if="!(heading == 'Reportes técnicos' && state.loggedUser.roles[0] == 'Coordinador_de_calidad')"
             icon="add"
             :dense="s.dense"
             label="Nuevo"
