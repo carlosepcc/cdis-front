@@ -167,14 +167,35 @@ export const guardar = (object, refArr, url = "/usuario") => {
     })
     .catch((error) => {
       // handle error
-      console.log(error);
-      noti({
-        type: "negative",
-        spinner: null,
-        message: `Guardado fallido de ${url}. ${error.message}.`,
-        icon: "report_problem",
-        actions: [{ label: "OK", color: "white" }],
-      });
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log("ERROR.RESPONSE", error.response);
+        noti({
+          type: "negative",
+          spinner: null,
+          message: `Guardado fallido de ${url}. ${error.response.data.message}.`,
+          icon: "report_problem",
+          actions: [{ label: "OK", color: "white" }],
+        });
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log("ERROR.REQUEST", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+
+        console.log(error.config);
+        noti({
+          type: "negative",
+          spinner: null,
+          message: `Guardado fallido de ${url}. ${error.message}.`,
+          icon: "report_problem",
+          actions: [{ label: "OK", color: "white" }],
+        });
+      }
     });
 };
 
