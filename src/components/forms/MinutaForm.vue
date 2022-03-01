@@ -27,7 +27,7 @@
               v-model="minutaObject.revisor"
               default
               filled
-              :options="revisoresArr"
+              :options="usersByRole.Revisor"
               option-label="nombre"
               option-value="nombre"
               label="Revisor"
@@ -39,7 +39,10 @@
               :dense="state.dense"
               v-model="minutaObject.encargado"
               filled
-              :options="encargadosSelect"
+              :options="usersByRole.Encargado_de_proyecto"
+              option-label="nombre"
+              option-value="value"
+              emit-value
               label="Encargado"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
@@ -97,7 +100,7 @@
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
 import state from "src/composables/useState"
-import { usersArr, getUsersByRole, usersToSelect } from 'src/composables/useState'
+import { usersByRole } from 'src/composables/useState'
 
 //DOM
 const formulario = ref()
@@ -111,15 +114,6 @@ const url = inject('minutaUrl')
 const minutasArr = inject('minutasArr')
 const minutaObject = inject('minutaObject')
 
-// TODO logica sin probar
-const revisoresSelect = ref([])
-const encargadosSelect = ref([])
-const updateData = () => {
-  revisoresSelect.value = usersToSelect // default is all revisores
-  console.log("🚀 ~ file: MinutaForm.vue ~ line 117 ~ updateData ~ revisoresSelect.value", revisoresSelect.value)
-  encargadosSelect.value = usersToSelect(getUsersByRole("Encargado_de_proyecto"))
-  console.log("🚀 ~ file: MinutaForm.vue ~ line 119 ~ updateData ~ encargadosSelect.value", encargadosSelect.value)
-}
 
 //SUBMIT
 const onSubmit = () => {
@@ -131,7 +125,7 @@ const onSubmit = () => {
 //RESET FORM
 const onReset = () => {
   //Reset to base values maitaining the id value
-  minutaObject.value = { id: minutaObject.value.id, nombre: `minuta ${minutasArr.value.length + 1}`, fase: 1, disciplina: 1, descripcion: 'Un minuta importante' }
+  minutaObject.value = { id: minutaObject.value.id, nombre: `minuta ${minutasArr.value.length + 1}` }
   //Clear validation error messages.
   formulario.value.resetValidation();
 }

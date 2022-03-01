@@ -1,48 +1,49 @@
 <template>
   <div>
-    <!-- TABLE / GRID -->
-    <q-btn-toggle
-      title="Modo de presentación (Tabla o Rejilla)"
-      v-model="isTableGrid"
-      size="sm"
-      flat
-      toggle-color="primary"
-      :options="[
-        { value: false, slot: 'tableview' },
-        { value: true, slot: 'gridview' },
-      ]"
-    >
-      <template v-slot:tableview>
-        <q-icon name="r_table_chart" />
-      </template>
+    <div class="q-gutter-sm row items-center">
+      <!-- TABLE / GRID -->
+      <q-btn-toggle
+        title="Modo de presentación (Tabla o Rejilla)"
+        v-model="isTableGrid"
+        size="sm"
+        flat
+        toggle-color="primary"
+        :options="[
+          { value: false, slot: 'tableview' },
+          { value: true, slot: 'gridview' },
+        ]"
+      >
+        <template v-slot:tableview>
+          <q-icon name="r_table_chart" />
+        </template>
 
-      <template v-slot:gridview>
-        <q-icon name="r_grid_view" />
-      </template>
-    </q-btn-toggle>
+        <template v-slot:gridview>
+          <q-icon name="r_grid_view" />
+        </template>
+      </q-btn-toggle>
 
-    <!-- DENSE / NORMAL -->
-    <q-btn-toggle
-      title="Densidad las filas en vista de tabla (Normal o Denso)"
-      v-model="isTableDense"
-      size="sm"
-      flat
-      class="q-mx-sm"
-      toggle-color="primary"
-      :options="[
-        { value: false, slot: 'normal' },
-        { value: true, slot: 'dense' },
-      ]"
-    >
-      <template v-slot:normal>
-        <q-icon name="r_table_rows" />
-      </template>
+      <!-- DENSE / NORMAL -->
+      <q-btn-toggle
+        title="Densidad las filas en vista de tabla (Normal o Denso)"
+        v-model="isTableDense"
+        size="sm"
+        flat
+        class="q-mx-sm"
+        toggle-color="primary"
+        :options="[
+          { value: false, slot: 'normal' },
+          { value: true, slot: 'dense' },
+        ]"
+      >
+        <template v-slot:normal>
+          <q-icon name="r_table_rows" />
+        </template>
 
-      <template v-slot:dense>
-        <q-icon name="view_headline" />
-      </template>
-    </q-btn-toggle>
-
+        <template v-slot:dense>
+          <q-icon name="view_headline" />
+        </template>
+      </q-btn-toggle>
+    </div>
     <q-table
       class="q-pb-xl bg-white overflow-hidden"
       :flat="!isTableGrid"
@@ -65,39 +66,6 @@
       <!-- TODO :loading="loading" -->
       <template v-slot:top>
         <div class="q-gutter-sm row items-center">
-          <q-space />
-
-          <!-- NUEVA ENTRADA -->
-          <q-btn
-            v-show="isTableFullscreen || $q.screen.gt.xs"
-            icon="add"
-            :dense="s.dense"
-            label="Nuevo"
-            flat
-            no-caps
-            @click="$emit('openForm')"
-          />
-
-          <!-- FULLSCREEN -->
-          <q-toggle
-            :dense="s.dense"
-            size="lg"
-            icon="r_fullscreen"
-            v-model="isTableFullscreen"
-            title="Pantalla completa"
-          />
-          <!-- ELIMINAR SELECCIÓN-->
-          <q-btn
-            v-show="selected.length > 0"
-            icon="delete"
-            label="Eliminar selección"
-            no-caps
-            text-color="negative"
-            flat
-            @click="$emit('deleteRows', selected)"
-            :dense="s.dense"
-          />
-
           <!-- FILTER -->
           <q-input
             borderless
@@ -115,6 +83,38 @@
               <q-icon v-show="filter" name="r_close" @click="filter = ''" class="cursor-pointer" />
             </template>
           </q-input>
+
+          <!-- NUEVA ENTRADA -->
+          <q-btn
+            v-show="isTableFullscreen || $q.screen.gt.xs"
+            icon="add"
+            :dense="s.dense"
+            label="Nuevo"
+            flat
+            no-caps
+            @click="$emit('openForm')"
+          />
+
+          <!-- ELIMINAR SELECCIÓN-->
+          <q-btn
+            v-show="selected.length > 0"
+            icon="delete"
+            label="Eliminar selección"
+            no-caps
+            text-color="negative"
+            flat
+            @click="$emit('deleteRows', selected)"
+            :dense="s.dense"
+          />
+
+          <!-- FULLSCREEN -->
+          <q-toggle
+            :dense="s.dense"
+            size="lg"
+            icon="r_fullscreen"
+            v-model="isTableFullscreen"
+            title="Pantalla completa"
+          />
         </div>
 
         <!-- BODY SLOT -->

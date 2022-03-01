@@ -22,8 +22,6 @@ import listar from 'src/composables/useAPI'
 import { eliminar } from 'src/composables/useAPI'
 
 const artefactoFields = ref([
-  { name: 'id', required: true, label: 'ID (temp)', align: 'left', field: 'id', sortable: true, },
-
   { name: 'nombre', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true, },
   { name: 'descripcion', align: 'left', label: 'Descripción', field: 'descripcion', sortable: true, },
   { name: 'fase', label: 'Fase', field: 'fase', sortable: true },

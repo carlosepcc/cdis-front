@@ -1,6 +1,6 @@
 import { Dialog, Notify, QSpinnerGears } from "quasar";
 import isJwtTokenExpired, { decode } from "jwt-check-expiry";
-import state, { usersArr } from "./useState";
+import state, { usersArr, usersByRole } from "./useState";
 
 import { api } from "boot/axios";
 import route from "src/router";
@@ -18,13 +18,10 @@ export const autorizar = (token) => {
   // Si se recibe un token y este no ha expirado, se guarda en localStorage tanto el token mismo como el usuario decodificado
   if (token && !isJwtTokenExpired(token)) {
     console.log(
-      "🚀 ~ file: useAPI.js ~ line 18 ~ autorizar ~ !isJwtTokenExpired(token)",
+      "🚀 useAPI.js line 18 autorizar !isJwtTokenExpired(token)",
       !isJwtTokenExpired(token)
     );
-    console.log(
-      "🚀 ~ file: useAPI.js ~ line 18 ~ autorizar ~ token != null",
-      token != null
-    );
+    console.log("🚀 useAPI.js line 18 autorizar token != null", token != null);
 
     localStorage.setItem("token", token);
     user = decode(token).payload.user;
@@ -33,17 +30,14 @@ export const autorizar = (token) => {
 
   // Luego se procede a revisar si hay un token guardado en localStorage
   let storedToken = localStorage.getItem("token");
-  console.log(
-    "🚀 ~ file: useAPI.js ~ line 24 ~ autorizar ~ localStorageToken",
-    storedToken
-  );
+  console.log("🚀 useAPI.js line 24 autorizar localStorageToken", storedToken);
 
   // ..y, si este existe y no ha expirado, se actualiza el estado con los datos de usuario autenticado decodificado en localStorage y se establece el header de Autorization de axios
   if (storedToken && !isJwtTokenExpired(storedToken)) {
     state.value.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
     api.defaults.headers.common["Authorization"] = storedToken;
     console.log(
-      "🚀 ~ file: useAPI.js ~ line 29 ~ autorizar ~ state.value.loggedUser",
+      "🚀 useAPI.js line 29 autorizar state.value.loggedUser",
       state.value.loggedUser
     );
     // si no existe o ya expiró, se elimina de locaStorage y se enruta a la página inicial para que el usuario inicie sesión.
@@ -110,6 +104,31 @@ export const login = (loginObject) => {
     });
 };
 
+export const listarUsersByRole = () => {
+  api
+    .get("/usuario/findByRol", { params: { rol: "Revisor" } })
+    .then((response) => {
+      console.log("🚀 useAPI.js line 115 api.get response", response);
+      usersByRole.value.Revisor = response.data;
+    })
+    .catch((error) =>
+      console.log("No se pudo obtener la lista de revisores", error)
+    );
+
+  api
+    .get("/usuario/findByRol", { params: { rol: "Encargado_de_proyecto" } })
+    .then((response) => {
+      console.log("🚀 useAPI.js 115 api.get response", response);
+      usersByRole.value.Encargado_de_proyecto = response.data;
+    })
+    .catch((error) =>
+      console.log(
+        "No se pudo obtener la lista de encargados de proyecto",
+        error
+      )
+    );
+};
+
 // LISTAR (Actualizar Arreglos en el cliente con datos del servidor)
 const listar = (list = usersArr, url = "/usuario") => {
   let noti = Notify.create({
@@ -138,10 +157,10 @@ const listar = (list = usersArr, url = "/usuario") => {
       });
     });
 };
-
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
 export const guardar = (object, refArr, url = "/usuario") => {
-  console.log(`Guardando ${object},${refArr.value}`);
+  console.log("🚀 useAPI 162 guardar refArr", refArr);
+  console.log("🚀 useAPI 162 guardar object", object);
   let noti = Notify.create({
     type: "ongoing",
     message: `Guardando. ${url}`,
@@ -149,7 +168,7 @@ export const guardar = (object, refArr, url = "/usuario") => {
     actions: [{ label: "Ocultar", color: "white" }],
   });
 
-  console.log("🚀 ~ file: useAPI.js ~ line 126 ~ guardar ~ object", object);
+  console.log("🚀 useAPI.js line 126 guardar object", object);
   api({
     method: object.id ? "put" : "post",
     url: url,
@@ -225,7 +244,7 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
       //CREATE an idsArray from the objects array
       let idsArr = [];
       objArr.forEach((obj) => idsArr.push(obj.id));
-      console.log("🚀 ~ file: useAPI.js ~ line 178 ~ .onOk ~ idsArr", idsArr);
+      console.log("🚀 useAPI.js line 178 .onOk idsArr", idsArr);
       //REQUEST TO SERVER
       api({
         method: "delete",

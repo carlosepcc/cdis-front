@@ -17,9 +17,9 @@
 <script setup>
 import { ref, provide } from "vue";
 import ListPage from 'components/ListPage'
-import listar from 'src/composables/useAPI'
+import listar, { listarUsersByRole } from 'src/composables/useAPI'
 import MinutaForm from "src/components/forms/MinutaForm";
-import { usersArr } from 'src/composables/useState'
+import { usersArr, usersByRole } from 'src/composables/useState'
 
 const minutaFields = ref([
   { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
@@ -54,9 +54,10 @@ const minutaObject = ref()
 provide('minutaObject', minutaObject)
 
 //openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { revisor: revisoresSelect[0], encargado: encargadosSelect[0] }) => {
+const openForm = (obj = { revisor: usersByRole.value.Revisor[0], encargado: usersByRole.value.Encargado_de_proyecto[0] }) => {
   minutaObject.value = obj
   showForm.value = true
+  listarUsersByRole()
 }
 
 // delete tuples by array of objects
