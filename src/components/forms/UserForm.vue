@@ -29,6 +29,7 @@
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
+                (val) => (val && /^[a-z A-Z]+$/.test(val)) || 'Por favor, sólo letras'
               ]"
             />
 
@@ -40,6 +41,7 @@
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
+                (val) => (val && /^[a-z A-Z]+$/.test(val)) || 'Por favor, sólo letras'
               ]"
             />
             <q-input
