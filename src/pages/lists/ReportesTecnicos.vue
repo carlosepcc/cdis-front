@@ -18,36 +18,12 @@
 import { ref, provide } from "vue";
 import RtecnicoForm from "src/components/forms/RtecnicoForm";
 import ListPage from 'components/ListPage'
-import listar from 'src/composables/useAPI'
-import { eliminar } from 'src/composables/useAPI'
+import listar, { listarUsersByRole, eliminar } from 'src/composables/useAPI'
 
-
-/*
-Reporte Tecnico
-Schema
-{
-   "id": 0,
-   "nombre": "string",
-   "descripcion": "string",
-   "estado": "string",
-   "revisor": {
-     "id": 0,
-     "nombre": "string",
-     "apellidos": "string",
-     "username": "string",
-     "roles": [
-       "Administrador"
-     ],
-     "pass": "string"
-   },
-   "attribute": 0,
-   "fechaI": "2022-02-25",
-   "fechaC": "2022-02-25"
- } */
 const rtecnicoFields = ref([
   { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true },
   { name: 'estado', required: true, label: 'Estado', align: 'left', field: 'estado', sortable: true },
-  { name: 'revisor', required: true, label: 'Revisor', align: 'left', field: rtecnico => `${rtecnico.revisor.nombre} ${rtecnico.revisor.apellidos}`, sortable: true },
+  { name: 'revisor', label: 'Revisor', align: 'left', field: rtecnico => rtecnico.revisor ? `${rtecnico.revisor.nombre} ${rtecnico.revisor.apellidos}` : 'No asignado', sortable: true },
   { name: 'inicio', required: true, label: 'Fecha de inicio', align: 'left', field: 'fechaI', sortable: true },
   { name: 'cumplimiento', required: true, label: 'Fecha de cumplimiento', align: 'left', field: 'fechaC', sortable: true },
   { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
@@ -82,6 +58,8 @@ provide('rtecnicoObject', rtecnicoObject)
 const openForm = (obj = { nombre: `Reporte Técnico ${rtecnicosArr.value.length + 1}`, estado: 1, tipo: 1, evaluacion: 1 }) => {
   rtecnicoObject.value = obj
   showForm.value = true
+
+  listarUsersByRole()
 }
 
 // delete tuples by array of objects

@@ -10,12 +10,11 @@
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <!-- Fields -->
           <div>
-            {{ minutaObject }}
             <q-input
               autofocus
               :dense="state.dense"
               filled
-              v-model="minutaObject.proyecto"
+              v-model="minutaObject.nombreP"
               label="Proyecto"
               lazy-rules
               :rules="[
@@ -30,7 +29,6 @@
               filled
               :options="usersByRole.Revisor"
               option-label="nombre"
-              option-value="nombre"
               label="Revisor"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
@@ -42,7 +40,6 @@
               filled
               :options="usersByRole.Encargado_de_proyecto"
               option-label="nombre"
-              option-value="value"
               emit-value
               label="Encargado"
               lazy-rules
@@ -51,8 +48,8 @@
 
             <q-input
               :dense="state.dense"
-              label="Descripción"
-              v-model="minutaObject.descripcion"
+              label="Acuerdos"
+              v-model="minutaObject.acuerdos"
               filled
               autogrow
               lazy-rules
@@ -126,7 +123,7 @@ const onSubmit = () => {
 //RESET FORM
 const onReset = () => {
   //Reset to base values maitaining the id value
-  minutaObject.value = { id: minutaObject.value.id, nombre: `minuta ${minutasArr.value.length + 1}` }
+  minutaObject.value = { id: minutaObject.value.id }
   //Clear validation error messages.
   formulario.value.resetValidation();
 }

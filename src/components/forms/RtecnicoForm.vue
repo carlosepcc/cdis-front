@@ -11,6 +11,7 @@
           <div>
             <!-- Nombre -->
             <q-input
+              v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               autofocus
               :dense="state.dense"
               filled
@@ -24,6 +25,7 @@
 
             <!-- Local -->
             <q-input
+              v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               filled
               v-model="rtecnicoObject.local"
@@ -35,6 +37,7 @@
             />
             <!-- Fecha de inicio -->
             <q-input
+              v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               filled
               v-model="rtecnicoObject.fechaI"
@@ -47,6 +50,7 @@
             />
             <!-- Fecha de cumplimiento -->
             <q-input
+              v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               filled
               v-model="rtecnicoObject.fechaC"
@@ -60,6 +64,7 @@
 
             <!-- Descripción -->
             <q-input
+              v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               label="Descripción"
               v-model="rtecnicoObject.descripcion"
@@ -91,7 +96,8 @@
               v-model="rtecnicoObject.revisor"
               default
               filled
-              :options="revisoresArr"
+              :options="usersByRole.Revisor"
+              option-label="nombre"
               label="Revisor"
               lazy-rules
               :rules="[val || 'Por favor, seleccione un trabajador']"
@@ -136,7 +142,7 @@
 import { ref, inject } from 'vue';
 import { guardar } from "src/composables/useAPI";
 import state from "src/composables/useState"
-import { usersArr } from 'src/composables/useState'
+import { usersByRole } from 'src/composables/useState'
 
 //DOM
 const formulario = ref()

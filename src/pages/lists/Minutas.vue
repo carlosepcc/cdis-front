@@ -17,15 +17,15 @@
 <script setup>
 import { ref, provide } from "vue";
 import ListPage from 'components/ListPage'
-import listar, { listarUsersByRole } from 'src/composables/useAPI'
+import listar, { listarUsersByRole, eliminar } from 'src/composables/useAPI'
 import MinutaForm from "src/components/forms/MinutaForm";
-import { usersArr, usersByRole } from 'src/composables/useState'
+import { usersByRole } from 'src/composables/useState'
 
 const minutaFields = ref([
-  { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'proyecto', sortable: true },
+  { name: 'proyecto', required: true, label: 'Proyecto', align: 'left', field: 'nombreP', sortable: true },
   { name: 'revisor', required: true, label: 'Revisor', align: 'left', field: minuta => `${minuta.revisor.nombre} ${minuta.revisor.apellidos}`, sortable: true },
   { name: 'encargado', required: true, label: 'Encargado', align: 'left', field: minuta => `${minuta.encargado.nombre} ${minuta.encargado.apellidos}`, sortable: true },
-  { name: 'description', required: true, label: 'Description', align: 'left', field: 'descripcion', sortable: true },
+  { name: 'description', required: true, label: 'Acuerdos', align: 'left', field: 'acuerdos', sortable: true },
 ])
 
 const minutasArr = ref([{ id: 1, proyecto: 'Proyecto c', revisor: { nombre: 'Adalberto', apellidos: 'Elrevi Sor' }, encargado: { nombre: 'Adalberto', apellidos: 'Elen Cargado' }, descripcion: 'Este es un minuta de prueba para usarlo mientras no tengo acceso a los datos por seguridad' }])
@@ -61,6 +61,6 @@ const openForm = (obj = { revisor: usersByRole.value.Revisor[0], encargado: user
 }
 
 // delete tuples by array of objects
-const deleteTuples = (selectedRows = []) => eliminar(selectedRows, minutasArr, url)
+const deleteTuples = (selectedRows = []) => eliminar(selectedRows, minutasArr)
 
 </script>

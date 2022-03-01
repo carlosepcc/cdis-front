@@ -4,9 +4,9 @@
 
 - id\*
 - username: String\*
-- password: String
-- name: String
-- lastname: String
+- pass: String
+- nombre: String
+- apellidos: String
 - roles: Array (Enum ("Administrador" | "Coordinador de calidad" | "Asesor de calidad" | "Encargado de proyecto" | "Revisor")
 
 ### Artefacto
@@ -20,7 +20,7 @@
 ### Hallazgo
 
 - id\*
-- producto: String
+- productoAf: String
 - ubicacion: String
 - descripcion: String
 - impacto: String (Bajo | Medio | Alto)
@@ -29,10 +29,10 @@
 ### Minuta de reunión
 
 - id\*
-- proyecto: String
+- nombreP: String
 - revisor: Usuario
 - encargado: Usuario
-- descripcion: String
+- acuerdos: String
 
 ### Reporte técnico
 
@@ -41,6 +41,6 @@
 - estado: String (Creado | Abortado | Revisado)
 - revisor: Usuario
 - local: String
-- inicio: Date
-- cumplimiento: Date
+- fechaI: Date
+- fechaC: Date
 - descripcion: String

@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-separator v-if="separate" class="q-mt-lg" />
-    <q-item clickable v-ripple :to="to">
+    <q-item clickable v-ripple :to="to" :title="`Ir a ${title}`">
       <q-item-section avatar>
         <q-icon v-if="icon" :name="icon" />
         <span v-else>{{ alt }}</span>

@@ -17,18 +17,10 @@ const routes = [
         component: () => import("src/pages/lists/ReportesTecnicos.vue"),
       },
       {
-        path: "/rnotificacion",
-        component: () => import("src/pages/lists/ReportesNotificacion.vue"),
-      },
-      {
         path: "/hallazgos",
         component: () => import("src/pages/lists/Hallazgos.vue"),
       },
       { path: "/users", component: () => import("src/pages/lists/Users.vue") },
-      {
-        path: "/dictamenes",
-        component: () => import("src/pages/lists/Dictamenes.vue"),
-      },
       { path: "/help", component: () => import("src/pages/Help.vue") },
       { path: "/about", component: () => import("src/pages/About.vue") },
       { path: "/settings", component: () => import("src/pages/Settings.vue") },
