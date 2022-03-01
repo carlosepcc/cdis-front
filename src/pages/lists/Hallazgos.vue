@@ -54,7 +54,7 @@ const hallazgoObject = ref({})
 provide('hallazgoObject', hallazgoObject)
 
 //openForm triggered on: Nueva entrada, Modificar
-const openForm = (obj = { impacto: 'medio' }) => {
+const openForm = (obj = { impacto: 'medio', tipo: 'Oportunidad de mejora' }) => {
   hallazgoObject.value = obj
   showForm.value = true
   console.log('openForm')

@@ -47,13 +47,10 @@ Schema
 const rtecnicoFields = ref([
   { name: 'name', required: true, label: 'Nombre', align: 'left', field: 'nombre', sortable: true },
   { name: 'estado', required: true, label: 'Estado', align: 'left', field: 'estado', sortable: true },
-  { name: 'revisor', required: true, label: 'Revisor', align: 'left', field: 'revisor.nombre', sortable: true },
-  { name: 'tipo', required: true, label: 'Tipo', align: 'left', field: 'tipo', sortable: true },
+  { name: 'revisor', required: true, label: 'Revisor', align: 'left', field: rtecnico => `${rtecnico.revisor.nombre} ${rtecnico.revisor.apellidos}`, sortable: true },
   { name: 'inicio', required: true, label: 'Fecha de inicio', align: 'left', field: 'fechaI', sortable: true },
   { name: 'cumplimiento', required: true, label: 'Fecha de cumplimiento', align: 'left', field: 'fechaC', sortable: true },
-  { name: 'evaluacion', required: true, label: 'Evaluación', align: 'left', field: 'evaluacion', sortable: true },
   { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
-  //{ name: 'adjunto', required: true, label: 'adjunto', align: 'left', field: 'file', sortable: true },
 
 ])
 const url = '/reportetecnico'

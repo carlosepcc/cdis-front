@@ -10,6 +10,7 @@
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <!-- Fields -->
           <div>
+            {{ minutaObject }}
             <q-input
               autofocus
               :dense="state.dense"

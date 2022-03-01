@@ -29,7 +29,7 @@
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-                (val) => (val && /^[a-z A-Z]+$/.test(val)) || 'Por favor, sólo letras'
+                (val) => (val && /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i.test(val)) || 'Por favor, sólo letras'
               ]"
             />
 
@@ -41,7 +41,7 @@
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-                (val) => (val && /^[a-z A-Z]+$/.test(val)) || 'Por favor, sólo letras'
+                (val) => (val && /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i.test(val)) || 'Por favor, sólo letras'
               ]"
             />
             <q-input
@@ -143,7 +143,7 @@ const rolesArr = [
 //SUBMIT
 const onSubmit = () => {
   guardar(userObject.value, usersArr)
-  //onReset();
+  onReset();
   // TODO: No resetear cuando guardar da error.
 }
 

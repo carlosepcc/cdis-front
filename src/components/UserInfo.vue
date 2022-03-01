@@ -36,13 +36,13 @@ const logout = () => {
     :title="state.loggedUser.username + '. ' + state.loggedUser.nombre + '. ' + state.loggedUser.roles"
   >
     <q-item-section side>
-      <q-item-label class="text-purple-1 text-weight-light">
+      <q-item-label class="text-purple-1 text-bold">
         <span class>
           {{ state.loggedUser.nombre }}
           <span class="gt-xs">{{ state.loggedUser.apellidos }}</span>
         </span>
       </q-item-label>
-      <q-item-label class="text-purple-2 text-bold" caption>
+      <q-item-label class="text-purple-1 text-bold" caption>
         {{
           state.loggedUser.roles[0].replace(/_/g, ' ')
         }}
@@ -68,7 +68,7 @@ const logout = () => {
           floating
           rounded
           color="transparent"
-          class="text-weight-bold text-purple-2"
+          class="text-weight-bold text-purple-1"
         >{{ state.loggedUser.roles[0].replace(/[a-z]/g, '').replace(/_/g, ' ') }}</q-badge>
       </q-avatar>
     </q-item-section>

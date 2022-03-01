@@ -168,7 +168,6 @@ export const guardar = (object, refArr, url = "/usuario") => {
     actions: [{ label: "Ocultar", color: "white" }],
   });
 
-  console.log("🚀 useAPI.js line 126 guardar object", object);
   api({
     method: object.id ? "put" : "post",
     url: url,

@@ -48,8 +48,13 @@ const drawerItems = [
           <q-toolbar-title>
             <div class="row">
               <div class="column gt-xs">
-                <q-avatar size="48px">
-                  <img src="xedro/xedro-imagotipo-delujo.png" />
+                <q-avatar>
+                  <img
+                    src="xedro/xedro-imagotipo-delujo.webp"
+                    alt="Imagotipo de XEDRO"
+                    width="396"
+                    height="421"
+                  />
                 </q-avatar>
               </div>
               <div class="column">
@@ -123,11 +128,13 @@ const drawerItems = [
   font-family: "Electrofied";
   src: url("https://db.onlinewebfonts.com/t/f45d0d0e10eb5171b1ad9ee95d1314f9.ttf")
     format("truetype");
+  font-display: swap;
 }
 @font-face {
   font-family: "Aller";
   src: url("https://db.onlinewebfonts.com/t/3bf7501ddcf8338bc9cdcedad10914cb.ttf")
     format("truetype");
+  font-display: swap;
 }
 .brand-bar {
   margin-bottom: 2px;
@@ -173,7 +180,7 @@ const drawerItems = [
 .siglas {
   font-family: Electrofied, sans-serif;
   font-weight: 1000;
-  font-size: 20pt;
+  font-size: 18pt;
   color: var(--downcolor);
   background: rgb(
     37,
@@ -207,7 +214,7 @@ const drawerItems = [
   display: block;
   margin-bottom: -12px;
   margin-left: 2px;
-  font-size: 8pt;
+  font-size: 7pt;
   font-weight: 700;
   letter-spacing: 0;
 }
