@@ -61,6 +61,6 @@ const openForm = (obj = { revisor: usersByRole.value.Revisor[0], encargado: user
 }
 
 // delete tuples by array of objects
-const deleteTuples = (selectedRows = []) => eliminar(selectedRows, minutasArr)
+const deleteTuples = (selectedRows = []) => eliminar(selectedRows, minutasArr, url)
 
 </script>
