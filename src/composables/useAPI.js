@@ -3,6 +3,7 @@ import isJwtTokenExpired, { decode } from "jwt-check-expiry";
 import state, { usersArr, usersByRole } from "./useState";
 
 import { api } from "boot/axios";
+import { handleError } from "vue";
 import route from "src/router";
 
 const Router = route();
@@ -93,14 +94,8 @@ export const login = (loginObject) => {
       });
     })
     .catch((error) => {
-      console.log(error, "Error en el login");
-      noti({
-        type: "negative",
-        spinner: null,
-        message: `Falló el inicio de sesión. ${error.message}.`,
-        icon: "report_problem",
-        actions: [{ label: "OK", color: "white" }],
-      });
+      console.log("🚀 ~ file: useAPI.js ~ line 189 ~ guardar ~ error", error);
+      notifyError(error, noti, "No se pudo iniciar sesión");
     });
 };
 
@@ -147,14 +142,14 @@ const listar = (list = usersArr, url = "/usuario") => {
     })
     .catch((error) => {
       // handle error
-      console.log(error);
-      noti({
-        type: "negative",
-        spinner: null,
-        message: `Carga fallida de ${url}. ${error.message}.`,
-        icon: "report_problem",
-        actions: [{ label: "OK", color: "white" }],
-      });
+      console.log("🚀 ~ file: useAPI.js ~ line 189 ~ guardar ~ error", error);
+      notifyError(
+        error,
+        {
+          message: `Carga fallida de ${url}. ${error.response.data.message}`,
+        },
+        noti
+      );
     });
 };
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
@@ -184,37 +179,8 @@ export const guardar = (object, refArr, url = "/usuario") => {
       listar(refArr, url);
     })
     .catch((error) => {
-      // handle error
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log("ERROR.RESPONSE", error.response);
-        console.log("error.response.data.message", error.response.data.message);
-        noti({
-          type: "negative",
-          spinner: null,
-          message: `Guardado fallido de ${url}. ${error.response.data.message}.`,
-          icon: "report_problem",
-          actions: [{ label: "OK", color: "white" }],
-        });
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log("ERROR.REQUEST", error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log("Error", error.message);
-
-        console.log(error.config);
-        noti({
-          type: "negative",
-          spinner: null,
-          message: `Guardado fallido de ${url}. ${error.message}.`,
-          icon: "report_problem",
-          actions: [{ label: "OK", color: "white" }],
-        });
-      }
+      console.log("🚀 ~ file: useAPI.js ~ line 189 ~ guardar ~ error", error);
+      notifyError(error, noti, (heading = "Guardado fallido "));
     });
 };
 
@@ -264,15 +230,15 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
           });
         })
         .catch((error) => {
-          // handle error
-          console.log(error);
-          noti({
-            type: "negative",
-            spinner: null,
-            message: `Eliminación fallida de ${url}. ${error.message}`,
-            icon: "report_problem",
-            actions: [{ label: "OK", color: "white" }],
-          });
+          console.log(
+            "🚀 ~ file: useAPI.js ~ line 189 ~ guardar ~ error",
+            error
+          );
+          notifyError(
+            error,
+            noti,
+            (heading = `Eliminación fallida de ${url.slice(0, 1)}`)
+          );
         })
         .then(() => {
           // always
@@ -284,4 +250,51 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
     });
 };
 
+// LOCAL FUNCTIONS
+const notifyError = (error, noti, heading = "Acción fallida", notiConfig) => {
+  notiConfig = {
+    ...{
+      type: "negative",
+      spinner: null,
+      icon: "report_problem",
+      actions: [{ label: "OK", color: "white" }],
+
+      message: `${heading}. ${error.message}.`,
+    },
+    ...notiConfig,
+  };
+
+  // handle error
+  if (error.response) {
+    let serverMessage = error.response.data.message
+      ? error.response.data.message
+      : error.message;
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    console.log(
+      "The request was made and the server responded with a status code that falls out of the range of 2xx. ERROR.RESPONSE: ",
+      error.response
+    );
+
+    notiConfig.message = `${heading}. ${serverMessage}.`;
+
+    noti(notiConfig);
+  } else if (error.request) {
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+    // http.ClientRequest in node.js
+    console.log(
+      "The request was made but no response was received. ERROR.REQUEST: ",
+      error.request
+    );
+  } else {
+    console.log(
+      "Something happened in setting up the request that triggered an Error ",
+      error
+    );
+
+    notiConfig.message = `${heading}. ${error.message}.`;
+    noti(notiConfig);
+  }
+};
 export default listar;

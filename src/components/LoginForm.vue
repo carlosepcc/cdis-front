@@ -17,14 +17,22 @@
         <q-input
           filled
           :dense="state.dense"
-          type="password"
+          :type="showPassword ? 'password' : 'text'"
           v-model="loginObject.contrasenna"
           label="Contraseña"
           lazy-rules
           :rules="[
             val => val !== null && val !== '' || 'Por favor, escriba algo'
           ]"
-        />
+        >
+          <template v-slot:append>
+            <q-icon
+              :name="showPassword ? 'r_visibility_off' : 'r_visibility'"
+              class="cursor-pointer"
+              @click="showPassword = !showPassword"
+            />
+          </template>
+        </q-input>
 
         <!-- <q-checkbox v-model="accept" label="Recordar usuario" />
         -->
@@ -67,7 +75,7 @@ import state from "src/composables/useState"
 const $q = useQuasar()
 
 const formulario = ref()
-
+const showPassword = ref(false)
 
 const loginObject = ref({ usuario: '', contrasenna: '' })
 

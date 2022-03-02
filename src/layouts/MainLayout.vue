@@ -61,8 +61,8 @@ const drawerItems = [
                   <img
                     src="xedro/xedro-imagotipo-delujo.webp"
                     alt="Imagotipo de XEDRO"
-                    width="396"
-                    height="421"
+                    width="48"
+                    height="48"
                   />
                 </q-avatar>
               </div>
