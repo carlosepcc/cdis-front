@@ -1,6 +1,6 @@
 <script setup>
 // Components
-import DrawerItem from 'components/DrawerItem';
+import BaseDrawer from 'components/BaseDrawer';
 import UserInfo from 'src/components/UserInfo';
 import { ref } from 'vue';
 import state from 'src/composables/useState'
@@ -96,28 +96,7 @@ const drawerItems = [
     </q-header>
 
     <!--MENU LATERAL (DRAWER "gaveta") -->
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      :mini="miniState"
-      @mouseover="miniState = false"
-      @mouseout="miniState = true"
-      mini-to-overlay
-      :breakpoint="500"
-      bordered
-      side="left"
-    >
-      <q-scroll-area class="fit">
-        <q-list>
-          <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
-            <DrawerItem
-              v-if="drawerItem.forRoles == undefined || (state.loggedUser ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : false)"
-              v-bind="drawerItem"
-            />
-          </template>
-        </q-list>
-      </q-scroll-area>
-    </q-drawer>
+    <BaseDrawer v-model="leftDrawerOpen" />
 
     <!-- CONTENEDOR DE PAGINAS -->
     <q-page-container>
