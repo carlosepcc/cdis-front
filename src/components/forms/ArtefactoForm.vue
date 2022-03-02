@@ -10,10 +10,11 @@
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <div>
             <q-input
+              clearable
               autofocus
               :dense="state.dense"
               filled
-              v-model="artefactoObject.nombre"
+              v-model.trim="artefactoObject.nombre"
               label="Nombre del artefacto"
               lazy-rules
               :rules="[
@@ -38,9 +39,10 @@
               label="Disciplina"
             />
             <q-input
+              clearable
               :dense="state.dense"
               label="Descripción"
-              v-model="artefactoObject.descripcion"
+              v-model.trim="artefactoObject.descripcion"
               filled
               autogrow
               lazy-rules

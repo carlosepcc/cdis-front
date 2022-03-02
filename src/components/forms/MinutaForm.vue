@@ -11,10 +11,11 @@
           <!-- Fields -->
           <div>
             <q-input
+              clearable
               autofocus
               :dense="state.dense"
               filled
-              v-model="minutaObject.nombreP"
+              v-model.trim="minutaObject.nombreP"
               label="Proyecto"
               lazy-rules
               :rules="[
@@ -47,9 +48,10 @@
             />
 
             <q-input
+              clearable
               :dense="state.dense"
               label="Acuerdos"
-              v-model="minutaObject.acuerdos"
+              v-model.trim="minutaObject.acuerdos"
               filled
               autogrow
               lazy-rules

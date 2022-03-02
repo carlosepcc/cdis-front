@@ -41,7 +41,20 @@
       </template>
     </q-btn-toggle>
 
-    <q-input v-model="axiosBaseURL" placeholder="baseURL.." @change="setBaseURL"/>
+    <q-input
+      autofocus
+      style="max-width: 20em"
+      list="serverUrls"
+      v-model="axiosBaseURL"
+      placeholder="baseURL.."
+      @change="setBaseURL"
+    />
+    <datalist id="serverUrls">
+      <option value="http://mdc-gesat.herokuapp.com"></option>
+      <option value="http://gesatserver.herokuapp.com"></option>
+      <option value="http://localhost:9090"></option>
+      <option value="http://10.8.44.191:9090"></option>
+    </datalist>
   </q-page>
 </template>
 

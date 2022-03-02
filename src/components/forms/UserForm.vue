@@ -21,10 +21,11 @@
           }-->
           <div>
             <q-input
+              clearable
               autofocus
               :dense="state.dense"
               filled
-              v-model="userObject.nombre"
+              v-model.trim="userObject.nombre"
               label="Nombre"
               lazy-rules
               :rules="[
@@ -34,9 +35,10 @@
             />
 
             <q-input
+              clearable
               :dense="state.dense"
               label="Apellidos"
-              v-model="userObject.apellidos"
+              v-model.trim="userObject.apellidos"
               filled
               lazy-rules
               :rules="[
@@ -45,6 +47,7 @@
               ]"
             />
             <q-input
+              clearable
               :dense="state.dense"
               label="Nombre de usuario"
               v-model="userObject.username"
@@ -58,6 +61,7 @@
             />
 
             <q-input
+              clearable
               :dense="state.dense"
               label="Contraseña"
               v-model="userObject.pass"

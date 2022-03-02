@@ -11,11 +11,12 @@
           <div>
             <!-- Nombre -->
             <q-input
+              clearable
               v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               autofocus
               :dense="state.dense"
               filled
-              v-model="rtecnicoObject.nombre"
+              v-model.trim="rtecnicoObject.nombre"
               label="Nombre del Reporte Técnico"
               lazy-rules
               :rules="[
@@ -25,10 +26,11 @@
 
             <!-- Local -->
             <q-input
+              clearable
               v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               filled
-              v-model="rtecnicoObject.local"
+              v-model.trim="rtecnicoObject.local"
               label="Local"
               lazy-rules
               :rules="[
@@ -37,12 +39,14 @@
             />
             <!-- Fecha de inicio -->
             <q-input
+              clearable
               v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               filled
               v-model="rtecnicoObject.fechaI"
               label="Fecha de inicio"
               type="date"
+              stack-label
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
@@ -50,12 +54,14 @@
             />
             <!-- Fecha de cumplimiento -->
             <q-input
+              clearable
               v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               filled
               v-model="rtecnicoObject.fechaC"
               label="Fecha de cumplimiento"
               type="date"
+              stack-label
               lazy-rules
               :rules="[
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
@@ -64,10 +70,11 @@
 
             <!-- Descripción -->
             <q-input
+              clearable
               v-if="state.loggedUser.roles.includes('Asesor_de_calidad')"
               :dense="state.dense"
               label="Descripción"
-              v-model="rtecnicoObject.descripcion"
+              v-model.trim="rtecnicoObject.descripcion"
               filled
               autogrow
               lazy-rules
@@ -91,6 +98,7 @@
 
             <!-- Revisor -->
             <q-select
+              clearable
               v-if="state.loggedUser.roles.includes('Coordinador_de_calidad') && rtecnicoObject.id"
               :dense="state.dense"
               v-model="rtecnicoObject.revisor"
