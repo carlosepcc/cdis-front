@@ -180,7 +180,7 @@ export const guardar = (object, refArr, url = "/usuario") => {
     })
     .catch((error) => {
       console.log("🚀 ~ file: useAPI.js ~ line 189 ~ guardar ~ error", error);
-      notifyError(error, noti, (heading = "Guardado fallido "));
+      notifyError(error, noti, "Guardado fallido");
     });
 };
 
@@ -268,7 +268,10 @@ const notifyError = (error, noti, heading = "Acción fallida", notiConfig) => {
   if (error.response) {
     let serverMessage = error.response.data.message
       ? error.response.data.message
-      : error.message;
+      : error.response.data.error == "Forbidden" &&
+        error.response.data.path == "/login"
+      ? "Credenciales inválidas"
+      : error.response.data.error;
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
     console.log(

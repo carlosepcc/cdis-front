@@ -48,10 +48,16 @@ const drawerItems = [
     <q-scroll-area class="fit">
       <q-list>
         <template v-for="drawerItem in drawerItems" :key="drawerItem.title">
-          <DrawerItem
-            v-if="drawerItem.forRoles == undefined || (state.loggedUser ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : false)"
-            v-bind="drawerItem"
-          />
+          <transition-group
+            appear
+            enter-active-class="animated fadeIn"
+            leave-active-class="animated fadeOut"
+          >
+            <DrawerItem
+              v-if="drawerItem.forRoles == undefined || (state.loggedUser ? state.loggedUser.roles.some(currentRol => drawerItem.forRoles.includes(currentRol)) : false)"
+              v-bind="drawerItem"
+            />
+          </transition-group>
         </template>
       </q-list>
     </q-scroll-area>
