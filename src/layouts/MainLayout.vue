@@ -139,12 +139,12 @@ const drawerItems = [
     format("truetype");
   font-display: swap;
 }
-@font-face {
+/* @font-face {
   font-family: "Aller";
   src: url("https://db.onlinewebfonts.com/t/3bf7501ddcf8338bc9cdcedad10914cb.ttf")
     format("truetype");
   font-display: swap;
-}
+} */
 .brand-bar {
   margin-bottom: 2px;
   width: 100%;
