@@ -8,10 +8,11 @@
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <q-input
+            clearable
             autofocus
             :dense="state.dense"
             filled
-            v-model="hallazgoObject.productoAf"
+            v-model.trim="hallazgoObject.productoAf"
             label="Producto Afectado"
             lazy-rules
             :rules="[
@@ -19,8 +20,9 @@
             ]"
           />
           <q-input
+            clearable
             :dense="state.dense"
-            v-model="hallazgoObject.ubicacion"
+            v-model.trim="hallazgoObject.ubicacion"
             label="Ubicación"
             filled
             lazy-rules
@@ -29,9 +31,10 @@
             ]"
           />
           <q-input
+            clearable
             :dense="state.dense"
             label="Descripción"
-            v-model="hallazgoObject.descripcion"
+            v-model.trim="hallazgoObject.descripcion"
             filled
             autogrow
             lazy-rules
@@ -48,17 +51,6 @@
             label="Tipo"
             lazy-rules
             :rules="[val || 'Por favor, seleccione algo']"
-          />
-          <q-input
-            :dense="state.dense"
-            label="Fecha"
-            type="date"
-            v-model="hallazgoObject.fecha"
-            filled
-            lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Por favor, escriba algo',
-            ]"
           />
           <q-select
             :dense="state.dense"

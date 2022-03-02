@@ -5,6 +5,9 @@
     <q-card-section>
       <q-form @submit="onSubmit" @reset="onReset" ref="formulario" class="q-gutter-md">
         <q-input
+          autofocus
+          tabindex="1"
+          clearable
           filled
           :dense="state.dense"
           v-model="loginObject.usuario"
@@ -15,6 +18,7 @@
         />
 
         <q-input
+          tabindex="2"
           filled
           :dense="state.dense"
           :type="showPassword ? 'password' : 'text'"
@@ -34,9 +38,27 @@
           </template>
         </q-input>
 
-        <!-- <q-checkbox v-model="accept" label="Recordar usuario" />
-        -->
+        <!-- <q-checkbox v-model="accept" label="Recordar usuario" />  -->
         <div>
+          <q-btn-group push spread clas="full-width q-mt-md">
+            <q-btn
+              :size="state.dense ? 'sm' : 'md'"
+              label="Restablecer"
+              type="reset"
+              no-caps
+              push
+              tabindex="4"
+            />
+            <q-btn
+              label="Entrar"
+              push
+              no-caps
+              class="full-width"
+              type="submit"
+              color="primary"
+              tabindex="3"
+            />
+          </q-btn-group>
           <!-- <q-btn
           label="Olvidé mi contraseña"
           no-caps
@@ -56,10 +78,6 @@
             ok: { label: 'Ño', noCaps: true, flat: true },
           })"
           />-->
-          <q-btn-group push spread clas="full-width q-mt-md">
-            <q-btn :size="state.dense ? 'sm' : 'md'" label="Restablecer" type="reset" no-caps push />
-            <q-btn label="Entrar" push no-caps class="full-width" type="submit" color="primary" />
-          </q-btn-group>
         </div>
       </q-form>
     </q-card-section>
