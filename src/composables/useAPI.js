@@ -189,6 +189,7 @@ export const guardar = (object, refArr, url = "/usuario") => {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         console.log("ERROR.RESPONSE", error.response);
+        console.log("error.response.data.message", error.response.data.message);
         noti({
           type: "negative",
           spinner: null,

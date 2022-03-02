@@ -78,7 +78,7 @@
 
             <!-- Estado -->
             <q-select
-              v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
+              v-if="state.loggedUser.roles.includes('Coordinador_de_calidad') && rtecnicoObject.id"
               :dense="state.dense"
               v-model="rtecnicoObject.estado"
               default
@@ -91,7 +91,7 @@
 
             <!-- Revisor -->
             <q-select
-              v-if="state.loggedUser.roles.includes('Coordinador_de_calidad')"
+              v-if="state.loggedUser.roles.includes('Coordinador_de_calidad') && rtecnicoObject.id"
               :dense="state.dense"
               v-model="rtecnicoObject.revisor"
               default

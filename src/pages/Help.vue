@@ -1,7 +1,8 @@
 <template>
   <q-page padding>
     <strong>Ayuda</strong>
-    <q-btn label="Obtener ayuda" href="tel:103" />
+    <br />
+    <q-btn push label="Obtener ayuda" icon="call" href="tel:103" />
   </q-page>
 </template>
 
