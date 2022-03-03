@@ -1,6 +1,7 @@
-# GESAT (gesat-front)
+# CDIS (cdis-front)
+Gestión de Comisión Disciplinaria
 
-[Demo gesat.surge.sh](https://gesat.surge.sh)
+[Demo cdis.surge.sh](https://cdis.surge.sh)
 
 ## Install the dependencies
 
