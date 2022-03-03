@@ -1,74 +1,28 @@
 <script setup>
-// Components
-import BaseDrawer from 'components/BaseDrawer';
-import BaseBrand from 'src/components/BaseBrand';
-import UserInfo from 'src/components/UserInfo';
-import { ref } from 'vue';
-import state from 'src/composables/useState'
-import { autorizar } from 'src/composables/useAPI'
 
-
-// DRAWER
-const leftDrawerOpen = ref(false);
-const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
-
-console.log("🚀 ~ file: MainLayout.vue ~ line 23 ~ localStorage.getItem('token')", localStorage.getItem('token'))
-
-// Autorizar usuario para persistencia de la sesión
-autorizar()
+props = defineProps({
+  brand: { type: string, default: 'XEDRO' },
+  product: { type: string, default: 'GESTOR' },
+  generic: { type: string },
+})
 
 </script>
 
 <template>
-  <q-layout view="hHh LpR fFf">
-    <q-header reveal elevated class="bg-primary text-white">
-      <q-toolbar class="brand-bar">
-        <div id="brand-frame" class="text-primary">
-          <q-btn
-            v-if="state.loggedUser"
-            dense
-            flat
-            round
-            icon="menu"
-            aria-label="Menú"
-            title="Menú"
-            @click="toggleLeftDrawer"
-          />
-
-          <q-toolbar-title>
-            <BaseBrand />
-          </q-toolbar-title>
-        </div>
-
-        <!-- USER -->
-        <UserInfo v-if="state.loggedUser" />
-        <q-btn
-          :dense="state.dense"
-          v-else
-          flat
-          no-caps
-          icon="login"
-          label="Iniciar Sesión"
-          to="/"
-          class="absolute-right"
-        />
-      </q-toolbar>
-    </q-header>
-
-    <!--MENU LATERAL (DRAWER "gaveta") -->
-    <BaseDrawer v-model="leftDrawerOpen" />
-
-    <!-- CONTENEDOR DE PAGINAS -->
-    <q-page-container>
-      <router-view v-slot="{ Component, route }">
-        <transition>
-          <keep-alive>
-            <component :is="Component" :key="route.name" />
-          </keep-alive>
-        </transition>
-      </router-view>
-    </q-page-container>
-  </q-layout>
+  <div class="row">
+    <div class="column gt-xs">
+      <q-avatar>
+        <img src="brand/imagotipo-delujo.webp" alt="imagotipo de XAUCE" width="48" height="48" />
+      </q-avatar>
+    </div>
+    <div class="column">
+      <div class="brand text-brand">{{ brand }}</div>
+      <div class="row-inline items-center">
+        <span class="text-indigo-10 text-bold siglas">{{ product }}</span>
+        <span class="stands gt-sm generico stands">{{ generic }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
