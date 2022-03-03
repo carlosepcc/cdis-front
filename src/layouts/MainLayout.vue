@@ -59,20 +59,20 @@ const drawerItems = [
               <div class="column gt-xs">
                 <q-avatar>
                   <img
-                    src="xedro/xedro-imagotipo-delujo.webp"
-                    alt="Imagotipo de XEDRO"
+                    src="brand/imagotipo-delujo.webp"
+                    alt="imagotipo de XAUCE"
                     width="48"
                     height="48"
                   />
                 </q-avatar>
               </div>
               <div class="column">
-                <div class="brand text-xedro">XEDRO</div>
+                <div class="brand text-brand">XAUCE</div>
                 <div class="row-inline items-center">
-                  <span class="text-indigo-10 text-bold siglas">GESAT</span>
+                  <span class="text-indigo-10 text-bold siglas">CDIS</span>
                   <span class="stands gt-sm generico stands">
-                    Gestión de Actividades
-                    <br />Técnicas
+                    Gestión de Comisión
+                    <br />Disciplinaria
                   </span>
                 </div>
               </div>

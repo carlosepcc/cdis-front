@@ -1,12 +1,12 @@
 <script setup>
 const lis = [
-  { href: "https://github.com/carlosepcc/gesat-front", label: 'github.com / carlosepcc / gesat-front' },
-  { href: "https://github.com/carlosepcc/gesat", label: 'github.com / carlosepcc / gesat' },
+  { href: "https://github.com/carlosepcc/cdis-front", label: 'github.com / carlosepcc / cdis-front' },
+  { href: "https://github.com/carlosepcc/cdis", label: 'github.com / carlosepcc / cdis' },
 ]
 </script>
 <template>
   <q-page padding>
-    <h5>Acerca de GESAT</h5>
+    <h5>Acerca de CDIS</h5>
 
     <strong>Código:</strong>
     <ul>

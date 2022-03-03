@@ -1,8 +1,8 @@
 {
-  "name": "gesat-front",
+  "name": "cdis-front",
   "version": "0.0.1",
-  "description": "GESAT frontend ",
-  "productName": "GESAT",
+  "description": "CDIS frontend ",
+  "productName": "CDIS",
   "author": "Carlos Enrique <carlosepcardenas@gmail.com>",
   "private": true,
   "scripts": {
@@ -26,7 +26,8 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "workbox-webpack-plugin": "^6.0.0"
   },
   "browserslist": [
     "last 10 Chrome versions",

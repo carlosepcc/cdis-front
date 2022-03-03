@@ -84,18 +84,18 @@ module.exports = configure(function (ctx) {
     framework: {
       config: {
         brand: {
-          primary: "#983794",
-          secondary: "#650933",
-          accent: "#2b328c",
+          primary: "#d92",
+          secondary: "#a82",
+          accent: "#ea5",
 
           dark: "#1d1d1d",
 
           positive: "#21BA45",
           negative: "#C10015",
-          info: "#022169",
+          info: "#fb7",
           warning: "#f2bd29",
 
-          xedro: "#c64ab9",
+          brand: "#d92",
         },
 
         notify: {
@@ -163,38 +163,18 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `GESAT`,
-        short_name: `GESAT`,
-        description: `GESAT frontend `,
+        name: `Gestión de Comisión Disciplinaria`,
+        short_name: `CDIS`,
+        description: `CDIS frontend `,
         display: "standalone",
-        orientation: "portrait",
+        orientation: "any",
         background_color: "#ffffff",
-        theme_color: "#983794",
+        theme_color: "#ea2",
         icons: [
           {
-            src: "icons/icon-128x128.png",
-            sizes: "128x128",
-            type: "image/png",
-          },
-          {
-            src: "icons/icon-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-          {
-            src: "icons/icon-256x256.png",
-            sizes: "256x256",
-            type: "image/png",
-          },
-          {
-            src: "icons/icon-384x384.png",
-            sizes: "384x384",
-            type: "image/png",
-          },
-          {
-            src: "icons/icon-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
+            src: "icons/cdis-imagotipo.svg",
+            sizes: "any",
+            type: "image/svg",
           },
         ],
       },
