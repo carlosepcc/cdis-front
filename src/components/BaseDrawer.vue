@@ -3,32 +3,23 @@
 import DrawerItem from 'components/DrawerItem';
 import { ref } from 'vue';
 import state from 'src/composables/useState'
-import { autorizar } from 'src/composables/useAPI'
-
 
 // DRAWER
 const miniState = ref(false);
 
+const drawerItems = [{ title: "Inicio", icon: "home", alt: "n", to: "/" },
+
+//REVISOR
+{ title: 'Denuncias', icon: 'D', to: 'denuncias', forRole: ['Profesor', 'Estudiante'] },
+{ title: 'Comisiones Disciplinarias', icon: 'C', to: 'comisiones', forRole: ['Profesor'] },
+
+{ title: 'Usuarios', icon: 'C', to: 'users', forRole: ['Administrador'] },
 
 
-
-
-
-const drawerItems = [
-  { title: "Inicio", icon: "home", alt: "n", to: "/" },
-
-  //REVISOR
-  { title: 'Hallazgos', icon: 'H', to: 'hallazgos', forRoles: ['Revisor'] },
-  { title: 'Minutas de reunión', icon: 'M', to: 'minutas', forRoles: ['Revisor'] },
-
-  { title: 'Artefactos', icon: 'A', to: 'artefactos', forRoles: ['Encargado_de_proyecto'] },
-  { title: 'Reportes Técnicos', icon: 'T', to: 'rtecnicos', forRoles: ['Asesor_de_calidad', 'Coordinador_de_calidad'] },
-  { title: 'Usuarios', icon: 'U', to: 'users', forRoles: ['Administrador'] },
-
-  // ALL USERS index 6 - 8 //, forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto', 'Revisor']
-  { title: 'Ajustes', icon: 'settings', to: 'settings', separate: true },
-  { title: 'Ayuda', icon: 'help', to: 'help' },
-  { title: 'Acerca de', icon: 'info', to: 'about' },
+// ALL USERS index 6 - 8 //, forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto', 'Revisor']
+{ title: 'Ajustes', icon: 'settings', to: 'settings', separate: true },
+{ title: 'Ayuda', icon: 'help', to: 'help' },
+{ title: 'Acerca de', icon: 'info', to: 'about' },
 ];
 
 </script>

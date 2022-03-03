@@ -5,20 +5,12 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/Index.vue") },
       {
-        path: "/artefactos",
-        component: () => import("src/pages/lists/Artefactos.vue"),
+        path: "/comisiones",
+        component: () => import("src/pages/lists/Comisiones.vue"),
       },
       {
-        path: "/minutas",
-        component: () => import("src/pages/lists/Minutas.vue"),
-      },
-      {
-        path: "/rtecnicos",
-        component: () => import("src/pages/lists/ReportesTecnicos.vue"),
-      },
-      {
-        path: "/hallazgos",
-        component: () => import("src/pages/lists/Hallazgos.vue"),
+        path: "/denuncias",
+        component: () => import("src/pages/lists/Denuncias.vue"),
       },
       { path: "/users", component: () => import("src/pages/lists/Users.vue") },
       { path: "/help", component: () => import("src/pages/Help.vue") },

@@ -46,7 +46,6 @@
     </div>
     <q-table
       class="q-pb-xl bg-white overflow-hidden"
-      :flat="!isTableGrid"
       :title="heading"
       :rows="rows"
       :columns="columns"
@@ -63,6 +62,7 @@
       separator="vertical"
       :pagination="{ rowsPerPage: 0 }"
     >
+      <!-- :flat="!isTableGrid" -->
       <!-- TODO :loading="loading" -->
       <template v-slot:top>
         <div class="q-gutter-sm row items-center">

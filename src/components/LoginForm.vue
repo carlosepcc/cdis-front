@@ -11,7 +11,7 @@
           filled
           :dense="state.dense"
           v-model="loginObject.usuario"
-          label="usuario"
+          label="Usuario"
           lazy-rules
           max-length="32"
           :rules="[val => val && val.length > 0 || 'Por favor, escriba algo']"
@@ -22,7 +22,7 @@
           filled
           :dense="state.dense"
           :type="showPassword ? 'password' : 'text'"
-          v-model="loginObject.contrasenna"
+          v-model="loginObject.contrasena"
           label="Contraseña"
           lazy-rules
           :rules="[
@@ -85,17 +85,15 @@
 </template>
 
 <script setup>
-import { useQuasar } from 'quasar'
 import { ref } from 'vue'
 import { login } from "src/composables/useAPI";
 import state from "src/composables/useState"
 
-const $q = useQuasar()
 
 const formulario = ref()
 const showPassword = ref(false)
 
-const loginObject = ref({ usuario: '', contrasenna: '' })
+const loginObject = ref({ usuario: '', contrasena: '' })
 
 //SUBMIT
 const onSubmit = () => {
@@ -107,7 +105,7 @@ const onSubmit = () => {
 //RESET FORM
 const onReset = () => {
   //Reset to base values
-  loginObject.value = { usuario: '', contrasenna: '' }
+  loginObject.value = { usuario: '', contrasena: '' }
   //Clear validation error messages.
   formulario.value.resetValidation();
 }
