@@ -1,9 +1,9 @@
 <script setup>
-
-props = defineProps({
-  brand: { type: string, default: 'XEDRO' },
-  product: { type: string, default: 'GESTOR' },
-  generic: { type: string },
+import { defineProps } from 'vue'
+const props = defineProps({
+  brand: { type: String, default: 'XEDRO' },
+  product: { type: String, default: 'GESTOR' },
+  generic: { type: String },
 })
 
 </script>
@@ -19,7 +19,7 @@ props = defineProps({
       <div class="brand text-brand">{{ brand }}</div>
       <div class="row-inline items-center">
         <span class="text-indigo-10 text-bold siglas">{{ product }}</span>
-        <span class="stands gt-sm generico stands">{{ generic }}</span>
+        <pre class="stands gt-sm generico stands">{{ generic }}</pre>
       </div>
     </div>
   </div>
@@ -45,11 +45,11 @@ props = defineProps({
   padding-inline-start: 0;
 }
 .xedro-bar {
-  /* box-shadow: 0 2px 0 0 var(--xedro); just if it's needed outside a colored bar*/
-  background: linear-gradient(140deg, var(--xedro) 30%, #fff 80%);
+  /* box-shadow: 0 2px 0 0 var(--brand); just if it's needed outside a colored bar*/
+  background: linear-gradient(140deg, var(--brand) 30%, #fff 80%);
 }
 .xedro-bar .brand {
-  color: var(--xedro);
+  color: var(--brand);
 }
 
 #brand-frame {
@@ -111,7 +111,7 @@ props = defineProps({
   line-height: 8pt;
 }
 .brand {
-  /* color: var(--xedro); only if needed outside quasar */
+  /* color: var(--brand); only if needed outside quasar */
   text-transform: uppercase;
   display: block;
   margin-bottom: -12px;

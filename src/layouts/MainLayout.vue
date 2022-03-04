@@ -36,9 +36,11 @@ autorizar()
           />
 
           <q-toolbar-title>
-            <BaseBrand />
+            <BaseBrand brand="XAUCE" product="CDIS" :generic="'Gestión de Proceso de\nComisión Disciplinaria'" />
           </q-toolbar-title>
         </div>
+
+
 
         <!-- USER -->
         <UserInfo v-if="state.loggedUser" />

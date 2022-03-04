@@ -8,5 +8,6 @@
   "svg.preview.background": "transparent",
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
-  }
+  },
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": true
 }

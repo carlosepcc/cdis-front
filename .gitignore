@@ -35,3 +35,7 @@ yarn-error.log*
 package-lock.json
 
 yarn.lock
+
+.quasar-ide-helper
+
+webpack.config.js
