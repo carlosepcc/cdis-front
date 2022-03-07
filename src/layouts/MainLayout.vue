@@ -24,8 +24,8 @@ autorizar()
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar class="brand-bar">
         <div id="brand-frame" class="text-primary">
+<!--          BOTON MENU-->
           <q-btn
-            v-if="state.loggedUser"
             dense
             flat
             round
