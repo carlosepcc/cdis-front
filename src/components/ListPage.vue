@@ -6,7 +6,6 @@
         title="Modo de presentación (Tabla o Rejilla)"
         v-model="isTableGrid"
         size="sm"
-        flat
         toggle-color="primary"
         :options="[
           { value: false, slot: 'tableview' },
@@ -27,7 +26,6 @@
         title="Densidad las filas en vista de tabla (Normal o Denso)"
         v-model="isTableDense"
         size="sm"
-        flat
         class="q-mx-sm"
         toggle-color="primary"
         :options="[

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pb-xl">
+  <q-page class="q-pa-sm q-pb-xl">
     <DenunciaForm v-model="showForm" @close-form="closeForm" />
     <q-btn size="sm" dense flat icon="refresh" @click="listarDenuncias" />
     <ListPage
@@ -27,7 +27,7 @@ const denunciaFields = ref([
   { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true, },
 ])
 
-const denunciasArr = ref([])
+const denunciasArr = ref([{denunciante:{nombre:'Pedro', apellidos:'Aujares Torres'},indisciplina:'Mal comportamiento'}])
 provide('denunciasArr', denunciasArr)
 const url = '/Denuncia'
 provide('denunciaUrl', url)

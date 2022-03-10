@@ -10,10 +10,10 @@ const miniState = ref(false);
 const drawerItems = [{ title: "Inicio", icon: "home", alt: "n", to: "/" },
 
 //REVISOR
-{ title: 'Denuncias', icon: 'D', to: 'denuncias', forRole: ['Profesor', 'Estudiante'] },
-{ title: 'Comisiones Disciplinarias', icon: 'C', to: 'comisiones', forRole: ['Profesor'] },
+{ title: 'Denuncias', icon: 'r_announcement', to: 'denuncias', forRole: ['Profesor', 'Estudiante'] },
+{ title: 'Comisiones Disciplinarias', icon: 'r_admin_panel_settings', to: 'comisiones', forRole: ['Profesor'] },
 
-{ title: 'Usuarios', icon: 'C', to: 'users', forRole: ['Administrador'] },
+{ title: 'Usuarios', icon: 'r_manage_accounts', to: 'users', forRole: ['Administrador'] },
 
 
 // ALL USERS index 6 - 8 //, forRoles: ['Administrador', 'Asesor_de_calidad', 'Coordinador_de_calidad', 'Encargado_de_proyecto', 'Revisor']
