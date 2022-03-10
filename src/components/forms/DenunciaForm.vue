@@ -108,7 +108,7 @@ const url = inject('hallazgoUrl')
 
 
 //STATE
-const hallazgosArr = inject('hallazgosArr')
+const denunciasArr = inject('hallazgosArr')
 
 const hallazgoObject = inject('hallazgoObject')
 

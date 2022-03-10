@@ -1,9 +1,9 @@
-import { Dialog, Notify, QSpinnerGears } from "quasar";
-import isJwtTokenExpired, { decode } from "jwt-check-expiry";
-import state, { usersArr, usersByRole } from "./useState";
+import {Dialog, Notify, QSpinnerGears} from "quasar";
+import isJwtTokenExpired, {decode} from "jwt-check-expiry";
+import state, {usersArr, usersByRole} from "./useState";
 
-import { api } from "boot/axios";
-import { handleError } from "vue";
+import {api} from "boot/axios";
+import {handleError} from "vue";
 import route from "src/router";
 
 const Router = route();
@@ -71,17 +71,21 @@ export const login = (loginObject) => {
     type: "ongoing",
     message: `Iniciando sesión para ${loginObject.usuario}`,
     spinner: QSpinnerGears,
-    actions: [{ label: "Ocultar", color: "white" }],
+    actions: [{label: "Ocultar", color: "white"}],
   });
 
   api({
-    url: "/login",
+    url: "/Usuario/loginUsuario",
     method: "POST",
     data: loginObject,
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type": "application/json"},
   })
     .then((response) => {
-      let token = response.data;
+      console.log(response);
+
+      let token = response.data.token;
+      console.log('Token:',token);
+
       // Almacenar en localStorage, chequear y actualizar estado global
       autorizar(token);
 
@@ -90,7 +94,7 @@ export const login = (loginObject) => {
         type: "positive",
         spinner: null,
         message: `Sesión iniciada`,
-        actions: [{ label: "OK", color: "white" }],
+        actions: [{label: "OK", color: "white"}],
       });
     })
     .catch((error) => {
@@ -101,7 +105,7 @@ export const login = (loginObject) => {
 
 export const listarUsersByRole = () => {
   api
-    .get("/usuario/findByRol", { params: { rol: "Revisor" } })
+    .get("/usuario/findByRol", {params: {rol: "Revisor"}})
     .then((response) => {
       console.log("🚀 useAPI.js line 115 api.get response", response);
       usersByRole.value.Revisor = response.data;
@@ -111,7 +115,7 @@ export const listarUsersByRole = () => {
     );
 
   api
-    .get("/usuario/findByRol", { params: { rol: "Encargado_de_proyecto" } })
+    .get("/usuario/findByRol", {params: {rol: "Encargado_de_proyecto"}})
     .then((response) => {
       console.log("🚀 useAPI.js 115 api.get response", response);
       usersByRole.value.Encargado_de_proyecto = response.data;
@@ -130,13 +134,13 @@ const listar = (list = usersArr, url = "/usuario") => {
     type: "ongoing",
     message: `Accediendo al listado ${url}`,
     spinner: QSpinnerGears,
-    actions: [{ label: "Ocultar", color: "white" }],
+    actions: [{label: "Ocultar", color: "white"}],
   });
 
   api
     .get(url)
     .then((response) => {
-      noti({ timeout: 100 });
+      noti({timeout: 100});
       // handle success
       list.value = response.data;
     })
@@ -153,14 +157,14 @@ const listar = (list = usersArr, url = "/usuario") => {
     });
 };
 // Pedir registro de nuevo objeto o la modificación de uno existente en la base de datos
-export const guardar = (object, refArr, url = "/usuario") => {
+export const guardar = (object, refArr, url = "/Usuario") => {
   console.log("🚀 useAPI 162 guardar refArr", refArr);
   console.log("🚀 useAPI 162 guardar object", object);
   let noti = Notify.create({
     type: "ongoing",
     message: `Guardando. ${url}`,
     spinner: QSpinnerGears,
-    actions: [{ label: "Ocultar", color: "white" }],
+    actions: [{label: "Ocultar", color: "white"}],
   });
 
   api({
@@ -174,7 +178,7 @@ export const guardar = (object, refArr, url = "/usuario") => {
         type: "positive",
         spinner: null,
         message: "Acción realizada con éxito.",
-        actions: [{ label: "OK", color: "white" }],
+        actions: [{label: "OK", color: "white"}],
       });
       listar(refArr, url);
     })
@@ -193,8 +197,8 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
     cancel: true,
     persistent: true,
     color: "negative",
-    ok: { label: "Eliminar", noCaps: true, flat: true },
-    cancel: { color: "primary", noCaps: true, flat: true },
+    ok: {label: "Eliminar", noCaps: true, flat: true},
+    cancel: {color: "primary", noCaps: true, flat: true},
   })
     .onOk(() => {
       let noti = Notify.create({
@@ -204,7 +208,7 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
           objArr.length == 1 ? "." : "s."
         } ${url}`,
         spinner: QSpinnerGears,
-        actions: [{ label: "Ocultar", color: "white" }],
+        actions: [{label: "Ocultar", color: "white"}],
       });
 
       //CREATE an idsArray from the objects array
@@ -226,7 +230,7 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
             // message: `Eliminación exitosa de (${idsArr.length}) entrada${idsArr.length == 1 ? "." : "s."  })`,
             message: "Acción realizada con éxito.",
             timeout: 1000,
-            actions: [{ label: "OK", color: "white" }],
+            actions: [{label: "OK", color: "white"}],
           });
         })
         .catch((error) => {
@@ -257,7 +261,7 @@ const notifyError = (error, noti, heading = "Acción fallida", notiConfig) => {
       type: "negative",
       spinner: null,
       icon: "report_problem",
-      actions: [{ label: "OK", color: "white" }],
+      actions: [{label: "OK", color: "white"}],
 
       message: `${heading}. ${error.message}.`,
     },
@@ -269,9 +273,9 @@ const notifyError = (error, noti, heading = "Acción fallida", notiConfig) => {
     let serverMessage = error.response.data.message
       ? error.response.data.message
       : error.response.data.error == "Forbidden" &&
-        error.response.data.path == "/login"
-      ? "Credenciales inválidas"
-      : error.response.data.error;
+      error.response.data.path == "/login"
+        ? "Credenciales inválidas"
+        : error.response.data.error;
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
     console.log(

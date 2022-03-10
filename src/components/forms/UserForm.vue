@@ -136,17 +136,16 @@ const emits = defineEmits(['closeForm'])
 const userObject = inject('userObject')
 const temp = ref()
 const rolesArr = [
-  { label: 'Administrador', value: ['Administrador'] },
-  { label: 'Asesor de calidad', value: ['Asesor_de_calidad'] },
-  { label: 'Coordinador de calidad', value: ['Coordinador_de_calidad'] },
-  { label: 'Encargado de proyecto', value: ['Encargado_de_proyecto'] },
-  { label: 'Revisor', value: ['Revisor'] }]
+  { label: 'Administrador', value: ['ROLE_ADMI'] },
+  { label: 'Decano', value: ['ROLE_DECANO'] },
+  { label: 'Profesor', value: ['ROLE_PROFESOR'] },
+  { label: 'Estudiante', value: ['ROLE_ESTUDIANTE'] }]
 
 
 
 //SUBMIT
 const onSubmit = () => {
-  guardar(userObject.value, usersArr)
+  guardar(userObject.value, usersArr, '/Usuario/crearUsuario')
   onReset();
   // TODO: No resetear cuando guardar da error.
 }
