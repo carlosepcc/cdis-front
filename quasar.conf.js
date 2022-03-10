@@ -83,9 +83,10 @@ module.exports = configure(function (ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       config: {
+        dark: 'auto', // or Boolean true/false
         brand: {
-          primary: "#d92",
-          secondary: "#a82",
+          primary: "#D68F1F",
+          secondary: "#D7821D",
           accent: "#ea5",
 
           dark: "#1d1d1d",
@@ -95,7 +96,7 @@ module.exports = configure(function (ctx) {
           info: "#fb7",
           warning: "#f2bd29",
 
-          brand: "#d92",
+          brand: "#D68F1F",
         },
 
         notify: {

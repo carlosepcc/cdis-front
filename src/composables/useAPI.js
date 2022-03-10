@@ -52,15 +52,15 @@ export const autorizar = (token) => {
   }
 
   return storedToken ? isJwtTokenExpired(storedToken) : false;
-  /* Decdoded response {
-"sub": "carlose",
+  // DECODED RESPONSE
+  /*{
 "exp": 1646010970,
 "user": {
-"id": Number,
+"id": 1,
 "username": "carlose",
-"nombre": "Carlos"
+"nombre": "Carlos",
 "apellidos": "Enrique",
-"roles": ["Revisor"],
+"roles": ["ROLE_ADMIN"]
 },
 "iat": 1645974970
 }*/

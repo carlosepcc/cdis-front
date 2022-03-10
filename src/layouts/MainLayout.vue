@@ -70,6 +70,17 @@ autorizar()
         </transition>
       </router-view>
     </q-page-container>
+
+    <q-footer  style="height:45px" reveal class="bg-secondary text-white">
+      <q-toolbar >
+        <q-toolbar-title >
+          <q-avatar size="sm" color="white">
+            <img src="icons/imagotipo-economica.svg" alt="">
+          </q-avatar>
+        </q-toolbar-title>
+        <span style="color: #fffa"  class="text-caption">Universidad de las Ciencias Informáticas. XAUCE, CDIS. © 2011-{{ new Date().getFullYear() }}</span>
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 

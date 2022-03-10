@@ -43,7 +43,7 @@
       </q-btn-toggle>
     </div>
     <q-table
-      class="q-pb-xl bg-white overflow-hidden"
+      :class='tableClass'
       :title="heading"
       :rows="rows"
       :columns="columns"
@@ -175,7 +175,7 @@ import { useQuasar } from 'quasar';
 const $q = useQuasar()
 
 var s = state.value
-
+const tableClass = `q-pb-xl overflow-hidden ${!$q.dark.isActive ? 'bg-light' : ''}`
 const props = defineProps({
   heading: String,
   rows: Array,

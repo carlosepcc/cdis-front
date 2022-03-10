@@ -3,9 +3,9 @@
     <q-card class="hide-scrollbar">
       <q-card-section class="text-h7 text-uppercase text-weight-light">
         {{ userObject.id ? 'Modificar' : 'Nuevo' }} Usuario
-        <q-btn color="grey" flat icon="close" @click="$emit('closeForm')" />
+        <q-btn color="grey" flat icon="close" @click="$emit('closeForm')"/>
       </q-card-section>
-      <q-separator />
+      <q-separator/>
       <q-card-section>
         <q-form ref="formulario" @submit="onSubmit" @reset="onReset">
           <!--  Example Value
@@ -64,15 +64,43 @@
               clearable
               :dense="state.dense"
               label="Contraseña"
-              v-model="userObject.pass"
+              v-model="userObject.contrasena"
               type="password"
               filled
               lazy-rules
               :rules="!userObject.id ? [
                 (val) => (val && val.length > 0) || 'Por favor, escriba algo',
               ] : false"
-            />
-            <br />
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="showPassword ? 'r_visibility_off' : 'r_visibility'"
+                  class="cursor-pointer"
+                  @click="showPassword = !showPassword"
+                />
+              </template>
+            </q-input>
+            <q-input
+              clearable
+              :dense="state.dense"
+              label="Repita su contraseña"
+              type="password"
+              filled
+              lazy-rules
+              :rules="userObject.id ? false : [
+                (val) => (val && val.length > 0) || 'Por favor, escriba algo',
+                (val) => (val == userObject.contrasena) || 'Por favor, escriba algo',
+              ]"
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="showPassword ? 'r_visibility_off' : 'r_visibility'"
+                  class="cursor-pointer"
+                  @click="showPassword = !showPassword"
+                />
+              </template>
+            </q-input>
+            <br/>
             <q-select
               v-model="userObject.roles"
               emit-value
@@ -85,13 +113,13 @@
             />
             <!-- !TODO coge todo el objeto y no el valor -->
           </div>
-          <q-separator class="q-mb-sm q-mt-md" />
+          <q-separator class="q-mb-sm q-mt-md"/>
 
           <div class="q-gutter-sm">
             <q-btn-group outline spread clas="full-width q-mt-md">
               <q-btn
                 :size="state.dense ? 'sm' : 'md'"
-                label="Restablecer"
+                label="Limpiar"
                 type="reset"
                 flat
                 no-caps
@@ -121,12 +149,13 @@
   </q-dialog>
 </template>
 <script setup>
-import { ref, inject } from 'vue';
-import { guardar } from "src/composables/useAPI";
-import state, { usersArr } from "src/composables/useState"
+import {ref, inject} from 'vue';
+import {guardar} from "src/composables/useAPI";
+import state, {usersArr} from "src/composables/useState"
 
 //DOM
 const formulario = ref()
+const showPassword = ref(false)
 
 //COMPONENT
 const emits = defineEmits(['closeForm'])
@@ -136,11 +165,10 @@ const emits = defineEmits(['closeForm'])
 const userObject = inject('userObject')
 const temp = ref()
 const rolesArr = [
-  { label: 'Administrador', value: ['ROLE_ADMI'] },
-  { label: 'Decano', value: ['ROLE_DECANO'] },
-  { label: 'Profesor', value: ['ROLE_PROFESOR'] },
-  { label: 'Estudiante', value: ['ROLE_ESTUDIANTE'] }]
-
+  {label: 'Administrador', value: ['ROLE_ADMIN']},
+  {label: 'Decano', value: ['ROLE_DECANO']},
+  {label: 'Profesor', value: ['ROLE_PROFESOR']},
+  {label: 'Estudiante', value: ['ROLE_ESTUDIANTE']}]
 
 
 //SUBMIT
@@ -153,7 +181,7 @@ const onSubmit = () => {
 //RESET FORM
 const onReset = () => {
   //Reset to base values maitaining the id value
-  userObject.value = { id: userObject.value.id, roles: ["Administrador"] }
+  userObject.value = {id: userObject.value.id, roles: ["ROLE_ESTUDIANTE"]}
   //Clear validation error messages.
   formulario.value.resetValidation();
 }

@@ -3,7 +3,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/Index.vue") },
+      {path: "", component: () => import("pages/Index.vue")},
       {
         path: "/comisiones",
         component: () => import("src/pages/lists/Comisiones.vue"),
@@ -12,10 +12,10 @@ const routes = [
         path: "/denuncias",
         component: () => import("src/pages/lists/Denuncias.vue"),
       },
-      { path: "/users", component: () => import("src/pages/lists/Users.vue") },
-      { path: "/help", component: () => import("src/pages/Help.vue") },
-      { path: "/about", component: () => import("src/pages/About.vue") },
-      { path: "/settings", component: () => import("src/pages/Settings.vue") },
+      {path: "/users", component: () => import("src/pages/lists/Users.vue")},
+      {path: "/help", component: () => import("src/pages/Help.vue")},
+      {path: "/about", component: () => import("src/pages/About.vue")},
+      {path: "/settings", component: () => import("src/pages/Settings.vue")},
     ],
   },
 
