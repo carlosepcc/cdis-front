@@ -84,7 +84,7 @@ export const login = (loginObject) => {
       console.log(response);
 
       let token = response.data.token;
-      console.log('Token:',token);
+      console.log('Token:', token);
 
       // Almacenar en localStorage, chequear y actualizar estado global
       autorizar(token);
@@ -194,7 +194,6 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
   Dialog.create({
     title: "Confirme la eliminación",
     message: "La eliminación será permanente.",
-    cancel: true,
     persistent: true,
     color: "negative",
     ok: {label: "Eliminar", noCaps: true, flat: true},
@@ -212,14 +211,16 @@ export const eliminar = (objArr = [], list, url = "/usuario") => {
       });
 
       //CREATE an idsArray from the objects array
-      let idsArr = [];
-      objArr.forEach((obj) => idsArr.push(obj.id));
-      console.log("🚀 useAPI.js line 178 .onOk idsArr", idsArr);
+      let idsUrl = url + '/'
+      console.log(idsUrl);
+      objArr.forEach((obj) => idsUrl.push(`${obj.id},`));
+      console.log(idsUrl);
+      idsUrl.pop()
+      console.log(idsUrl);
       //REQUEST TO SERVER
       api({
         method: "delete",
-        url: url,
-        data: idsArr,
+        url: idsUrl,
       })
         .then((response) => {
           // handle success
